@@ -1,260 +1,463 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin - Masjid Al-Marhamah 1447 H</title>
+    <title>Panitia Ramadhan 1447 H - Masjid Al-Marhamah</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Amiri & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        emerald: { 900: '#022c22', 950: '#011c16' },
-                        gold: { 400: '#facc15', 500: '#eab308', 600: '#ca8a04' }
+                        emerald: { 850: '#064e3b', 900: '#022c22', 950: '#011c16' },
+                        gold: { 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207' }
                     },
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        amiri: ['Amiri', 'serif']
+                    }
                 }
             }
         }
     </script>
+    
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFE259 0%, #FFA751 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(2, 44, 34, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 179, 8, 0.25);
+        }
+        .hero-bg {
+            background: linear-gradient(180deg, rgba(1, 28, 22, 0.65) 0%, rgba(1, 28, 22, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .pattern-bg {
+            background-color: #011c16;
+            background-image: radial-gradient(#ca8a04 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .break-inside-avoid {
+            break-inside: avoid;
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen pb-20">
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-gold-500 selection:text-emerald-950">
 
-    <!-- HEADER ADMIN -->
-    <header class="bg-emerald-950 border-b border-gold-500/30 py-4 px-6 mb-8 shadow-lg">
-        <div class="max-w-4xl mx-auto flex items-center justify-between">
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 border-b border-gold-500/30 text-gold-300 text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-md">
+        <span class="inline-block animate-pulse mr-2">✨</span> 
+        Marhaban Ya Ramadhan 1447 H — Masjid Al-Marhamah
+        <span class="inline-block animate-pulse ml-2">✨</span>
+    </div>
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-emerald-950/90 backdrop-blur-md border-b border-gold-500/20 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-gold-500 text-emerald-950 flex items-center justify-center font-bold text-xl">
-                    <i class="fa-solid fa-sliders"></i>
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-600 to-gold-400 flex items-center justify-center p-0.5 shadow-lg shadow-gold-500/10 shrink-0">
+                    <div class="w-full h-full bg-emerald-950 rounded-full flex items-center justify-center">
+                        <span class="font-amiri text-gold-400 text-2xl">🕌</span>
+                    </div>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold text-white leading-tight">Panel Admin Al-Marhamah</h1>
-                    <p class="text-xs text-gold-400">Pengelolaan Data & ZIS Ramadhan 1447 H</p>
+                    <h1 class="text-base sm:text-lg font-bold text-white tracking-wide leading-tight">PANITIA RAMADHAN 1447 H</h1>
+                    <p class="text-xs sm:text-sm font-bold text-gold-400 uppercase tracking-wider">MASJID AL-MARHAMAH</p>
+                    <p class="text-[11px] text-slate-300 font-medium">Perum Candi Gebang Permai, Ngemplak</p>
                 </div>
             </div>
-            <a href="index.html" target="_blank" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg transition-colors">
-                <i class="fa-solid fa-globe mr-1"></i> Lihat Web Publik
-            </a>
+
+            <!-- MENU LINKS (DESKTOP) -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                <a href="#beranda" class="text-gold-400 hover:text-gold-300 transition-colors">Beranda</a>
+                <a href="#jadwal-kultum" class="text-slate-300 hover:text-gold-400 transition-colors">Jadwal Kultum</a>
+                <a href="#agenda" class="text-slate-300 hover:text-gold-400 transition-colors">Agenda</a>
+                <a href="#zis" class="text-slate-300 hover:text-gold-400 transition-colors">Laporan ZIS</a>
+                <a href="#infak-harian" class="text-slate-300 hover:text-gold-400 transition-colors">Infak Harian</a>
+                <a href="#galeri" class="text-slate-300 hover:text-gold-400 transition-colors">Galeri</a>
+                <a href="gabungan.html" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 px-4 py-2 rounded-full font-bold shadow-md transition-all text-xs">
+                    <i class="fa-solid fa-users-rays mr-1.5"></i> Web Gabungan 5 Masjid
+                </a>
+            </nav>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4">
-        
-        <!-- BANTUAN ALUR KERJA -->
-        <div class="bg-emerald-900/40 border border-gold-500/30 rounded-2xl p-4 mb-6 text-xs text-slate-300">
-            <p class="font-bold text-gold-400 mb-1"><i class="fa-solid fa-circle-info mr-1"></i> Panduan Admin Al-Marhamah:</p>
-            <ol class="list-decimal list-inside space-y-1 text-slate-300">
-                <li>Isi form Infak Harian atau ZIS di bawah ini.</li>
-                <li>Klik tombol <strong class="text-gold-300">"Generate & Download data.json"</strong> di bagian bawah.</li>
-                <li>Upload file <code>data.json</code> hasil download ke repositori GitHub Masjid Al-Marhamah.</li>
-            </ol>
-        </div>
-
-        <!-- TAB NAVIGATION -->
-        <div class="flex border-b border-slate-800 mb-6 gap-2">
-            <button id="tab-btn-bendahara" onclick="switchTab('bendahara')" class="flex-1 py-3 text-sm font-bold rounded-t-xl bg-gold-500 text-emerald-950 border-b-2 border-gold-400 transition-all">
-                <i class="fa-solid fa-wallet mr-2"></i> Infak Harian Tarawih & Subuh
-            </button>
-            <button id="tab-btn-zis" onclick="switchTab('zis')" class="flex-1 py-3 text-sm font-bold rounded-t-xl bg-slate-900 text-slate-400 hover:text-slate-200 transition-all">
-                <i class="fa-solid fa-hand-holding-dollar mr-2"></i> Perolehan ZIS & Fidyah
-            </button>
-        </div>
-
-        <!-- FORM CONTAINER -->
-        <form id="admin-form" onsubmit="event.preventDefault(); generateJSON();" class="space-y-6">
-            
-            <!-- LAST UPDATE TIME -->
-            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl">
-                <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider mb-2">Label Waktu Terakhir Update</label>
-                <input type="text" id="last_update" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-gold-500 outline-none" required>
+    <!-- HERO SECTION -->
+    <section id="beranda" class="hero-bg relative min-h-[85vh] flex items-center justify-center text-center px-4 py-20">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <div class="inline-flex items-center space-x-2 bg-emerald-900/80 border border-gold-500/40 rounded-full px-4 py-1.5 backdrop-blur-md">
+                <i class="fa-solid fa-moon text-gold-400 text-xs"></i>
+                <span class="text-xs font-semibold text-gold-300 uppercase tracking-widest">Portal Resmi Informasi & Transparansi</span>
             </div>
 
-            <!-- TAB 1: INFAK HARIAN -->
-            <div id="tab-bendahara" class="space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider"><i class="fa-solid fa-list-check mr-1"></i> Rincian Infak Harian</h3>
-                    <button type="button" onclick="addInfakRow()" class="text-xs bg-emerald-800 hover:bg-emerald-700 text-gold-300 font-bold px-3 py-1.5 rounded-lg border border-gold-500/30">
-                        <i class="fa-solid fa-plus mr-1"></i> Tambah Baris
-                    </button>
-                </div>
+            <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-amiri tracking-wide">
+                Gema Semarak Ramadhan 1447 H<br/>
+                <span class="gold-gradient-text">Masjid Al-Marhamah</span>
+            </h2>
 
-                <div class="overflow-x-auto bg-slate-900/60 border border-slate-800 rounded-xl p-3">
-                    <table class="w-full text-left text-xs">
-                        <thead class="text-slate-400 border-b border-slate-800">
+            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
+                Menghadirkan transparansi pengelolaan Zakat, Infaq, Sedekah, dan Fidyah serta wujud akuntabilitas pelayanan ibadah jamaah selama bulan suci Ramadhan 1447 H.
+            </p>
+
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#zis" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-bold rounded-xl shadow-lg transition-all text-sm">
+                    <i class="fa-solid fa-hand-holding-dollar mr-2"></i> Lihat Perolehan ZIS
+                </a>
+                <a href="#infak-harian" class="w-full sm:w-auto px-8 py-3.5 bg-emerald-900/80 hover:bg-emerald-800 text-gold-300 font-semibold rounded-xl border border-gold-500/30 backdrop-blur-md transition-all text-sm">
+                    <i class="fa-solid fa-calendar-check mr-2"></i> Infak Tarawih & Subuh
+                </a>
+            </div>
+
+            <!-- LAST UPDATE BADGE -->
+            <div class="pt-6 inline-flex items-center text-xs text-slate-400 bg-slate-900/60 px-4 py-1.5 rounded-full border border-slate-800">
+                <i class="fa-solid fa-clock-rotate-left text-gold-400 mr-2"></i> Update Data Terakhir: <span id="last-update" class="text-gold-300 font-semibold ml-1">Memuat data...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: JADWAL KULTUM TARAWIH & SUBUH -->
+    <section id="jadwal-kultum" class="py-20 pattern-bg relative border-t border-gold-500/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">— Jadwal Penceramah —</span>
+                <h3 class="text-2xl sm:text-4xl font-bold text-white font-amiri">Kultum Tarawih & Subuh</h3>
+                <p class="text-slate-400 text-xs sm:text-sm">Jadwal penceramah dan mubaligh Masjid Al-Marhamah</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="glass-card rounded-2xl border border-gold-500/30 overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="bg-emerald-950 text-gold-400 text-xs uppercase font-bold tracking-wider border-b border-gold-500/30">
                             <tr>
-                                <th class="p-2">Hari Ke-</th>
-                                <th class="p-2">Tanggal</th>
-                                <th class="p-2">Tarawih (Rp)</th>
-                                <th class="p-2">Subuh (Rp)</th>
-                                <th class="p-2 text-center">Aksi</th>
+                                <th class="py-4 px-6">Ramadhan Ke-</th>
+                                <th class="py-4 px-6">Tanggal</th>
+                                <th class="py-4 px-6">Penceramah Tarawih</th>
+                                <th class="py-4 px-6">Penceramah Subuh</th>
                             </tr>
                         </thead>
-                        <tbody id="infak-inputs-container">
-                            <!-- Generated via JS -->
+                        <tbody id="kultum-tbody" class="divide-y divide-slate-800/80">
+                            <tr><td colspan="4" class="py-8 text-center text-slate-500">Memuat jadwal kultum...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- TAB 2: ZIS & FIDYAH -->
-            <div id="tab-zis" class="hidden space-y-4">
-                <h3 class="text-sm font-bold text-gold-400 uppercase tracking-wider"><i class="fa-solid fa-coins mr-1"></i> Akumulasi ZIS Al-Marhamah</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Zakat Fitrah - Beras (Kg)</label>
-                        <input type="number" id="zis_fitrah_beras" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-gold-500 outline-none" value="0">
+    <!-- SECTION 2: AGENDA KEGIATAN RAMADHAN -->
+    <section id="agenda" class="py-20 bg-slate-900/90 relative border-t border-gold-500/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">— Program Utama —</span>
+                <h3 class="text-2xl sm:text-4xl font-bold text-white font-amiri">Agenda Kegiatan Ramadhan</h3>
+                <p class="text-slate-400 text-xs sm:text-sm">Rangkaian program & kegiatan spesial Jamaah Al-Marhamah</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="agenda-container">
+                <div class="col-span-full py-8 text-center text-slate-500">Memuat agenda kegiatan...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: LAPORAN ZIS & FIDYAH -->
+    <section id="zis" class="py-20 pattern-bg relative border-t border-gold-500/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">— Pengelolaan Amil Zakat —</span>
+                <h3 class="text-2xl sm:text-4xl font-bold text-white font-amiri">Laporan Perolehan ZIS & Fidyah</h3>
+                <p class="text-slate-400 text-xs sm:text-sm">Diperbarui secara berkala oleh Admin Petugas ZIS Masjid Al-Marhamah</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- FITRAH BERAS -->
+                <div class="glass-card rounded-2xl p-6 text-center hover:border-gold-500/50 transition-all shadow-xl">
+                    <div class="w-12 h-12 bg-emerald-900/80 rounded-2xl border border-gold-500/30 flex items-center justify-center mx-auto mb-4 text-gold-400 text-2xl">
+                        <i class="fa-solid fa-wheat-awn"></i>
                     </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Zakat Fitrah - Uang (Rp)</label>
-                        <input type="number" id="zis_fitrah_uang" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-gold-500 outline-none" value="0">
+                    <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider">Zakat Fitrah (Beras)</h4>
+                    <p id="zis-fitrah-beras" class="text-2xl font-extrabold text-gold-400 my-2">0 Kg</p>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-1 rounded-full inline-block">Beras Jamaah</span>
+                </div>
+
+                <!-- FITRAH UANG -->
+                <div class="glass-card rounded-2xl p-6 text-center hover:border-gold-500/50 transition-all shadow-xl">
+                    <div class="w-12 h-12 bg-emerald-900/80 rounded-2xl border border-gold-500/30 flex items-center justify-center mx-auto mb-4 text-gold-400 text-2xl">
+                        <i class="fa-solid fa-sack-dollar"></i>
                     </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Zakat Maal (Rp)</label>
-                        <input type="number" id="zis_maal" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-gold-500 outline-none" value="0">
+                    <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider">Zakat Fitrah (Uang)</h4>
+                    <p id="zis-fitrah-uang" class="text-2xl font-extrabold text-gold-400 my-2">Rp 0</p>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-1 rounded-full inline-block">Konversi Uang</span>
+                </div>
+
+                <!-- ZAKAT MAAL -->
+                <div class="glass-card rounded-2xl p-6 text-center hover:border-gold-500/50 transition-all shadow-xl">
+                    <div class="w-12 h-12 bg-emerald-900/80 rounded-2xl border border-gold-500/30 flex items-center justify-center mx-auto mb-4 text-gold-400 text-2xl">
+                        <i class="fa-solid fa-vault"></i>
                     </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Fidyah (Rp)</label>
-                        <input type="number" id="zis_fidyah" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-gold-500 outline-none" value="0">
+                    <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider">Zakat Maal</h4>
+                    <p id="zis-maal" class="text-2xl font-extrabold text-gold-400 my-2">Rp 0</p>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-1 rounded-full inline-block">Harta / Tabungan</span>
+                </div>
+
+                <!-- FIDYAH -->
+                <div class="glass-card rounded-2xl p-6 text-center hover:border-gold-500/50 transition-all shadow-xl">
+                    <div class="w-12 h-12 bg-emerald-900/80 rounded-2xl border border-gold-500/30 flex items-center justify-center mx-auto mb-4 text-gold-400 text-2xl">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
                     </div>
-                    <div class="sm:col-span-2">
-                        <label class="block text-xs text-slate-400 mb-1">Infak / Shodaqoh Umum (Rp)</label>
-                        <input type="number" id="zis_infak_umum" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-gold-500 outline-none" value="0">
+                    <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider">Fidyah</h4>
+                    <p id="zis-fidyah" class="text-2xl font-extrabold text-gold-400 my-2">Rp 0</p>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-1 rounded-full inline-block">Penutup Utang Puasa</span>
+                </div>
+
+                <!-- INFAK/SHODAQOH -->
+                <div class="glass-card rounded-2xl p-6 text-center hover:border-gold-500/50 transition-all shadow-xl">
+                    <div class="w-12 h-12 bg-emerald-900/80 rounded-2xl border border-gold-500/30 flex items-center justify-center mx-auto mb-4 text-gold-400 text-2xl">
+                        <i class="fa-solid fa-box-open"></i>
                     </div>
+                    <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider">Infak & Shodaqoh</h4>
+                    <p id="zis-infak-umum" class="text-2xl font-extrabold text-gold-400 my-2">Rp 0</p>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 border border-emerald-800 px-2.5 py-1 rounded-full inline-block">Sedekah Umum</span>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- ACTION BUTTONS -->
-            <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
-                <button type="submit" class="flex-1 py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-bold rounded-xl shadow-lg transition-all text-sm">
-                    <i class="fa-solid fa-download mr-1"></i> Generate & Download data.json
-                </button>
-                <button type="button" onclick="copyJSONToClipboard()" class="py-3.5 px-6 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl border border-slate-700 transition-all text-sm">
-                    <i class="fa-solid fa-copy mr-1"></i> Salin JSON
-                </button>
+    <!-- SECTION 4: INFAK HARIAN -->
+    <section id="infak-harian" class="py-20 bg-slate-900/90 relative border-t border-gold-500/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">— Transparansi Kas Ramadhan —</span>
+                <h3 class="text-2xl sm:text-4xl font-bold text-white font-amiri">Laporan Perolehan Infak Harian</h3>
+                <p class="text-slate-400 text-xs sm:text-sm">Kotak Amal Sholat Tarawih & Subuh (Diisi oleh Bendahara Masjid)</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
             </div>
-        </form>
-    </main>
 
-    <!-- JAVASCRIPT LOGIC -->
+            <div class="glass-card rounded-2xl border border-gold-500/30 overflow-hidden shadow-2xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="bg-emerald-950 text-gold-400 text-xs uppercase font-bold tracking-wider border-b border-gold-500/30">
+                            <tr>
+                                <th class="py-4 px-6">Ramadhan Ke-</th>
+                                <th class="py-4 px-6">Tanggal</th>
+                                <th class="py-4 px-6 text-right">Infak Tarawih (Rp)</th>
+                                <th class="py-4 px-6 text-right">Infak Subuh (Rp)</th>
+                                <th class="py-4 px-6 text-right">Total Harian (Rp)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="infak-harian-tbody" class="divide-y divide-slate-800/80">
+                            <tr><td colspan="5" class="py-8 text-center text-slate-500">Memuat data infak harian...</td></tr>
+                        </tbody>
+                        <tfoot class="bg-emerald-950 border-t-2 border-gold-500/40 text-white font-bold">
+                            <tr>
+                                <td colspan="2" class="py-5 px-6 text-gold-400 uppercase tracking-wider text-xs">TOTAL AKUMULASI HARIAN</td>
+                                <td id="total-tarawih" class="py-5 px-6 text-right text-slate-200">Rp 0</td>
+                                <td id="total-subuh" class="py-5 px-6 text-right text-slate-200">Rp 0</td>
+                                <td id="total-gabungan-harian" class="py-5 px-6 text-right text-gold-400 text-lg font-extrabold">Rp 0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: GALERI FOTO KEGIATAN -->
+    <section id="galeri" class="py-20 pattern-bg relative border-t border-gold-500/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">— Dokumentasi —</span>
+                <h3 class="text-2xl sm:text-4xl font-bold text-white font-amiri">Galeri Kegiatan Ramadhan</h3>
+                <p class="text-slate-400 text-xs sm:text-sm">Dokumentasi momen kebersamaan ibadah jamaah Masjid Al-Marhamah</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4" id="galeri-container">
+                <!-- Static Fallback Gallery -->
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border border-gold-500/20 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1564769625905-50e93615e769?q=80&w=800&auto=format&fit=crop" class="w-full h-auto object-cover" alt="Tarawih">
+                </div>
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border border-gold-500/20 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=800&auto=format&fit=crop" class="w-full h-auto object-cover" alt="Takjil">
+                </div>
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border border-gold-500/20 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800&auto=format&fit=crop" class="w-full h-auto object-cover" alt="Tadarus">
+                </div>
+                <div class="break-inside-avoid rounded-2xl overflow-hidden border border-gold-500/20 shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800&auto=format&fit=crop" class="w-full h-auto object-cover" alt="Zakat">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: BANNER WEB GABUNGAN 5 MASJID -->
+    <section id="gabungan" class="py-16 bg-gradient-to-b from-emerald-950 to-slate-950 relative border-t border-gold-500/20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-3xl p-8 sm:p-12 border-2 border-gold-500/40 text-center relative overflow-hidden shadow-2xl">
+                <div class="relative z-10 space-y-6">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-gold-600 to-gold-400 rounded-2xl flex items-center justify-center mx-auto text-emerald-950 text-3xl shadow-lg">
+                        <i class="fa-solid fa-mosque"></i>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white font-amiri">
+                        Panitia Gabungan 5 Masjid<br/>
+                        <span class="gold-gradient-text">Penyelenggaraan Sholat Idul Fitri 1447 H</span>
+                    </h3>
+                    <p class="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
+                        Untuk melihat rekapitulasi perolehan ZIS tingkat wilayah serta laporan Infak Pelaksanaan Sholat Idul Fitri Gabungan 5 Masjid, silakan kunjungi website resmi panitia gabungan.
+                    </p>
+                    <a href="gabungan.html" class="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-bold rounded-xl shadow-xl transition-all text-sm">
+                        <span>🕌 Buka Website Panitia Gabungan 5 Masjid</span>
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <p class="font-semibold text-slate-300">© 1447 H / 2026 M Panitia Ramadhan Masjid Al-Marhamah.</p>
+                <p class="text-slate-500 mt-0.5">Perum Candi Gebang Permai, Ngemplak, Sleman, DI Yogyakarta.</p>
+            </div>
+            <a href="https://github.com/fatchurohman/ramadhan1447h-almarhamah" target="_blank" class="hover:text-gold-400 transition-colors flex items-center space-x-1">
+                <i class="fa-brands fa-github text-base"></i>
+                <span>Repository GitHub</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC FETCH FROM data.json -->
     <script>
-        let infakDataList = [
-            { hari: "Ramadhan 1", tanggal: "19 Feb 2026", tarawih: 1250000, subuh: 450000 },
-            { hari: "Ramadhan 2", tanggal: "20 Feb 2026", tarawih: 1100000, subuh: 380000 }
-        ];
+        const formatRp = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
 
-        async function loadExistingData() {
+        async function loadDataJSON() {
             try {
                 const res = await fetch('data.json');
-                if (res.ok) {
-                    const json = await res.json();
-                    if (json.last_update) document.getElementById('last_update').value = json.last_update;
-                    if (json.zis) {
-                        document.getElementById('zis_fitrah_beras').value = json.zis.zakat_fitrah_beras_kg || 0;
-                        document.getElementById('zis_fitrah_uang').value = json.zis.zakat_fitrah_uang || 0;
-                        document.getElementById('zis_maal').value = json.zis.zakat_maal || 0;
-                        document.getElementById('zis_fidyah').value = json.zis.fidyah || 0;
-                        document.getElementById('zis_infak_umum').value = json.zis.infak_shodaqoh || 0;
-                    }
-                    if (Array.isArray(json.infak_harian) && json.infak_harian.length > 0) {
-                        infakDataList = json.infak_harian;
-                    }
+                if (!res.ok) throw new Error("Gagal memuat data.json");
+                const data = await res.json();
+
+                // 1. Last Update
+                if (data.last_update) {
+                    const badge = document.getElementById('last-update');
+                    if (badge) badge.innerText = data.last_update;
                 }
+
+                // 2. ZIS Cards
+                if (data.zis) {
+                    const z = data.zis;
+                    document.getElementById('zis-fitrah-beras').innerText = `${(Number(z.zakat_fitrah_beras_kg) || 0).toLocaleString('id-ID')} Kg`;
+                    document.getElementById('zis-fitrah-uang').innerText = formatRp(z.zakat_fitrah_uang);
+                    document.getElementById('zis-maal').innerText = formatRp(z.zakat_maal);
+                    document.getElementById('zis-fidyah').innerText = formatRp(z.fidyah);
+                    document.getElementById('zis-infak-umum').innerText = formatRp(z.infak_shodaqoh);
+                }
+
+                // 3. Infak Harian Table
+                if (Array.isArray(data.infak_harian)) {
+                    renderInfakHarian(data.infak_harian);
+                }
+
             } catch (e) {
-                console.warn("Menggunakan data default internal.");
+                console.error("Error loading data.json:", e);
             }
-            renderInfakRows();
+
+            // Static fallback for Kultum & Agenda
+            renderStaticSections();
         }
 
-        function switchTab(tab) {
-            const btnBendahara = document.getElementById('tab-btn-bendahara');
-            const btnZis = document.getElementById('tab-btn-zis');
-            const tabBendahara = document.getElementById('tab-bendahara');
-            const tabZis = document.getElementById('tab-zis');
+        function renderInfakHarian(list) {
+            const tbody = document.getElementById('infak-harian-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
 
-            if (tab === 'bendahara') {
-                btnBendahara.className = "flex-1 py-3 text-sm font-bold rounded-t-xl bg-gold-500 text-emerald-950 border-b-2 border-gold-400 transition-all";
-                btnZis.className = "flex-1 py-3 text-sm font-bold rounded-t-xl bg-slate-900 text-slate-400 hover:text-slate-200 transition-all";
-                tabBendahara.classList.remove('hidden');
-                tabZis.classList.add('hidden');
-            } else {
-                btnZis.className = "flex-1 py-3 text-sm font-bold rounded-t-xl bg-gold-500 text-emerald-950 border-b-2 border-gold-400 transition-all";
-                btnBendahara.className = "flex-1 py-3 text-sm font-bold rounded-t-xl bg-slate-900 text-slate-400 hover:text-slate-200 transition-all";
-                tabZis.classList.remove('hidden');
-                tabBendahara.classList.add('hidden');
-            }
-        }
+            let totalTarawih = 0;
+            let totalSubuh = 0;
 
-        function renderInfakRows() {
-            const container = document.getElementById('infak-inputs-container');
-            if(!container) return;
-            container.innerHTML = '';
-            infakDataList.forEach((item, index) => {
+            list.forEach((item, index) => {
+                const hari = item.hari || `Ramadhan ${index + 1}`;
+                const tanggal = item.tanggal || '-';
+                const tarawih = Number(item.tarawih) || 0;
+                const subuh = Number(item.subuh) || 0;
+                const total = tarawih + subuh;
+
+                totalTarawih += tarawih;
+                totalSubuh += subuh;
+
                 const tr = document.createElement('tr');
-                tr.className = "border-b border-slate-800/50";
+                tr.className = index % 2 === 0 ? 'bg-slate-900/40' : 'bg-slate-950/40';
                 tr.innerHTML = `
-                    <td class="p-1.5"><input type="text" value="${item.hari || ''}" onchange="updateInfakItem(${index}, 'hari', this.value)" class="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-white"></td>
-                    <td class="p-1.5"><input type="text" value="${item.tanggal || ''}" onchange="updateInfakItem(${index}, 'tanggal', this.value)" class="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-white"></td>
-                    <td class="p-1.5"><input type="number" value="${item.tarawih || 0}" onchange="updateInfakItem(${index}, 'tarawih', Number(this.value))" class="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-white text-right"></td>
-                    <td class="p-1.5"><input type="number" value="${item.subuh || 0}" onchange="updateInfakItem(${index}, 'subuh', Number(this.value))" class="w-full bg-slate-950 border border-slate-700 rounded p-1.5 text-white text-right"></td>
-                    <td class="p-1.5 text-center"><button type="button" onclick="removeInfakRow(${index})" class="text-red-400 hover:text-red-300 p-1"><i class="fa-solid fa-trash"></i></button></td>
+                    <td class="py-3.5 px-6 font-semibold text-gold-300">${hari}</td>
+                    <td class="py-3.5 px-6 text-slate-400">${tanggal}</td>
+                    <td class="py-3.5 px-6 text-right font-mono text-slate-200">${formatRp(tarawih)}</td>
+                    <td class="py-3.5 px-6 text-right font-mono text-slate-200">${formatRp(subuh)}</td>
+                    <td class="py-3.5 px-6 text-right font-mono font-bold text-gold-400">${formatRp(total)}</td>
                 `;
-                container.appendChild(tr);
+                tbody.appendChild(tr);
             });
+
+            document.getElementById('total-tarawih').innerText = formatRp(totalTarawih);
+            document.getElementById('total-subuh').innerText = formatRp(totalSubuh);
+            document.getElementById('total-gabungan-harian').innerText = formatRp(totalTarawih + totalSubuh);
         }
 
-        function addInfakRow() {
-            const nextDay = infakDataList.length + 1;
-            infakDataList.push({ hari: `Ramadhan ${nextDay}`, tanggal: "", tarawih: 0, subuh: 0 });
-            renderInfakRows();
-        }
+        function renderStaticSections() {
+            // Kultum Table Fallback
+            const kultumTbody = document.getElementById('kultum-tbody');
+            if (kultumTbody && kultumTbody.innerHTML.includes('Memuat')) {
+                kultumTbody.innerHTML = `
+                    <tr class="bg-slate-900/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 1</td><td class="py-3.5 px-6 text-slate-400">19 Feb 2026</td><td class="py-3.5 px-6 font-medium text-white">Ust. Ahmad Hidayat, S.Ag</td><td class="py-3.5 px-6 font-medium text-white">Ust. Muhammad Ridwan, M.A</td></tr>
+                    <tr class="bg-slate-950/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 2</td><td class="py-3.5 px-6 text-slate-400">20 Feb 2026</td><td class="py-3.5 px-6 font-medium text-white">Ust. Dr. H. Abdul Ghofur</td><td class="py-3.5 px-6 font-medium text-white">Ust. Ahmad Hidayat, S.Ag</td></tr>
+                    <tr class="bg-slate-900/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 3</td><td class="py-3.5 px-6 text-slate-400">21 Feb 2026</td><td class="py-3.5 px-6 font-medium text-white">Ust. Farhan Basalamah, Lc</td><td class="py-3.5 px-6 font-medium text-white">Ust. Nuruddin, M.Pd</td></tr>
+                `;
+            }
 
-        function removeInfakRow(index) {
-            infakDataList.splice(index, 1);
-            renderInfakRows();
-        }
-
-        function updateInfakItem(index, field, value) {
-            if (infakDataList[index]) {
-                infakDataList[index][field] = value;
+            // Agenda Container Fallback
+            const agendaContainer = document.getElementById('agenda-container');
+            if (agendaContainer && agendaContainer.innerHTML.includes('Memuat')) {
+                agendaContainer.innerHTML = `
+                    <div class="glass-card rounded-2xl p-6 border border-gold-500/30">
+                        <div class="flex items-center justify-between mb-4"><span class="text-xs bg-gold-500/20 text-gold-300 font-bold px-3 py-1 rounded-full border border-gold-500/30">17 Ramadhan</span><span class="text-[11px] text-emerald-400 font-medium">19.30 WIB</span></div>
+                        <h4 class="text-lg font-bold text-white mb-2">Peringatan Nuzulul Qur'an</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">Pengajian umum & tasyakuran memperingati Nuzulul Qur'an bersama jamaah.</p>
+                        <div class="text-[11px] text-slate-400 flex items-center"><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Ruang Utama Masjid Al-Marhamah</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 border border-gold-500/30">
+                        <div class="flex items-center justify-between mb-4"><span class="text-xs bg-gold-500/20 text-gold-300 font-bold px-3 py-1 rounded-full border border-gold-500/30">Setiap Hari</span><span class="text-[11px] text-emerald-400 font-medium">17.30 WIB</span></div>
+                        <h4 class="text-lg font-bold text-white mb-2">Buka Puasa Bersama (Takjil)</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">Penyediaan santapan berbuka puasa gratis untuk jamaah & musafir.</p>
+                        <div class="text-[11px] text-slate-400 flex items-center"><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Serambi Masjid Al-Marhamah</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 border border-gold-500/30">
+                        <div class="flex items-center justify-between mb-4"><span class="text-xs bg-gold-500/20 text-gold-300 font-bold px-3 py-1 rounded-full border border-gold-500/30">10 Malam Terakhir</span><span class="text-[11px] text-emerald-400 font-medium">01.00 WIB</span></div>
+                        <h4 class="text-lg font-bold text-white mb-2">I'tikaf & Qiyamul Lail</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">Penyelenggaraan sholat malam berjamaah & sahur bersama.</p>
+                        <div class="text-[11px] text-slate-400 flex items-center"><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Ruang Utama Masjid</div>
+                    </div>
+                `;
             }
         }
 
-        function buildJSONObject() {
-            return {
-                last_update: document.getElementById('last_update').value || "20 Ramadhan 1447 H",
-                zis: {
-                    zakat_fitrah_beras_kg: Number(document.getElementById('zis_fitrah_beras').value) || 0,
-                    zakat_fitrah_uang: Number(document.getElementById('zis_fitrah_uang').value) || 0,
-                    zakat_maal: Number(document.getElementById('zis_maal').value) || 0,
-                    fidyah: Number(document.getElementById('zis_fidyah').value) || 0,
-                    infak_shodaqoh: Number(document.getElementById('zis_infak_umum').value) || 0
-                },
-                infak_harian: infakDataList
-            };
-        }
-
-        function generateJSON() {
-            const jsonObject = buildJSONObject();
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonObject, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "data.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-
-        function copyJSONToClipboard() {
-            const jsonObject = buildJSONObject();
-            navigator.clipboard.writeText(JSON.stringify(jsonObject, null, 2));
-            alert("JSON Masjid Al-Marhamah berhasil disalin ke clipboard!");
-        }
-
-        window.addEventListener('DOMContentLoaded', loadExistingData);
+        window.addEventListener('DOMContentLoaded', loadDataJSON);
     </script>
 </body>
 </html>
