@@ -139,12 +139,19 @@
         </form>
     </main>
 
-    <!-- JAVASCRIPT LOGIC -->
+ <!-- JAVASCRIPT LOGIC -->
     <script>
         let infakDataList = [
             { hari: "Ramadhan 1", tanggal: "19 Feb 2026", tarawih: 1250000, subuh: 450000 },
             { hari: "Ramadhan 2", tanggal: "20 Feb 2026", tarawih: 1100000, subuh: 380000 }
         ];
+
+        function autoUpdateTimestamp() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('last_update').value = `${dateStr} - ${timeStr} WIB`;
+        }
 
         async function loadExistingData() {
             try {
@@ -210,18 +217,26 @@
             const nextDay = infakDataList.length + 1;
             infakDataList.push({ hari: `Ramadhan ${nextDay}`, tanggal: "", tarawih: 0, subuh: 0 });
             renderInfakRows();
+            autoUpdateTimestamp();
         }
 
         function removeInfakRow(index) {
             infakDataList.splice(index, 1);
             renderInfakRows();
+            autoUpdateTimestamp();
         }
 
         function updateInfakItem(index, field, value) {
             if (infakDataList[index]) {
                 infakDataList[index][field] = value;
+                autoUpdateTimestamp();
             }
         }
+
+        // Trigger auto update when ZIS inputs change
+        document.querySelectorAll('#tab-zis input').forEach(input => {
+            input.addEventListener('input', autoUpdateTimestamp);
+        });
 
         function buildJSONObject() {
             return {
