@@ -62,18 +62,18 @@
             background: linear-gradient(180deg, #020617 0%, #091e1a 50%, #020617 100%);
             border: 1px solid rgba(250, 204, 21, 0.45);
             box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.95), 0 0 12px rgba(234, 179, 8, 0.2);
-            border-radius: 0.65rem;
-            min-width: 3.6rem;
+            border-radius: 0.6rem;
+            min-width: 3.1rem;
         }
         @media (min-width: 640px) {
             .digital-slot {
-                min-width: 4.3rem;
+                min-width: 3.8rem;
             }
         }
         .digital-number {
             color: #fef08a;
             text-shadow: 0 0 8px rgba(250, 204, 21, 0.95), 0 0 18px rgba(234, 179, 8, 0.65), 0 2px 4px rgba(0, 0, 0, 0.9);
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
         }
         .colon-glow {
             color: #facc15;
@@ -139,42 +139,55 @@
                 </div>
             </div>
 
-            <!-- GOLD GLORIOUS DIGITAL CLOCK WIDGET (HARI : JAM : DETIK) -->
+            <!-- GOLD GLORIOUS DIGITAL CLOCK WIDGET (HARI : JAM : MENIT : DETIK - HIJRIYAH MAGHRIB/GPS) -->
             <div class="glorious-clock-frame order-3 lg:order-2 w-full sm:w-auto mx-auto lg:mx-0">
-                <div class="glorious-clock-inner px-3.5 py-2 sm:px-5 sm:py-2.5 flex flex-col items-center justify-center">
+                <div class="glorious-clock-inner px-3 py-2 sm:px-4 sm:py-2 flex flex-col items-center justify-center">
                     
-                    <!-- Digital Display Row -->
-                    <div class="flex items-center justify-center space-x-1.5 sm:space-x-2.5">
+                    <!-- Digital Display Row (4 Kotak: Hari, Jam, Menit, Detik) -->
+                    <div class="flex items-center justify-center space-x-1 sm:space-x-2">
                         <!-- HARI -->
-                        <div class="digital-slot px-2.5 py-1 sm:px-3 sm:py-1.5 text-center">
-                            <span id="cd-days" class="font-digital text-xl sm:text-2xl font-black digital-number block leading-none">00</span>
-                            <span class="text-[9px] sm:text-[10px] font-extrabold text-gold-400 uppercase tracking-widest mt-1 block">Hari</span>
+                        <div class="digital-slot px-2 py-1 sm:px-2.5 sm:py-1.5 text-center">
+                            <span id="cd-days" class="font-digital text-lg sm:text-2xl font-black digital-number block leading-none">00</span>
+                            <span class="text-[8px] sm:text-[9px] font-extrabold text-gold-400 uppercase tracking-widest mt-1 block">Hari</span>
                         </div>
 
-                        <span class="font-digital text-lg sm:text-2xl font-black colon-glow -mt-3">:</span>
+                        <span class="font-digital text-base sm:text-xl font-black colon-glow -mt-3">:</span>
 
                         <!-- JAM -->
-                        <div class="digital-slot px-2.5 py-1 sm:px-3 sm:py-1.5 text-center">
-                            <span id="cd-hours" class="font-digital text-xl sm:text-2xl font-black digital-number block leading-none">00</span>
-                            <span class="text-[9px] sm:text-[10px] font-extrabold text-gold-400 uppercase tracking-widest mt-1 block">Jam</span>
+                        <div class="digital-slot px-2 py-1 sm:px-2.5 sm:py-1.5 text-center">
+                            <span id="cd-hours" class="font-digital text-lg sm:text-2xl font-black digital-number block leading-none">00</span>
+                            <span class="text-[8px] sm:text-[9px] font-extrabold text-gold-400 uppercase tracking-widest mt-1 block">Jam</span>
                         </div>
 
-                        <span class="font-digital text-lg sm:text-2xl font-black colon-glow -mt-3">:</span>
+                        <span class="font-digital text-base sm:text-xl font-black colon-glow -mt-3">:</span>
+
+                        <!-- MENIT -->
+                        <div class="digital-slot px-2 py-1 sm:px-2.5 sm:py-1.5 text-center">
+                            <span id="cd-minutes" class="font-digital text-lg sm:text-2xl font-black digital-number block leading-none">00</span>
+                            <span class="text-[8px] sm:text-[9px] font-extrabold text-gold-400 uppercase tracking-widest mt-1 block">Menit</span>
+                        </div>
+
+                        <span class="font-digital text-base sm:text-xl font-black colon-glow -mt-3">:</span>
 
                         <!-- DETIK -->
-                        <div class="digital-slot px-2.5 py-1 sm:px-3 sm:py-1.5 text-center">
-                            <span id="cd-seconds" class="font-digital text-xl sm:text-2xl font-black digital-number block leading-none">00</span>
-                            <span class="text-[9px] sm:text-[10px] font-extrabold text-gold-400 uppercase tracking-widest mt-1 block">Detik</span>
+                        <div class="digital-slot px-2 py-1 sm:px-2.5 sm:py-1.5 text-center">
+                            <span id="cd-seconds" class="font-digital text-lg sm:text-2xl font-black digital-number block leading-none">00</span>
+                            <span class="text-[8px] sm:text-[9px] font-extrabold text-gold-400 uppercase tracking-widest mt-1 block">Detik</span>
                         </div>
                     </div>
 
-                    <!-- Caption Bawah -->
-                    <div class="mt-1.5 pt-1 border-t border-gold-500/30 w-full flex items-center justify-center space-x-1.5">
-                        <i class="fa-solid fa-star-and-crescent text-gold-400 text-[10px] animate-spin" style="animation-duration: 10s;"></i>
-                        <span class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest gold-gradient-text">
-                            Menuju 1 Ramadhan 1448 H
+                    <!-- Caption Bawah + Indikator Maghrib/GPS -->
+                    <div class="mt-1.5 pt-1 border-t border-gold-500/30 w-full flex flex-col items-center justify-center">
+                        <div class="flex items-center justify-center space-x-1.5">
+                            <i class="fa-solid fa-moon text-gold-400 text-[10px] animate-pulse"></i>
+                            <span class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest gold-gradient-text">
+                                Menuju 1 Ramadhan 1448 H
+                            </span>
+                            <i class="fa-solid fa-location-crosshairs text-gold-400 text-[10px]" id="gps-icon" title="Waktu Pergantian Hari Hijriyah (Maghrib)"></i>
+                        </div>
+                        <span id="maghrib-info" class="text-[8px] sm:text-[9px] text-emerald-300/90 font-medium tracking-wider">
+                            Patokan Hijriyah: Maghrib 18:00 WIB (Sleman)
                         </span>
-                        <i class="fa-solid fa-star-and-crescent text-gold-400 text-[10px] animate-spin" style="animation-duration: 10s;"></i>
                     </div>
                 </div>
             </div>
@@ -497,27 +510,137 @@
             if (el) el.textContent = text;
         };
 
-        // 1. JAM DIGITAL HITUNG MUNDUR (HARI : JAM : DETIK) MENUJU SENIN, 8 FEBRUARI 2027 00:00:00 WIB
-        const initCountdown1448H = () => {
-            const targetTimestamp = new Date('2027-02-08T00:00:00+07:00').getTime();
+        // 1. ALGORITMA ASTRONOMI WAKTU MAGHRIB (SUNSET) BERDASARKAN KOORDINAT GPS LOKAL
+        // Menghitung jam & menit Maghrib pada tanggal tertentu (termasuk koreksi Ihtiyat +2 menit)
+        const calculateLocalMaghrib = (year, month, day, lat, lng) => {
+            const rad = Math.PI / 180;
+            const deg = 180 / Math.PI;
+
+            const dateUTC = new Date(Date.UTC(year, month - 1, day));
+            const startOfYear = new Date(Date.UTC(year, 0, 0));
+            const dayOfYear = Math.floor((dateUTC - startOfYear) / 86400000);
+
+            // Approximate Sunset Time
+            const lngHour = lng / 15;
+            const t = dayOfYear + ((18 - lngHour) / 24);
+
+            // Sun's Mean Anomaly
+            const M = (0.9856 * t) - 3.289;
+
+            // Sun's True Longitude
+            let L = M + (1.916 * Math.sin(M * rad)) + (0.020 * Math.sin(2 * M * rad)) + 282.634;
+            L = (L + 360) % 360;
+
+            // Sun's Right Ascension
+            let RA = deg * Math.atan(0.91764 * Math.tan(L * rad));
+            RA = (RA + 360) % 360;
+
+            const Lquadrant = Math.floor(L / 90) * 90;
+            const RAquadrant = Math.floor(RA / 90) * 90;
+            RA = (RA + (Lquadrant - RAquadrant)) / 15;
+
+            // Sun's Declination
+            const sinDec = 0.39782 * Math.sin(L * rad);
+            const cosDec = Math.cos(Math.asin(sinDec));
+
+            // Sun's Local Hour Angle (Zenith 90.8333 derajat untuk Sunset + Refraksi Atmosfer)
+            const zenith = 90.8333;
+            const cosH = (Math.cos(zenith * rad) - (sinDec * Math.sin(lat * rad))) / (cosDec * Math.cos(lat * rad));
+
+            // Fallback ke 18:00 jika lokasi ekstrem
+            if (cosH > 1 || cosH < -1) {
+                return { hours: 18, minutes: 0 };
+            }
+
+            const H = (deg * Math.acos(cosH)) / 15;
+            const localMeanTime = H + RA - (0.06571 * t) - 6.622;
+            let UT = (localMeanTime - lngHour + 24) % 24;
+
+            // Konversi dari UTC ke Zona Waktu Perangkat Lokal + 2 menit Ihtiyat Maghrib
+            const tzOffsetHours = -new Date().getTimezoneOffset() / 60;
+            let localMaghribDecimal = (UT + tzOffsetHours + (2 / 60) + 24) % 24;
+
+            const hours = Math.floor(localMaghribDecimal);
+            const minutes = Math.round((localMaghribDecimal - hours) * 60);
+
+            if (minutes === 60) {
+                return { hours: (hours + 1) % 24, minutes: 0 };
+            }
+            return { hours, minutes };
+        };
+
+        // 2. HITUNG MUNDUR KALENDER HIJRIYAH (HARI : JAM : MENIT : DETIK)
+        // Dalam kalender Hijriyah, 1 Ramadhan 1448 H (Senin, 8 Feb 2027) masuk sejak waktu Maghrib pada Minggu, 7 Feb 2027.
+        // Pergantian hari harian juga dihitung setiap melewati waktu Maghrib (18:00 / Sunset GPS lokal).
+        const initCountdownHijriyah1448H = () => {
+            // Default: Koordinat Masjid Al-Marhamah (Candi Gebang Permai, Ngemplak, Sleman)
+            let userCoords = { lat: -7.7381, lng: 110.4225, isGPS: false };
+            // Default target: Minggu sore, 7 Februari 2027 pukul 18:00:00 (masuknya malam 1 Ramadhan 1448 H)
+            let targetMaghribTimestamp = new Date(2027, 1, 7, 18, 0, 0).getTime();
+
+            const applyCoordinates = (lat, lng, isGPS) => {
+                userCoords = { lat, lng, isGPS };
+                const maghrib1Ramadhan = calculateLocalMaghrib(2027, 2, 7, lat, lng);
+                targetMaghribTimestamp = new Date(
+                    2027,
+                    1,
+                    7,
+                    maghrib1Ramadhan.hours,
+                    maghrib1Ramadhan.minutes,
+                    0
+                ).getTime();
+
+                const hh = String(maghrib1Ramadhan.hours).padStart(2, '0');
+                const mm = String(maghrib1Ramadhan.minutes).padStart(2, '0');
+                const locLabel = isGPS ? 'GPS Lokal Aktif' : 'Sleman / Default';
+                setElText('maghrib-info', `Pergantian Hari Hijriyah: Maghrib ${hh}:${mm} (${locLabel})`);
+
+                const gpsIcon = document.getElementById('gps-icon');
+                if (gpsIcon && isGPS) {
+                    gpsIcon.classList.add('text-emerald-400');
+                }
+            };
+
+            // Set awal dengan koordinat default Sleman / 18:00
+            applyCoordinates(userCoords.lat, userCoords.lng, false);
+
+            // Deteksi GPS otomatis dari browser jika diizinkan pengguna
+            if ('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        applyCoordinates(pos.coords.latitude, pos.coords.longitude, true);
+                    },
+                    () => {
+                        // Jika GPS ditolak/nonaktif, gunakan patokan 18:00 WIB sesuai permintaan
+                        targetMaghribTimestamp = new Date(2027, 1, 7, 18, 0, 0).getTime();
+                        setElText('maghrib-info', 'Pergantian Hari Hijriyah: Pukul 18:00 WIB');
+                    },
+                    { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 }
+                );
+            }
 
             const updateClock = () => {
                 const now = Date.now();
-                const diff = targetTimestamp - now;
+                const diff = targetMaghribTimestamp - now;
 
                 if (diff <= 0) {
                     setElText('cd-days', '00');
                     setElText('cd-hours', '00');
+                    setElText('cd-minutes', '00');
                     setElText('cd-seconds', '00');
                     return;
                 }
 
-                const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+                // Karena target (1 Ramadhan 1448 H) sudah dipatok tepat pada waktu Maghrib (18:00 / Sunset GPS),
+                // maka sisa Hari otomatis berkurang 1 tepat saat jam melewati waktu Maghrib setiap harinya!
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-                setElText('cd-days', String(totalDays).padStart(2, '0'));
+                setElText('cd-days', String(days).padStart(2, '0'));
                 setElText('cd-hours', String(hours).padStart(2, '0'));
+                setElText('cd-minutes', String(minutes).padStart(2, '0'));
                 setElText('cd-seconds', String(seconds).padStart(2, '0'));
             };
 
@@ -525,7 +648,7 @@
             setInterval(updateClock, 1000);
         };
 
-        // 2. NAVIGASI MOBILE
+        // 3. NAVIGASI MOBILE
         const initMobileMenu = () => {
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
@@ -545,7 +668,7 @@
             });
         };
 
-        // 3. RENDER KOMPONEN HALAMAN
+        // 4. RENDER KOMPONEN HALAMAN
         const renderKultum = (list) => {
             const tbody = document.getElementById('kultum-tbody');
             if (!tbody) return;
@@ -740,7 +863,7 @@
         };
 
         window.addEventListener('DOMContentLoaded', () => {
-            initCountdown1448H();
+            initCountdownHijriyah1448H();
             initMobileMenu();
             loadDataJSON();
         });
