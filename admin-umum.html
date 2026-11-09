@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Umum - Panitia Ramadhan Masjid Al-Marhamah</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: { 850: '#064e3b', 900: '#022c22', 950: '#011c16' },
+                        gold: { 300: '#fde047', 400: '#facc15', 500: '#eab308', 600: '#ca8a04', 700: '#a16207' }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        amiri: ['Amiri', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-card {
+            background: rgba(2, 44, 34, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 179, 8, 0.25);
+        }
+        .input-dark {
+            background: rgba(1, 28, 22, 0.9);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            color: #f8fafc;
+        }
+        .input-dark:focus {
+            outline: none;
+            border-color: #facc15;
+            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen pb-24">
+
+    <!-- HEADER ADMIN -->
+    <header class="sticky top-0 z-40 bg-emerald-950/95 backdrop-blur-md border-b border-gold-500/30 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold-600 to-gold-400 flex items-center justify-center text-emerald-950 font-bold text-lg shadow-md">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-white leading-tight">PANEL ADMIN UMUM (NON-KEUANGAN)</h1>
+                    <p class="text-xs text-gold-400 font-medium">Kelola Jadwal Kultum, Agenda & Galeri — Masjid Al-Marhamah</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <span class="text-xs bg-emerald-900/80 border border-emerald-700 text-emerald-300 px-3 py-1.5 rounded-full">
+                    <i class="fa-solid fa-shield-halved mr-1 text-gold-400"></i> Data ZIS & Bendahara Aman
+                </span>
+                <a href="index.html" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-xl border border-slate-700 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-1.5"></i> Lihat Web Utama
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 space-y-8">
+
+        <!-- STATUS NOTIFIKASI -->
+        <div id="status-alert" class="hidden rounded-2xl p-4 border text-sm font-medium flex items-center justify-between">
+            <span id="status-message"></span>
+            <button type="button" id="close-alert-btn" class="text-xs underline ml-4">Tutup</button>
+        </div>
+
+        <!-- TAB NAVIGASI PANEL -->
+        <div class="flex flex-wrap gap-2 border-b border-gold-500/20 pb-4">
+            <button type="button" data-tab="tab-kultum" class="tab-btn bg-gold-500 text-emerald-950 font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-all">
+                <i class="fa-solid fa-microphone-lines mr-1.5"></i> 1. Jadwal Kultum
+            </button>
+            <button type="button" data-tab="tab-agenda" class="tab-btn bg-emerald-900/60 text-slate-300 hover:text-gold-300 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-gold-500/20 transition-all">
+                <i class="fa-solid fa-calendar-days mr-1.5"></i> 2. Agenda Kegiatan
+            </button>
+            <button type="button" data-tab="tab-galeri" class="tab-btn bg-emerald-900/60 text-slate-300 hover:text-gold-300 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-gold-500/20 transition-all">
+                <i class="fa-solid fa-images mr-1.5"></i> 3. Galeri Dokumentasi
+            </button>
+            <button type="button" data-tab="tab-github" class="tab-btn bg-emerald-900/60 text-slate-300 hover:text-gold-300 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-gold-500/20 transition-all ml-auto">
+                <i class="fa-brands fa-github mr-1.5"></i> Pengaturan GitHub API
+            </button>
+        </div>
+
+        <!-- TAB 1: JADWAL KULTUM TARAWIH & SUBUH -->
+        <section id="tab-kultum" class="tab-content space-y-6">
+            <div class="glass-card rounded-2xl p-6 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gold-500/20 pb-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-white">Kelola Jadwal Penceramah Kultum</h2>
+                        <p class="text-xs text-slate-400">Tambah, ubah, atau hapus daftar mubaligh Tarawih & Subuh.</p>
+                    </div>
+                    <button type="button" id="reset-form-kultum" class="text-xs text-gold-400 hover:underline self-start sm:self-auto">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset Input
+                    </button>
+                </div>
+
+                <form id="form-kultum" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <input type="hidden" id="kultum-edit-index" value="-1">
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Ramadhan Ke-</label>
+                        <input type="text" id="kultum-hari" required placeholder="Contoh: Ramadhan 1" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Tanggal Masehi</label>
+                        <input type="text" id="kultum-tanggal" required placeholder="Contoh: 19 Feb 2026" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Penceramah Tarawih</label>
+                        <input type="text" id="kultum-tarawih" required placeholder="Nama Ustadz Tarawih" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Penceramah Subuh</label>
+                        <input type="text" id="kultum-subuh" required placeholder="Nama Ustadz Subuh" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-4 flex justify-end">
+                        <button type="submit" id="btn-submit-kultum" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg transition-all">
+                            <i class="fa-solid fa-plus mr-1.5"></i> Tambah / Simpan Baris Kultum
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tabel Daftar Kultum -->
+            <div class="glass-card rounded-2xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="bg-emerald-950 text-gold-400 text-xs uppercase font-bold border-b border-gold-500/30">
+                            <tr>
+                                <th class="py-3.5 px-4">Ramadhan Ke-</th>
+                                <th class="py-3.5 px-4">Tanggal</th>
+                                <th class="py-3.5 px-4">Penceramah Tarawih</th>
+                                <th class="py-3.5 px-4">Penceramah Subuh</th>
+                                <th class="py-3.5 px-4 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-kultum-tbody" class="divide-y divide-slate-800/80"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: AGENDA KEGIATAN -->
+        <section id="tab-agenda" class="tab-content hidden space-y-6">
+            <div class="glass-card rounded-2xl p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-gold-500/20 pb-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-white">Kelola Agenda Kegiatan Ramadhan</h2>
+                        <p class="text-xs text-slate-400">Program utama masjid yang tampil pada kartu Agenda di halaman depan.</p>
+                    </div>
+                    <button type="button" id="reset-form-agenda" class="text-xs text-gold-400 hover:underline">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset Input
+                    </button>
+                </div>
+
+                <form id="form-agenda" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <input type="hidden" id="agenda-edit-index" value="-1">
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Waktu / Hari Pelaksanaan</label>
+                        <input type="text" id="agenda-hari" required placeholder="Contoh: 17 Ramadhan / Setiap Hari" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Jam Pelaksanaan</label>
+                        <input type="text" id="agenda-jam" required placeholder="Contoh: 19.30 WIB" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Lokasi Tempat</label>
+                        <input type="text" id="agenda-lokasi" required placeholder="Contoh: Ruang Utama Masjid" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-3">
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Judul Kegiatan</label>
+                        <input type="text" id="agenda-judul" required placeholder="Contoh: Peringatan Nuzulul Qur'an" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-3">
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Deskripsi Singkat Kegiatan</label>
+                        <textarea id="agenda-deskripsi" rows="2" required placeholder="Penjelasan singkat agenda kegiatan..." class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm"></textarea>
+                    </div>
+                    <div class="sm:col-span-2 lg:col-span-3 flex justify-end">
+                        <button type="submit" id="btn-submit-agenda" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg transition-all">
+                            <i class="fa-solid fa-plus mr-1.5"></i> Tambah / Simpan Agenda
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="admin-agenda-list" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        </section>
+
+        <!-- TAB 3: GALERI DOKUMENTASI -->
+        <section id="tab-galeri" class="tab-content hidden space-y-6">
+            <div class="glass-card rounded-2xl p-6 space-y-4">
+                <div>
+                    <h2 class="text-lg font-bold text-white">Kelola Galeri Foto Kegiatan</h2>
+                    <p class="text-xs text-slate-400">Masukkan URL gambar dokumentasi kegiatan Ramadhan (mendukung link foto dari Google Drive, Imgur, Unsplash, atau path folder lokal).</p>
+                </div>
+
+                <form id="form-galeri" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">URL / Link Foto</label>
+                        <input type="url" id="galeri-url" required placeholder="https://images.unsplash.com/..." class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Keterangan Foto (Caption)</label>
+                        <input type="text" id="galeri-caption" required placeholder="Contoh: Sholat Tarawih Malam Pertama" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div class="sm:col-span-3 flex justify-end">
+                        <button type="submit" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-lg transition-all">
+                            <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> Tambahkan Foto ke Galeri
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="admin-galeri-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </section>
+
+        <!-- TAB 4: PENGATURAN GITHUB API (OPSIONAL UNTUK DIRECT PUSH) -->
+        <section id="tab-github" class="tab-content hidden space-y-6">
+            <div class="glass-card rounded-2xl p-6 space-y-4">
+                <h2 class="text-lg font-bold text-white"><i class="fa-brands fa-github text-gold-400 mr-2"></i>Konfigurasi Update Otomatis ke GitHub</h2>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Jika Anda menggunakan GitHub Pages, isi pengaturan di bawah agar tombol <strong>"Simpan & Publish ke GitHub"</strong> dapat memperbarui file <code>data.json</code> secara langsung tanpa perlu upload manual. Data kredensial disimpan aman hanya di browser perangkat Anda (LocalStorage).
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">GitHub Username / Owner</label>
+                        <input type="text" id="gh-owner" placeholder="fatchurohman" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Nama Repository</label>
+                        <input type="text" id="gh-repo" placeholder="ramadhan1447h-almarhamah" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">Branch (Default: main)</label>
+                        <input type="text" id="gh-branch" placeholder="main" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                    <div class="sm:col-span-3">
+                        <label class="block text-xs text-gold-300 font-semibold mb-1">GitHub Personal Access Token (Classic / Fine-grained dengan akses Contents Read & Write)</label>
+                        <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="input-dark w-full rounded-xl px-3.5 py-2.5 text-sm">
+                    </div>
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button type="button" id="btn-save-gh-config" class="bg-emerald-800 hover:bg-emerald-700 text-gold-300 border border-gold-500/40 font-bold px-5 py-2 rounded-xl text-xs transition-all">
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Simpan Konfigurasi GitHub di Browser Ini
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- STICKY ACTION BAR (SIMPAN PERUBAHAN) -->
+    <div class="fixed bottom-0 inset-x-0 z-50 bg-emerald-950/95 backdrop-blur-md border-t border-gold-500/30 py-3 px-4 shadow-2xl">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="text-xs text-slate-300">
+                <i class="fa-solid fa-circle-info text-gold-400 mr-1.5"></i>
+                Perubahan hanya memodifikasi <strong>Kultum, Agenda, & Galeri</strong>. Data <strong>ZIS & Infak Bendahara</strong> tetap utuh.
+            </div>
+            <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+                <button type="button" id="btn-download-json" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-gold-300 border border-gold-500/30 rounded-xl text-xs font-bold transition-all">
+                    <i class="fa-solid fa-download mr-1.5"></i> Unduh data.json
+                </button>
+                <button type="button" id="btn-publish-github" class="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 rounded-xl text-xs sm:text-sm font-extrabold shadow-lg transition-all">
+                    <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> Simpan & Publish ke GitHub
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC ADMIN UMUM -->
+    <script>
+        // State utama yang menampung seluruh isi data.json agar data ZIS & Infak Harian tidak hilang
+        let masterData = {
+            last_update: '',
+            zis: {
+                zakat_fitrah_beras_kg: 0,
+                zakat_fitrah_uang: 0,
+                zakat_maal: 0,
+                fidyah: 0,
+                infak_shodaqoh: 0
+            },
+            infak_harian: [],
+            jadwal_kultum: [],
+            agenda: [],
+            galeri: []
+        };
+
+        const defaultKultum = [
+            { hari: 'Ramadhan 1', tanggal: '19 Feb 2026', penceramah_tarawih: 'Ust. Ahmad Hidayat, S.Ag', penceramah_subuh: 'Ust. Muhammad Ridwan, M.A' },
+            { hari: 'Ramadhan 2', tanggal: '20 Feb 2026', penceramah_tarawih: 'Ust. Dr. H. Abdul Ghofur', penceramah_subuh: 'Ust. Ahmad Hidayat, S.Ag' },
+            { hari: 'Ramadhan 3', tanggal: '21 Feb 2026', penceramah_tarawih: 'Ust. Farhan Basalamah, Lc', penceramah_subuh: 'Ust. Nuruddin, M.Pd' }
+        ];
+
+        const defaultAgenda = [
+            { hari: '17 Ramadhan', jam: '19.30 WIB', judul: "Peringatan Nuzulul Qur'an", deskripsi: "Pengajian umum & tasyakuran memperingati Nuzulul Qur'an bersama jamaah.", lokasi: 'Ruang Utama Masjid Al-Marhamah' },
+            { hari: 'Setiap Hari', jam: '17.30 WIB', judul: 'Buka Puasa Bersama (Takjil)', deskripsi: 'Penyediaan santapan berbuka puasa gratis untuk jamaah & musafir.', lokasi: 'Serambi Masjid Al-Marhamah' },
+            { hari: '10 Malam Terakhir', jam: '01.00 WIB', judul: "I'tikaf & Qiyamul Lail", deskripsi: 'Penyelenggaraan sholat malam berjamaah & sahur bersama.', lokasi: 'Ruang Utama Masjid' }
+        ];
+
+        const defaultGaleri = [
+            { url: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?q=80&w=800&auto=format&fit=crop', caption: 'Tarawih Berjamaah' },
+            { url: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=800&auto=format&fit=crop', caption: 'Berbagi Takjil' },
+            { url: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800&auto=format&fit=crop', caption: 'Tadarus Al-Quran' },
+            { url: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800&auto=format&fit=crop', caption: 'Pengelolaan Zakat' }
+        ];
+
+        const escapeHTML = (str) => {
+            if (str === null || str === undefined) return '';
+            return String(str).replace(/[&<>"']/g, (tag) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[tag] || tag));
+        };
+
+        const showAlert = (message, isError = false) => {
+            const box = document.getElementById('status-alert');
+            const msg = document.getElementById('status-message');
+            if (!box || !msg) return;
+
+            box.className = `rounded-2xl p-4 border text-sm font-medium flex items-center justify-between ${
+                isError
+                    ? 'bg-red-950/90 border-red-500/50 text-red-200'
+                    : 'bg-emerald-900/90 border-gold-500/50 text-gold-300'
+            }`;
+            msg.textContent = message;
+            box.classList.remove('hidden');
+        };
+
+        const getFormattedTimestamp = () => {
+            const now = new Date();
+            return now.toLocaleDateString('id-ID', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            }) + ' WIB';
+        };
+
+        // 1. LOAD DATA AWAL DARI data.json
+        const fetchInitialData = async () => {
+            try {
+                const res = await fetch('data.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('File data.json belum ditemukan, memuat template standar.');
+                const json = await res.json();
+
+                if (json && typeof json === 'object') {
+                    masterData = {
+                        ...masterData,
+                        ...json,
+                        jadwal_kultum: Array.isArray(json.jadwal_kultum) && json.jadwal_kultum.length > 0
+                            ? json.jadwal_kultum
+                            : (Array.isArray(json.kultum) && json.kultum.length > 0 ? json.kultum : [...defaultKultum]),
+                        agenda: Array.isArray(json.agenda) && json.agenda.length > 0
+                            ? json.agenda
+                            : [...defaultAgenda],
+                        galeri: Array.isArray(json.galeri) && json.galeri.length > 0
+                            ? json.galeri
+                            : [...defaultGaleri]
+                    };
+                }
+            } catch (err) {
+                console.warn(err.message);
+                masterData.jadwal_kultum = [...defaultKultum];
+                masterData.agenda = [...defaultAgenda];
+                masterData.galeri = [...defaultGaleri];
+            }
+
+            renderAdminKultum();
+            renderAdminAgenda();
+            renderAdminGaleri();
+        };
+
+        // 2. RENDER & CRUD JADWAL KULTUM
+        const renderAdminKultum = () => {
+            const tbody = document.getElementById('admin-kultum-tbody');
+            if (!tbody) return;
+
+            if (masterData.jadwal_kultum.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-slate-500">Belum ada jadwal kultum.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = masterData.jadwal_kultum.map((item, idx) => `
+                <tr class="${idx % 2 === 0 ? 'bg-slate-900/40' : 'bg-slate-950/40'}">
+                    <td class="py-3 px-4 font-semibold text-gold-300">${escapeHTML(item.hari)}</td>
+                    <td class="py-3 px-4 text-slate-400">${escapeHTML(item.tanggal)}</td>
+                    <td class="py-3 px-4 text-white">${escapeHTML(item.penceramah_tarawih || item.tarawih)}</td>
+                    <td class="py-3 px-4 text-white">${escapeHTML(item.penceramah_subuh || item.subuh)}</td>
+                    <td class="py-3 px-4 text-center space-x-2">
+                        <button type="button" data-action="edit-kultum" data-index="${idx}" class="text-xs bg-emerald-800 hover:bg-emerald-700 text-gold-300 px-2.5 py-1 rounded-lg">Edit</button>
+                        <button type="button" data-action="delete-kultum" data-index="${idx}" class="text-xs bg-red-900/80 hover:bg-red-800 text-red-200 px-2.5 py-1 rounded-lg">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+        };
+
+        // 3. RENDER & CRUD AGENDA
+        const renderAdminAgenda = () => {
+            const container = document.getElementById('admin-agenda-list');
+            if (!container) return;
+
+            if (masterData.agenda.length === 0) {
+                container.innerHTML = '<div class="col-span-full py-6 text-center text-slate-500">Belum ada agenda kegiatan.</div>';
+                return;
+            }
+
+            container.innerHTML = masterData.agenda.map((item, idx) => `
+                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs bg-gold-500/20 text-gold-300 font-bold px-3 py-1 rounded-full border border-gold-500/30">${escapeHTML(item.hari)}</span>
+                            <span class="text-xs text-emerald-400 font-medium">${escapeHTML(item.jam)}</span>
+                        </div>
+                        <h4 class="text-base font-bold text-white mb-1.5">${escapeHTML(item.judul)}</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">${escapeHTML(item.deskripsi)}</p>
+                        <div class="text-[11px] text-slate-400"><i class="fa-solid fa-location-dot text-gold-400 mr-1.5"></i>${escapeHTML(item.lokasi)}</div>
+                    </div>
+                    <div class="flex justify-end space-x-2 pt-3 border-t border-slate-800">
+                        <button type="button" data-action="edit-agenda" data-index="${idx}" class="text-xs bg-emerald-800 hover:bg-emerald-700 text-gold-300 px-3 py-1 rounded-lg">Edit</button>
+                        <button type="button" data-action="delete-agenda" data-index="${idx}" class="text-xs bg-red-900/80 hover:bg-red-800 text-red-200 px-3 py-1 rounded-lg">Hapus</button>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        // 4. RENDER & CRUD GALERI
+        const renderAdminGaleri = () => {
+            const container = document.getElementById('admin-galeri-list');
+            if (!container) return;
+
+            if (masterData.galeri.length === 0) {
+                container.innerHTML = '<div class="col-span-full py-6 text-center text-slate-500">Belum ada foto galeri.</div>';
+                return;
+            }
+
+            container.innerHTML = masterData.galeri.map((item, idx) => {
+                const isObj = item && typeof item === 'object';
+                const url = isObj ? (item.url || item.src) : item;
+                const caption = isObj ? (item.caption || item.alt || '') : '';
+
+                return `
+                    <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                        <img src="${escapeHTML(url)}" alt="${escapeHTML(caption)}" class="w-full h-40 object-cover">
+                        <div class="p-3 flex items-center justify-between gap-2">
+                            <span class="text-xs text-slate-200 truncate">${escapeHTML(caption || 'Tanpa keterangan')}</span>
+                            <button type="button" data-action="delete-galeri" data-index="${idx}" class="text-xs bg-red-900/80 hover:bg-red-800 text-red-200 px-2.5 py-1 rounded-lg shrink-0">Hapus</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        };
+
+        // 5. SINKRONISASI AMAN SEBELUM SIMPAN (MERGE DATA TERBARU DARI SERVER)
+        const buildSafeMergedPayload = async () => {
+            try {
+                const res = await fetch('data.json', { cache: 'no-store' });
+                if (res.ok) {
+                    const latestServerData = await res.json();
+                    if (latestServerData && typeof latestServerData === 'object') {
+                        // Pertahankan data ZIS & Infak Harian paling baru dari server agar tidak pernah tertimpa
+                        if (latestServerData.zis) masterData.zis = latestServerData.zis;
+                        if (Array.isArray(latestServerData.infak_harian)) masterData.infak_harian = latestServerData.infak_harian;
+                    }
+                }
+            } catch (e) {
+                console.warn('Menggunakan state lokal untuk penggabungan data.');
+            }
+
+            masterData.last_update = getFormattedTimestamp();
+            return JSON.stringify(masterData, null, 2);
+        };
+
+        // 6. UNDUH FILE data.json
+        const downloadDataJSON = async () => {
+            const jsonString = await buildSafeMergedPayload();
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showAlert('File data.json berhasil diunduh! Data ZIS & Bendahara tetap utuh.');
+        };
+
+        // 7. PUBLISH LANGSUNG KE GITHUB API (JIKA TOKEN DIISI)
+        const publishToGitHub = async () => {
+            const owner = localStorage.getItem('gh_owner') || 'fatchurohman';
+            const repo = localStorage.getItem('gh_repo') || 'ramadhan1447h-almarhamah';
+            const branch = localStorage.getItem('gh_branch') || 'main';
+            const token = localStorage.getItem('gh_token') || '';
+
+            if (!token) {
+                showAlert('Token GitHub belum diatur. Silakan buka tab "Pengaturan GitHub API" atau gunakan tombol "Unduh data.json".', true);
+                return;
+            }
+
+            const btn = document.getElementById('btn-publish-github');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Menyimpan ke GitHub...';
+
+            try {
+                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/data.json`;
+                const headers = {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github+json'
+                };
+
+                // Ambil SHA & data terbaru langsung dari GitHub agar data ZIS dan Bendahara 100% aman
+                let currentSha = null;
+                const getRes = await fetch(`${apiUrl}?ref=${branch}`, { headers, cache: 'no-store' });
+                if (getRes.ok) {
+                    const fileInfo = await getRes.json();
+                    currentSha = fileInfo.sha;
+                    const decodedContent = decodeURIComponent(escape(atob(fileInfo.content.replace(/\n/g, ''))));
+                    const remoteJson = JSON.parse(decodedContent);
+                    if (remoteJson.zis) masterData.zis = remoteJson.zis;
+                    if (Array.isArray(remoteJson.infak_harian)) masterData.infak_harian = remoteJson.infak_harian;
+                }
+
+                masterData.last_update = getFormattedTimestamp();
+                const updatedContent = JSON.stringify(masterData, null, 2);
+                const base64Content = btoa(unescape(encodeURIComponent(updatedContent)));
+
+                const putBody = {
+                    message: `Update jadwal kultum, agenda & galeri oleh Admin Umum (${masterData.last_update})`,
+                    content: base64Content,
+                    branch: branch
+                };
+                if (currentSha) putBody.sha = currentSha;
+
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: { ...headers, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(putBody)
+                });
+
+                if (!putRes.ok) {
+                    const errObj = await putRes.json().catch(() => ({}));
+                    throw new Error(errObj.message || `Gagal menyimpan ke GitHub (Status ${putRes.status})`);
+                }
+
+                showAlert('Alhamdulillah! Perubahan Jadwal Kultum, Agenda & Galeri berhasil dipublish ke GitHub.');
+            } catch (err) {
+                showAlert(`Gagal publish ke GitHub: ${err.message}`, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        };
+
+        // 8. EVENT LISTENERS
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchInitialData();
+
+            // Load konfigurasi GitHub dari LocalStorage
+            document.getElementById('gh-owner').value = localStorage.getItem('gh_owner') || 'fatchurohman';
+            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || 'ramadhan1447h-almarhamah';
+            document.getElementById('gh-branch').value = localStorage.getItem('gh_branch') || 'main';
+            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+
+            // Tab Switching
+            document.querySelectorAll('.tab-btn').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-content').forEach((sec) => sec.classList.add('hidden'));
+                    document.getElementById(target).classList.remove('hidden');
+
+                    document.querySelectorAll('.tab-btn').forEach((b) => {
+                        b.className = 'tab-btn bg-emerald-900/60 text-slate-300 hover:text-gold-300 font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm border border-gold-500/20 transition-all';
+                    });
+                    btn.className = 'tab-btn bg-gold-500 text-emerald-950 font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-all';
+                });
+            });
+
+            // Tutup Alert
+            document.getElementById('close-alert-btn').addEventListener('click', () => {
+                document.getElementById('status-alert').classList.add('hidden');
+            });
+
+            // Submit Form Kultum
+            document.getElementById('form-kultum').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const editIdx = Number(document.getElementById('kultum-edit-index').value);
+                const newItem = {
+                    hari: document.getElementById('kultum-hari').value.trim(),
+                    tanggal: document.getElementById('kultum-tanggal').value.trim(),
+                    penceramah_tarawih: document.getElementById('kultum-tarawih').value.trim(),
+                    penceramah_subuh: document.getElementById('kultum-subuh').value.trim()
+                };
+
+                if (editIdx >= 0 && editIdx < masterData.jadwal_kultum.length) {
+                    masterData.jadwal_kultum[editIdx] = newItem;
+                } else {
+                    masterData.jadwal_kultum.push(newItem);
+                }
+
+                e.target.reset();
+                document.getElementById('kultum-edit-index').value = '-1';
+                renderAdminKultum();
+                showAlert('Baris jadwal kultum diperbarui di daftar kerja. Jangan lupa klik Simpan di bagian bawah.');
+            });
+
+            document.getElementById('reset-form-kultum').addEventListener('click', () => {
+                document.getElementById('form-kultum').reset();
+                document.getElementById('kultum-edit-index').value = '-1';
+            });
+
+            // Aksi Tabel Kultum (Edit / Hapus)
+            document.getElementById('admin-kultum-tbody').addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const idx = Number(btn.getAttribute('data-index'));
+                const action = btn.getAttribute('data-action');
+
+                if (action === 'edit-kultum' && masterData.jadwal_kultum[idx]) {
+                    const item = masterData.jadwal_kultum[idx];
+                    document.getElementById('kultum-edit-index').value = String(idx);
+                    document.getElementById('kultum-hari').value = item.hari || '';
+                    document.getElementById('kultum-tanggal').value = item.tanggal || '';
+                    document.getElementById('kultum-tarawih').value = item.penceramah_tarawih || item.tarawih || '';
+                    document.getElementById('kultum-subuh').value = item.penceramah_subuh || item.subuh || '';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (action === 'delete-kultum') {
+                    masterData.jadwal_kultum.splice(idx, 1);
+                    renderAdminKultum();
+                }
+            });
+
+            // Submit Form Agenda
+            document.getElementById('form-agenda').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const editIdx = Number(document.getElementById('agenda-edit-index').value);
+                const newItem = {
+                    hari: document.getElementById('agenda-hari').value.trim(),
+                    jam: document.getElementById('agenda-jam').value.trim(),
+                    lokasi: document.getElementById('agenda-lokasi').value.trim(),
+                    judul: document.getElementById('agenda-judul').value.trim(),
+                    deskripsi: document.getElementById('agenda-deskripsi').value.trim()
+                };
+
+                if (editIdx >= 0 && editIdx < masterData.agenda.length) {
+                    masterData.agenda[editIdx] = newItem;
+                } else {
+                    masterData.agenda.push(newItem);
+                }
+
+                e.target.reset();
+                document.getElementById('agenda-edit-index').value = '-1';
+                renderAdminAgenda();
+                showAlert('Agenda kegiatan berhasil diperbarui di daftar kerja.');
+            });
+
+            document.getElementById('reset-form-agenda').addEventListener('click', () => {
+                document.getElementById('form-agenda').reset();
+                document.getElementById('agenda-edit-index').value = '-1';
+            });
+
+            // Aksi List Agenda
+            document.getElementById('admin-agenda-list').addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const idx = Number(btn.getAttribute('data-index'));
+                const action = btn.getAttribute('data-action');
+
+                if (action === 'edit-agenda' && masterData.agenda[idx]) {
+                    const item = masterData.agenda[idx];
+                    document.getElementById('agenda-edit-index').value = String(idx);
+                    document.getElementById('agenda-hari').value = item.hari || '';
+                    document.getElementById('agenda-jam').value = item.jam || '';
+                    document.getElementById('agenda-lokasi').value = item.lokasi || '';
+                    document.getElementById('agenda-judul').value = item.judul || '';
+                    document.getElementById('agenda-deskripsi').value = item.deskripsi || '';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (action === 'delete-agenda') {
+                    masterData.agenda.splice(idx, 1);
+                    renderAdminAgenda();
+                }
+            });
+
+            // Submit Form Galeri
+            document.getElementById('form-galeri').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const url = document.getElementById('galeri-url').value.trim();
+                const caption = document.getElementById('galeri-caption').value.trim();
+                if (!url) return;
+
+                masterData.galeri.push({ url, caption });
+                e.target.reset();
+                renderAdminGaleri();
+                showAlert('Foto dokumentasi ditambahkan ke daftar galeri.');
+            });
+
+            // Hapus Foto Galeri
+            document.getElementById('admin-galeri-list').addEventListener('click', (e) => {
+                const btn = e.target.closest('button[data-action="delete-galeri"]');
+                if (!btn) return;
+                const idx = Number(btn.getAttribute('data-index'));
+                masterData.galeri.splice(idx, 1);
+                renderAdminGaleri();
+            });
+
+            // Simpan Konfigurasi GitHub
+            document.getElementById('btn-save-gh-config').addEventListener('click', () => {
+                localStorage.setItem('gh_owner', document.getElementById('gh-owner').value.trim());
+                localStorage.setItem('gh_repo', document.getElementById('gh-repo').value.trim());
+                localStorage.setItem('gh_branch', document.getElementById('gh-branch').value.trim() || 'main');
+                localStorage.setItem('gh_token', document.getElementById('gh-token').value.trim());
+                showAlert('Konfigurasi GitHub berhasil disimpan di perangkat ini.');
+            });
+
+            // Tombol Unduh & Publish
+            document.getElementById('btn-download-json').addEventListener('click', downloadDataJSON);
+            document.getElementById('btn-publish-github').addEventListener('click', publishToGitHub);
+        });
+    </script>
+</body>
+</html>
