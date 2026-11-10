@@ -195,7 +195,7 @@
             <!-- MENU LINKS (DESKTOP) -->
             <nav class="hidden xl:flex items-center space-x-4 text-xs font-semibold order-3" aria-label="Navigasi Utama">
                 <a href="#beranda" class="text-gold-400 hover:text-gold-300 transition-colors">Beranda</a>
-                <a href="#jadwal-kultum" class="text-slate-200 hover:text-gold-400 transition-colors">Jadwal Kultum</a>
+                <a href="#jadwal-kultum" class="text-slate-200 hover:text-gold-400 transition-colors">Kultum Subuh</a>
                 <a href="#agenda" class="text-slate-200 hover:text-gold-400 transition-colors">Agenda</a>
                 <a href="#zis" class="text-slate-200 hover:text-gold-400 transition-colors">Laporan ZIS</a>
                 <a href="#infak-harian" class="text-slate-200 hover:text-gold-400 transition-colors">Infak Harian</a>
@@ -214,7 +214,7 @@
         <!-- MOBILE NAVIGATION DROPDOWN -->
         <nav id="mobile-menu" class="hidden xl:hidden bg-emerald-950/95 border-t border-gold-500/20 px-4 pt-3 pb-6 space-y-2 text-sm font-medium" aria-label="Navigasi Mobile">
             <a href="#beranda" class="mobile-link block py-2 px-3 rounded-lg text-gold-400 hover:bg-emerald-900/60 transition-colors">Beranda</a>
-            <a href="#jadwal-kultum" class="mobile-link block py-2 px-3 rounded-lg text-slate-300 hover:text-gold-400 hover:bg-emerald-900/60 transition-colors">Jadwal Kultum</a>
+            <a href="#jadwal-kultum" class="mobile-link block py-2 px-3 rounded-lg text-slate-300 hover:text-gold-400 hover:bg-emerald-900/60 transition-colors">Kultum Subuh</a>
             <a href="#agenda" class="mobile-link block py-2 px-3 rounded-lg text-slate-300 hover:text-gold-400 hover:bg-emerald-900/60 transition-colors">Agenda</a>
             <a href="#zis" class="mobile-link block py-2 px-3 rounded-lg text-slate-300 hover:text-gold-400 hover:bg-emerald-900/60 transition-colors">Laporan ZIS</a>
             <a href="#infak-harian" class="mobile-link block py-2 px-3 rounded-lg text-slate-300 hover:text-gold-400 hover:bg-emerald-900/60 transition-colors">Infak Harian</a>
@@ -261,13 +261,13 @@
             </div>
         </section>
 
-        <!-- SECTION 1: JADWAL KULTUM TARAWIH & SUBUH -->
+        <!-- SECTION 1: JADWAL KULTUM SUBUH -->
         <section id="jadwal-kultum" class="py-20 pattern-bg relative border-t border-gold-500/10">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
                     <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">— Jadwal Penceramah —</span>
-                    <h3 class="text-2xl sm:text-4xl font-bold text-white font-amiri">Kultum Tarawih & Subuh</h3>
-                    <p class="text-slate-400 text-xs sm:text-sm">Jadwal penceramah dan mubaligh Masjid Al-Marhamah</p>
+                    <h3 class="text-2xl sm:text-4xl font-bold text-white font-amiri">Jadwal Kultum Subuh</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm">Daftar penceramah kuliah tujuh menit ba'da Sholat Subuh Masjid Al-Marhamah</p>
                     <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
                 </div>
 
@@ -278,12 +278,11 @@
                                 <tr>
                                     <th class="py-4 px-6">Ramadhan Ke-</th>
                                     <th class="py-4 px-6">Tanggal</th>
-                                    <th class="py-4 px-6">Penceramah Tarawih</th>
                                     <th class="py-4 px-6">Penceramah Subuh</th>
                                 </tr>
                             </thead>
                             <tbody id="kultum-tbody" class="divide-y divide-slate-800/80">
-                                <tr><td colspan="4" class="py-8 text-center text-slate-500">Belum ada jadwal kultum.</td></tr>
+                                <tr><td colspan="3" class="py-8 text-center text-slate-500">Belum ada jadwal kultum Subuh.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -302,7 +301,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="agenda-container">
-                    <div class="col-span-full py-8 text-center text-slate-500">Memuat agenda kegiatan...</div>
+                    <div class="col-span-full py-8 text-center text-slate-500">Belum ada agenda kegiatan.</div>
                 </div>
             </div>
         </section>
@@ -510,7 +509,7 @@
             if (el) el.textContent = text;
         };
 
-        // 1. HITUNG MUNDUR MENUJU 1 RAMADHAN 1448 H (8 FEBRUARI 2027 / MALAM 1 RAMADHAN 7 FEB 2027 18:00 WIB)
+        // 1. HITUNG MUNDUR MENUJU 1 RAMADHAN 1448 H (MALAM 1 RAMADHAN 7 FEB 2027 18:00 WIB)
         const initCountdownHijriyah1448H = () => {
             const targetHijriMoment = new Date('2027-02-07T18:00:00+07:00').getTime();
 
@@ -561,13 +560,13 @@
             });
         };
 
-        // 3. RENDER KOMPONEN HALAMAN (JADWAL KULTUM DIKOSONGKAN JIKA DATA KOSONG)
+        // 3. RENDER JADWAL KULTUM SUBUH (3 KOLOM, TANPA DATA CONTOH)
         const renderKultum = (list) => {
             const tbody = document.getElementById('kultum-tbody');
             if (!tbody) return;
 
             if (!Array.isArray(list) || list.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="py-8 text-center text-slate-500">Belum ada jadwal kultum.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="3" class="py-8 text-center text-slate-500">Belum ada jadwal kultum Subuh.</td></tr>';
                 return;
             }
 
@@ -575,27 +574,26 @@
                 const safeItem = item && typeof item === 'object' ? item : {};
                 const hari = escapeHTML(safeItem.hari || `Ramadhan ${index + 1}`);
                 const tanggal = escapeHTML(safeItem.tanggal || '-');
-                const tarawih = escapeHTML(safeItem.penceramah_tarawih || safeItem.tarawih || '-');
-                const subuh = escapeHTML(safeItem.penceramah_subuh || safeItem.subuh || '-');
+                const subuh = escapeHTML(safeItem.penceramah_subuh || safeItem.subuh || safeItem.penceramah || '-');
                 const rowClass = index % 2 === 0 ? 'bg-slate-900/40' : 'bg-slate-950/40';
 
                 return `
                     <tr class="${rowClass}">
                         <td class="py-3.5 px-6 font-semibold text-gold-300">${hari}</td>
                         <td class="py-3.5 px-6 text-slate-400">${tanggal}</td>
-                        <td class="py-3.5 px-6 font-medium text-white">${tarawih}</td>
                         <td class="py-3.5 px-6 font-medium text-white">${subuh}</td>
                     </tr>
                 `;
             }).join('');
         };
 
+        // 4. RENDER AGENDA KEGIATAN (TANPA DATA CONTOH)
         const renderAgenda = (list) => {
             const container = document.getElementById('agenda-container');
             if (!container) return;
 
             if (!Array.isArray(list) || list.length === 0) {
-                renderFallbackAgenda();
+                container.innerHTML = '<div class="col-span-full py-8 text-center text-slate-500">Belum ada agenda kegiatan.</div>';
                 return;
             }
 
@@ -623,6 +621,7 @@
             }).join('');
         };
 
+        // 5. RENDER INFAK HARIAN
         const renderInfakHarian = (list) => {
             const tbody = document.getElementById('infak-harian-tbody');
             if (!tbody) return;
@@ -668,6 +667,7 @@
             setElText('total-gabungan-harian', formatRp(totalTarawih + totalSubuh));
         };
 
+        // 6. RENDER GALERI
         const renderGaleri = (list) => {
             const container = document.getElementById('galeri-container');
             if (!container || !Array.isArray(list) || list.length === 0) return;
@@ -692,31 +692,7 @@
             }
         };
 
-        const renderFallbackAgenda = () => {
-            const agendaContainer = document.getElementById('agenda-container');
-            if (!agendaContainer) return;
-            agendaContainer.innerHTML = `
-                <div class="glass-card rounded-2xl p-6 border border-gold-500/30">
-                    <div class="flex items-center justify-between mb-4"><span class="text-xs bg-gold-500/20 text-gold-300 font-bold px-3 py-1 rounded-full border border-gold-500/30">17 Ramadhan</span><span class="text-[11px] text-emerald-400 font-medium">19.30 WIB</span></div>
-                    <h4 class="text-lg font-bold text-white mb-2">Peringatan Nuzulul Qur'an</h4>
-                    <p class="text-xs text-slate-300 leading-relaxed mb-4">Pengajian umum & tasyakuran memperingati Nuzulul Qur'an bersama jamaah.</p>
-                    <div class="text-[11px] text-slate-400 flex items-center"><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Ruang Utama Masjid Al-Marhamah</div>
-                </div>
-                <div class="glass-card rounded-2xl p-6 border border-gold-500/30">
-                    <div class="flex items-center justify-between mb-4"><span class="text-xs bg-gold-500/20 text-gold-300 font-bold px-3 py-1 rounded-full border border-gold-500/30">Setiap Hari</span><span class="text-[11px] text-emerald-400 font-medium">17.30 WIB</span></div>
-                    <h4 class="text-lg font-bold text-white mb-2">Buka Puasa Bersama (Takjil)</h4>
-                    <p class="text-xs text-slate-300 leading-relaxed mb-4">Penyediaan santapan berbuka puasa gratis untuk jamaah & musafir.</p>
-                    <div class="text-[11px] text-slate-400 flex items-center"><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Serambi Masjid Al-Marhamah</div>
-                </div>
-                <div class="glass-card rounded-2xl p-6 border border-gold-500/30">
-                    <div class="flex items-center justify-between mb-4"><span class="text-xs bg-gold-500/20 text-gold-300 font-bold px-3 py-1 rounded-full border border-gold-500/30">10 Malam Terakhir</span><span class="text-[11px] text-emerald-400 font-medium">01.00 WIB</span></div>
-                    <h4 class="text-lg font-bold text-white mb-2">I'tikaf & Qiyamul Lail</h4>
-                    <p class="text-xs text-slate-300 leading-relaxed mb-4">Penyelenggaraan sholat malam berjamaah & sahur bersama.</p>
-                    <div class="text-[11px] text-slate-400 flex items-center"><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Ruang Utama Masjid</div>
-                </div>
-            `;
-        };
-
+        // 7. LOAD DATA JSON
         const loadDataJSON = async () => {
             try {
                 const res = await fetch('data.json', { cache: 'no-store' });
@@ -730,10 +706,8 @@
                     throw new Error('Struktur root JSON bukan objek yang valid');
                 }
 
-                // 1. Last Update
-                setElText('last-update', data.last_update ? String(data.last_update) : 'Baru saja');
+                setElText('last-update', data.last_update ? String(data.last_update) : 'Belum ada pembaruan');
 
-                // 2. ZIS Cards (Dikelola Admin ZIS)
                 const z = (data.zis && typeof data.zis === 'object' && !Array.isArray(data.zis)) ? data.zis : {};
                 const berasKg = Number(z.zakat_fitrah_beras_kg);
                 setElText('zis-fitrah-beras', `${(Number.isFinite(berasKg) ? berasKg : 0).toLocaleString('id-ID')} Kg`);
@@ -742,7 +716,6 @@
                 setElText('zis-fidyah', formatRp(z.fidyah));
                 setElText('zis-infak-umum', formatRp(z.infak_shodaqoh));
 
-                // 3. Kultum, Agenda, Galeri & Infak Harian
                 renderKultum(data.jadwal_kultum || data.kultum);
                 renderAgenda(data.agenda);
                 renderInfakHarian(data.infak_harian);
@@ -750,9 +723,9 @@
 
             } catch (err) {
                 console.error('Error loading data.json:', err);
-                setElText('last-update', 'Data Offline');
+                setElText('last-update', 'Belum ada data');
                 renderKultum([]);
-                renderFallbackAgenda();
+                renderAgenda([]);
                 renderInfakHarian([]);
             }
         };
