@@ -1,38 +1,13 @@
 {
-  "last_update": "10 November 2026, 11:00 WIB",
+  "last_update": "10 November 2026, 15:20 WIB",
   "zis": {
-    "zakat_fitrah_beras_kg": 425.5,
-    "zakat_fitrah_uang": 18500000,
-    "zakat_maal": 32000000,
-    "fidyah": 4500000,
-    "infak_shodaqoh": 12750000
+    "zakat_fitrah_beras_kg": 0,
+    "zakat_fitrah_uang": 0,
+    "zakat_maal": 0,
+    "fidyah": 0,
+    "infak_shodaqoh": 0
   },
-  "jadwal_kultum": [
-    {
-      "hari": "Ramadhan 1",
-      "tanggal": "8 Feb 2027",
-      "penceramah_tarawih": "Ust. Ahmad Hidayat, S.Ag",
-      "penceramah_subuh": "Ust. Muhammad Ridwan, M.A"
-    },
-    {
-      "hari": "Ramadhan 2",
-      "tanggal": "9 Feb 2027",
-      "penceramah_tarawih": "Ust. Dr. H. Abdul Ghofur",
-      "penceramah_subuh": "Ust. Ahmad Hidayat, S.Ag"
-    },
-    {
-      "hari": "Ramadhan 3",
-      "tanggal": "10 Feb 2027",
-      "penceramah_tarawih": "Ust. Farhan Basalamah, Lc",
-      "penceramah_subuh": "Ust. Nuruddin, M.Pd"
-    },
-    {
-      "hari": "Ramadhan 4",
-      "tanggal": "11 Feb 2027",
-      "penceramah_tarawih": "Ust. H. Syamsul Arifin, M.Ag",
-      "penceramah_subuh": "Ust. Dr. H.ומים Ghofur"
-    }
-  ],
+  "jadwal_kultum": [],
   "agenda": [
     {
       "hari": "Setiap Hari",
@@ -56,26 +31,7 @@
       "lokasi": "Ruang Utama Masjid Al-Marhamah"
     }
   ],
-  "infak_harian": [
-    {
-      "hari": "Ramadhan 1",
-      "tanggal": "8 Feb 2027",
-      "tarawih": 1450000,
-      "subuh": 650000
-    },
-    {
-      "hari": "Ramadhan 2",
-      "tanggal": "9 Feb 2027",
-      "tarawih": 1320000,
-      "subuh": 580000
-    },
-    {
-      "hari": "Ramadhan 3",
-      "tanggal": "10 Feb 2027",
-      "tarawih": 1280000,
-      "subuh": 610000
-    }
-  ],
+  "infak_harian": [],
   "galeri": [
     {
       "url": "https://images.unsplash.com/photo-1564769625905-50e93615e769?q=80&w=800&auto=format&fit=crop",
@@ -99,61 +55,61 @@
       "tanggal": "1 Syawal 1448 H / 10 Maret 2027",
       "waktu": "06.15 WIB - Selesai",
       "lokasi": "Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman",
-      "khatib": "Prof. Dr. H. Abdul Mustaqim, M.Ag",
-      "imam": "Ust. H. Ahmad Fauzi, Lc., M.H.I",
-      "infak_sholat_ied": 24850000,
-      "operasional_panitia": 6350000
+      "khatib": "-",
+      "imam": "-",
+      "infak_sholat_ied": 0,
+      "operasional_panitia": 0
     },
     "rekap_masjid": [
       {
         "nama": "Masjid Al-Marhamah",
         "wilayah": "Candi Gebang Permai",
-        "fitrah_beras_kg": 425.5,
-        "fitrah_uang": 18500000,
-        "zakat_maal": 32000000,
-        "fidyah": 4500000,
-        "infak": 12750000,
-        "mustahik_jiwa": 145
+        "fitrah_beras_kg": 0,
+        "fitrah_uang": 0,
+        "zakat_maal": 0,
+        "fidyah": 0,
+        "infak": 0,
+        "mustahik_jiwa": 0
       },
       {
         "nama": "Masjid Al-Ikhlas",
         "wilayah": "Candi Gebang Baru",
-        "fitrah_beras_kg": 380.0,
-        "fitrah_uang": 15200000,
-        "zakat_maal": 24500000,
-        "fidyah": 3200000,
-        "infak": 9800000,
-        "mustahik_jiwa": 120
+        "fitrah_beras_kg": 0,
+        "fitrah_uang": 0,
+        "zakat_maal": 0,
+        "fidyah": 0,
+        "infak": 0,
+        "mustahik_jiwa": 0
       },
       {
         "nama": "Masjid Baiturrohim",
         "wilayah": "Gebang Raya",
-        "fitrah_beras_kg": 310.0,
-        "fitrah_uang": 12400000,
-        "zakat_maal": 19000000,
-        "fidyah": 2850000,
-        "infak": 8400000,
-        "mustahik_jiwa": 98
+        "fitrah_beras_kg": 0,
+        "fitrah_uang": 0,
+        "zakat_maal": 0,
+        "fidyah": 0,
+        "infak": 0,
+        "mustahik_jiwa": 0
       },
       {
         "nama": "Masjid Nurul Huda",
         "wilayah": "Krajan Gebang",
-        "fitrah_beras_kg": 295.5,
-        "fitrah_uang": 11800000,
-        "zakat_maal": 15500000,
-        "fidyah": 2100000,
-        "infak": 7650000,
-        "mustahik_jiwa": 110
+        "fitrah_beras_kg": 0,
+        "fitrah_uang": 0,
+        "zakat_maal": 0,
+        "fidyah": 0,
+        "infak": 0,
+        "mustahik_jiwa": 0
       },
       {
         "nama": "Masjid At-Taqwa",
         "wilayah": "Gebang Mulya",
-        "fitrah_beras_kg": 350.0,
-        "fitrah_uang": 14100000,
-        "zakat_maal": 21000000,
-        "fidyah": 3400000,
-        "infak": 10200000,
-        "mustahik_jiwa": 115
+        "fitrah_beras_kg": 0,
+        "fitrah_uang": 0,
+        "zakat_maal": 0,
+        "fidyah": 0,
+        "infak": 0,
+        "mustahik_jiwa": 0
       }
     ]
   }
