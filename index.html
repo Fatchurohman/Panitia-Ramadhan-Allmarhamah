@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panitia Ramadhan 1447 H - Masjid Al-Marhamah</title>
+    <title>Panitia Ramadhan 1448 H - Masjid Al-Marhamah</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Amiri, Plus Jakarta Sans & Orbitron (Untuk Jam Digital Mewah) -->
@@ -117,7 +117,7 @@
     <!-- TOP ANNOUNCEMENT BAR -->
     <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 border-b border-gold-500/30 text-gold-300 text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-md">
         <span class="inline-block animate-pulse mr-2">✨</span> 
-        Marhaban Ya Ramadhan 1447 H — Masjid Al-Marhamah
+        Marhaban Ya Ramadhan 1448 H — Masjid Al-Marhamah
         <span class="inline-block animate-pulse ml-2">✨</span>
     </div>
 
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <div>
-                    <h1 class="text-sm sm:text-base font-extrabold text-white tracking-wide leading-tight">PANITIA RAMADHAN 1447 H</h1>
+                    <h1 class="text-sm sm:text-base font-extrabold text-white tracking-wide leading-tight">PANITIA RAMADHAN 1448 H</h1>
                     <p class="text-xs sm:text-sm font-bold text-gold-400 uppercase tracking-wider">MASJID AL-MARHAMAH</p>
                     <p class="text-[10px] sm:text-[11px] text-slate-300 font-medium">Perum Candi Gebang Permai, Ngemplak</p>
                 </div>
@@ -237,12 +237,12 @@
                 </div>
 
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight font-amiri tracking-wide">
-                    Gema Semarak Ramadhan 1447 H<br/>
+                    Gema Semarak Ramadhan 1448 H<br/>
                     <span class="gold-gradient-text">Masjid Al-Marhamah</span>
                 </h2>
 
                 <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
-                    Menghadirkan transparansi pengelolaan Zakat, Infaq, Sedekah, dan Fidyah serta wujud akuntabilitas pelayanan ibadah jamaah selama bulan suci Ramadhan 1447 H.
+                    Menghadirkan transparansi pengelolaan Zakat, Infaq, Sedekah, dan Fidyah serta wujud akuntabilitas pelayanan ibadah jamaah selama bulan suci Ramadhan 1448 H.
                 </p>
 
                 <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -448,7 +448,7 @@
                         </div>
                         <h3 class="text-2xl sm:text-3xl font-extrabold text-white font-amiri">
                             Panitia Gabungan 5 Masjid<br/>
-                            <span class="gold-gradient-text">Penyelenggaraan Sholat Idul Fitri 1447 H</span>
+                            <span class="gold-gradient-text">Penyelenggaraan Sholat Idul Fitri 1448 H</span>
                         </h3>
                         <p class="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
                             Untuk melihat rekapitulasi perolehan ZIS tingkat wilayah serta laporan Infak Pelaksanaan Sholat Idul Fitri Gabungan 5 Masjid, silakan kunjungi website resmi panitia gabungan.
@@ -467,7 +467,7 @@
     <footer class="bg-slate-950 text-slate-400 text-xs py-8 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-                <p class="font-semibold text-slate-300">© 1447 H / 2026 M Panitia Ramadhan Masjid Al-Marhamah.</p>
+                <p class="font-semibold text-slate-300">© 1448 H / 2027 M Panitia Ramadhan Masjid Al-Marhamah.</p>
                 <p class="text-slate-500 mt-0.5">Perum Candi Gebang Permai, Ngemplak, Sleman, DI Yogyakarta.</p>
             </div>
             <div class="flex items-center space-x-4">
@@ -511,7 +511,6 @@
         };
 
         // 1. ALGORITMA HISAB WAKTU MAGHRIB HARIAN STANDAR KEMENAG RI (SUNSET + IHTIYAT)
-        // Menghitung jam & menit Maghrib untuk tanggal HARI INI sesuai koordinat GPS / Sleman
         const getTodayLocalMaghrib = (dateObj, lat, lng) => {
             const rad = Math.PI / 180;
             const deg = 180 / Math.PI;
@@ -524,10 +523,8 @@
             const currentDay = new Date(year, month - 1, day);
             const dayOfYear = Math.floor((currentDay - startOfYear) / 86400000);
 
-            // Sudut tanggal tahunan (Fractional Year gamma) pada pukul 18:00 lokal
             const gamma = ((2 * Math.PI) / 365.25) * (dayOfYear - 1 + (18 - 12) / 24);
 
-            // Equation of Time (dalam menit) & Solar Declination (dalam radian) - Rumus Spencer/NOAA
             const eqTime = 229.18 * (
                 0.000075 +
                 0.001868 * Math.cos(gamma) -
@@ -544,54 +541,56 @@
                 0.002697 * Math.cos(3 * gamma) +
                 0.00148 * Math.sin(3 * gamma);
 
-            // Sudut Zenith Matahari Terbenam + koreksi kerendahan ufuk & refraksi (-1 derajat = 91 derajat)
             const zenith = 91.0;
             const cosHA = (Math.cos(zenith * rad) / (Math.cos(lat * rad) * Math.cos(decl))) - (Math.tan(lat * rad) * Math.tan(decl));
 
-            if (cosHA > 1 || cosHA < -1) {
+            if (!Number.isFinite(cosHA) || cosHA > 1 || cosHA < -1) {
                 return { hours: 17, minutes: 35 };
             }
 
             const haDeg = Math.acos(cosHA) * deg;
             const tzOffsetHours = -dateObj.getTimezoneOffset() / 60;
 
-            // Waktu Sunset UTC (dalam menit dari tengah malam) + Konversi ke Zona Waktu Lokal + Ihtiyat Kemenag (+2 menit)
             const sunsetUTCMinutes = 720 - 4 * (lng + haDeg) - eqTime;
-            const maghribLocalMinutes = Math.round(sunsetUTCMinutes + (tzOffsetHours * 60) + 2);
+            const rawLocalMinutes = Math.round(sunsetUTCMinutes + (tzOffsetHours * 60) + 2);
+            const normalizedMinutes = ((rawLocalMinutes % 1440) + 1440) % 1440;
 
-            const hours = Math.floor(maghribLocalMinutes / 60) % 24;
-            const minutes = maghribLocalMinutes % 60;
+            const hours = Math.floor(normalizedMinutes / 60);
+            const minutes = normalizedMinutes % 60;
 
             return { hours, minutes };
         };
 
         // 2. HITUNG MUNDUR KALENDER HIJRIYAH (HARI : JAM : MENIT : DETIK)
-        // Pergantian hari dihitung tepat berdasarkan jam Maghrib HARI INI (misal 17:35 WIB di Sleman pada bulan November).
         const initCountdownHijriyah1448H = () => {
-            // Koordinat Default: Masjid Al-Marhamah (Candi Gebang Permai, Ngemplak, Sleman)
             let coords = { lat: -7.7381, lng: 110.4225, isGPS: false, fallback18: false };
+            let cachedDateKey = '';
+            let cachedMaghrib = { hours: 17, minutes: 35 };
 
             const updateClock = () => {
                 const now = new Date();
+                const dateKey = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${coords.lat.toFixed(4)}-${coords.lng.toFixed(4)}`;
 
-                // Hitung jam Maghrib untuk HARI INI
-                const todayMaghrib = coords.fallback18
-                    ? { hours: 18, minutes: 0 }
-                    : getTodayLocalMaghrib(now, coords.lat, coords.lng);
+                // Hitung ulang waktu Maghrib hanya jika berganti hari atau koordinat GPS diperbarui
+                if (dateKey !== cachedDateKey) {
+                    cachedMaghrib = coords.fallback18
+                        ? { hours: 18, minutes: 0 }
+                        : getTodayLocalMaghrib(now, coords.lat, coords.lng);
+                    cachedDateKey = dateKey;
 
-                const hh = String(todayMaghrib.hours).padStart(2, '0');
-                const mm = String(todayMaghrib.minutes).padStart(2, '0');
-                const locLabel = coords.isGPS ? 'GPS Lokal Aktif' : (coords.fallback18 ? 'WIB' : 'Sleman');
-                setElText('maghrib-info', `Pergantian Hari Hijriyah: Maghrib ${hh}:${mm} WIB (${locLabel})`);
+                    const hh = String(cachedMaghrib.hours).padStart(2, '0');
+                    const mm = String(cachedMaghrib.minutes).padStart(2, '0');
+                    const locLabel = coords.isGPS ? 'GPS Lokal Aktif' : (coords.fallback18 ? 'WIB' : 'Sleman');
+                    setElText('maghrib-info', `Pergantian Hari Hijriyah: Maghrib ${hh}:${mm} WIB (${locLabel})`);
+                }
 
-                // Patokan pergantian hari menuju malam 1 Ramadhan 1448 H (Minggu sore, 7 Feb 2027 pada jam Maghrib hari berjalan)
-                // Dengan menyamakan jam target ke jam Maghrib hari ini, maka angka HARI otomatis berkurang 1 tepat pada jam Maghrib hari ini (17:35 WIB)!
+                // Target: Malam 1 Ramadhan 1448 H (Minggu sore, 7 Feb 2027 saat Maghrib)
                 const targetHijriMoment = new Date(
                     2027,
-                    1, // Februari (0-indexed)
-                    7, // Minggu sore 7 Feb 2027 saat Maghrib = masuk 1 Ramadhan 1448 H (Senin, 8 Feb 2027)
-                    todayMaghrib.hours,
-                    todayMaghrib.minutes,
+                    1,
+                    7,
+                    cachedMaghrib.hours,
+                    cachedMaghrib.minutes,
                     0
                 ).getTime();
 
@@ -616,22 +615,23 @@
                 setElText('cd-seconds', String(seconds).padStart(2, '0'));
             };
 
-            // Deteksi GPS otomatis dari perangkat pengguna
             if ('geolocation' in navigator) {
                 navigator.geolocation.getCurrentPosition(
                     (pos) => {
-                        coords = {
-                            lat: pos.coords.latitude,
-                            lng: pos.coords.longitude,
-                            isGPS: true,
-                            fallback18: false
-                        };
-                        const gpsIcon = document.getElementById('gps-icon');
-                        if (gpsIcon) gpsIcon.classList.add('text-emerald-400');
-                        updateClock();
+                        if (pos && pos.coords) {
+                            coords = {
+                                lat: Number(pos.coords.latitude) || -7.7381,
+                                lng: Number(pos.coords.longitude) || 110.4225,
+                                isGPS: true,
+                                fallback18: false
+                            };
+                            cachedDateKey = ''; // Paksa kalkulasi ulang Maghrib dengan GPS baru
+                            const gpsIcon = document.getElementById('gps-icon');
+                            if (gpsIcon) gpsIcon.classList.add('text-emerald-400');
+                            updateClock();
+                        }
                     },
                     () => {
-                        // Tetap gunakan koordinat Masjid Al-Marhamah Sleman (17:35 WIB di bulan Nov) jika GPS tidak diizinkan
                         coords.isGPS = false;
                         updateClock();
                     },
@@ -744,8 +744,10 @@
                 const safeItem = item && typeof item === 'object' ? item : {};
                 const hari = escapeHTML(safeItem.hari || `Ramadhan ${index + 1}`);
                 const tanggal = escapeHTML(safeItem.tanggal || '-');
-                const tarawih = Number(safeItem.tarawih) || 0;
-                const subuh = Number(safeItem.subuh) || 0;
+                const rawTarawih = Number(safeItem.tarawih);
+                const rawSubuh = Number(safeItem.subuh);
+                const tarawih = Number.isFinite(rawTarawih) ? rawTarawih : 0;
+                const subuh = Number.isFinite(rawSubuh) ? rawSubuh : 0;
                 const total = tarawih + subuh;
 
                 totalTarawih += tarawih;
@@ -772,9 +774,10 @@
             const container = document.getElementById('galeri-container');
             if (!container || !Array.isArray(list) || list.length === 0) return;
 
-            container.innerHTML = list.map((item) => {
+            const validItems = list.map((item) => {
                 const isObj = item && typeof item === 'object';
-                const url = escapeHTML(isObj ? (item.url || item.src) : item);
+                const rawUrl = isObj ? (item.url || item.src) : item;
+                const url = typeof rawUrl === 'string' ? escapeHTML(rawUrl.trim()) : '';
                 const alt = escapeHTML(isObj ? (item.caption || item.alt || 'Dokumentasi Ramadhan') : 'Dokumentasi Ramadhan');
                 if (!url) return '';
 
@@ -784,16 +787,20 @@
                         ${alt ? `<div class="p-3 bg-emerald-950/90 text-xs text-gold-300 font-medium border-t border-gold-500/20">${alt}</div>` : ''}
                     </div>
                 `;
-            }).join('');
+            }).filter(Boolean);
+
+            if (validItems.length > 0) {
+                container.innerHTML = validItems.join('');
+            }
         };
 
         const renderFallbackKultum = () => {
             const kultumTbody = document.getElementById('kultum-tbody');
             if (!kultumTbody) return;
             kultumTbody.innerHTML = `
-                <tr class="bg-slate-900/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 1</td><td class="py-3.5 px-6 text-slate-400">19 Feb 2026</td><td class="py-3.5 px-6 font-medium text-white">Ust. Ahmad Hidayat, S.Ag</td><td class="py-3.5 px-6 font-medium text-white">Ust. Muhammad Ridwan, M.A</td></tr>
-                <tr class="bg-slate-950/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 2</td><td class="py-3.5 px-6 text-slate-400">20 Feb 2026</td><td class="py-3.5 px-6 font-medium text-white">Ust. Dr. H. Abdul Ghofur</td><td class="py-3.5 px-6 font-medium text-white">Ust. Ahmad Hidayat, S.Ag</td></tr>
-                <tr class="bg-slate-900/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 3</td><td class="py-3.5 px-6 text-slate-400">21 Feb 2026</td><td class="py-3.5 px-6 font-medium text-white">Ust. Farhan Basalamah, Lc</td><td class="py-3.5 px-6 font-medium text-white">Ust. Nuruddin, M.Pd</td></tr>
+                <tr class="bg-slate-900/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 1</td><td class="py-3.5 px-6 text-slate-400">8 Feb 2027</td><td class="py-3.5 px-6 font-medium text-white">Ust. Ahmad Hidayat, S.Ag</td><td class="py-3.5 px-6 font-medium text-white">Ust. Muhammad Ridwan, M.A</td></tr>
+                <tr class="bg-slate-950/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 2</td><td class="py-3.5 px-6 text-slate-400">9 Feb 2027</td><td class="py-3.5 px-6 font-medium text-white">Ust. Dr. H. Abdul Ghofur</td><td class="py-3.5 px-6 font-medium text-white">Ust. Ahmad Hidayat, S.Ag</td></tr>
+                <tr class="bg-slate-900/40"><td class="py-3.5 px-6 font-semibold text-gold-300">Ramadhan 3</td><td class="py-3.5 px-6 text-slate-400">10 Feb 2027</td><td class="py-3.5 px-6 font-medium text-white">Ust. Farhan Basalamah, Lc</td><td class="py-3.5 px-6 font-medium text-white">Ust. Nuruddin, M.Pd</td></tr>
             `;
         };
 
@@ -827,14 +834,19 @@
                 const res = await fetch('data.json', { cache: 'no-store' });
                 if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
                 
-                const data = await res.json();
-                if (!data || typeof data !== 'object') throw new Error('Struktur JSON tidak valid');
+                const rawText = await res.text();
+                if (!rawText || !rawText.trim()) throw new Error('File JSON kosong');
+
+                const data = JSON.parse(rawText);
+                if (!data || typeof data !== 'object' || Array.isArray(data)) {
+                    throw new Error('Struktur root JSON bukan objek yang valid');
+                }
 
                 // 1. Last Update
                 setElText('last-update', data.last_update ? String(data.last_update) : 'Baru saja');
 
                 // 2. ZIS Cards (Dikelola Admin ZIS)
-                const z = (data.zis && typeof data.zis === 'object') ? data.zis : {};
+                const z = (data.zis && typeof data.zis === 'object' && !Array.isArray(data.zis)) ? data.zis : {};
                 const berasKg = Number(z.zakat_fitrah_beras_kg);
                 setElText('zis-fitrah-beras', `${(Number.isFinite(berasKg) ? berasKg : 0).toLocaleString('id-ID')} Kg`);
                 setElText('zis-fitrah-uang', formatRp(z.zakat_fitrah_uang));
@@ -842,7 +854,7 @@
                 setElText('zis-fidyah', formatRp(z.fidyah));
                 setElText('zis-infak-umum', formatRp(z.infak_shodaqoh));
 
-                // 3. Kultum, Agenda, Galeri (Dikelola Admin Umum) & Infak Harian (Dikelola Admin Bendahara)
+                // 3. Kultum, Agenda, Galeri & Infak Harian
                 renderKultum(data.jadwal_kultum || data.kultum);
                 renderAgenda(data.agenda);
                 renderInfakHarian(data.infak_harian);
