@@ -1,17 +1,160 @@
 {
-  "last_update": "20 Ramadhan 1447 H - 17:30 WIB",
+  "last_update": "10 November 2026, 11:00 WIB",
   "zis": {
-    "zakat_fitrah_beras_kg": 540,
-    "zakat_fitrah_uang": 3750000,
-    "zakat_maal": 8500000,
-    "fidyah": 1250000,
-    "infak_shodaqoh": 2400000
+    "zakat_fitrah_beras_kg": 425.5,
+    "zakat_fitrah_uang": 18500000,
+    "zakat_maal": 32000000,
+    "fidyah": 4500000,
+    "infak_shodaqoh": 12750000
   },
+  "jadwal_kultum": [
+    {
+      "hari": "Ramadhan 1",
+      "tanggal": "8 Feb 2027",
+      "penceramah_tarawih": "Ust. Ahmad Hidayat, S.Ag",
+      "penceramah_subuh": "Ust. Muhammad Ridwan, M.A"
+    },
+    {
+      "hari": "Ramadhan 2",
+      "tanggal": "9 Feb 2027",
+      "penceramah_tarawih": "Ust. Dr. H. Abdul Ghofur",
+      "penceramah_subuh": "Ust. Ahmad Hidayat, S.Ag"
+    },
+    {
+      "hari": "Ramadhan 3",
+      "tanggal": "10 Feb 2027",
+      "penceramah_tarawih": "Ust. Farhan Basalamah, Lc",
+      "penceramah_subuh": "Ust. Nuruddin, M.Pd"
+    },
+    {
+      "hari": "Ramadhan 4",
+      "tanggal": "11 Feb 2027",
+      "penceramah_tarawih": "Ust. H. Syamsul Arifin, M.Ag",
+      "penceramah_subuh": "Ust. Dr. H.ומים Ghofur"
+    }
+  ],
+  "agenda": [
+    {
+      "hari": "Setiap Hari",
+      "jam": "17.30 WIB",
+      "judul": "Buka Puasa Bersama (Takjil)",
+      "deskripsi": "Penyediaan santapan berbuka puasa gratis untuk jamaah dan musafir.",
+      "lokasi": "Serambi Masjid Al-Marhamah"
+    },
+    {
+      "hari": "17 Ramadhan",
+      "jam": "19.30 WIB",
+      "judul": "Peringatan Nuzulul Qur'an",
+      "deskripsi": "Pengajian umum dan tasyakuran memperingati Nuzulul Qur'an 1448 H bersama seluruh warga.",
+      "lokasi": "Ruang Utama Masjid Al-Marhamah"
+    },
+    {
+      "hari": "10 Malam Terakhir",
+      "jam": "01.00 WIB",
+      "judul": "I'tikaf & Qiyamul Lail",
+      "deskripsi": "Penyelenggaraan sholat malam berjamaah, tadarus Al-Qur'an, dan sahur bersama.",
+      "lokasi": "Ruang Utama Masjid Al-Marhamah"
+    }
+  ],
   "infak_harian": [
-    { "hari": "Ramadhan 1", "tanggal": "19 Feb 2026", "tarawih": 1250000, "subuh": 450000 },
-    { "hari": "Ramadhan 2", "tanggal": "20 Feb 2026", "tarawih": 1100000, "subuh": 380000 },
-    { "hari": "Ramadhan 3", "tanggal": "21 Feb 2026", "tarawih": 980000, "subuh": 410000 },
-    { "hari": "Ramadhan 4", "tanggal": "22 Feb 2026", "tarawih": 1350000, "subuh": 520000 },
-    { "hari": "Ramadhan 5", "tanggal": "23 Feb 2026", "tarawih": 1050000, "subuh": 390000 }
-  ]
+    {
+      "hari": "Ramadhan 1",
+      "tanggal": "8 Feb 2027",
+      "tarawih": 1450000,
+      "subuh": 650000
+    },
+    {
+      "hari": "Ramadhan 2",
+      "tanggal": "9 Feb 2027",
+      "tarawih": 1320000,
+      "subuh": 580000
+    },
+    {
+      "hari": "Ramadhan 3",
+      "tanggal": "10 Feb 2027",
+      "tarawih": 1280000,
+      "subuh": 610000
+    }
+  ],
+  "galeri": [
+    {
+      "url": "https://images.unsplash.com/photo-1564769625905-50e93615e769?q=80&w=800&auto=format&fit=crop",
+      "caption": "Pelaksanaan Sholat Tarawih Berjamaah"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=800&auto=format&fit=crop",
+      "caption": "Buka Puasa Bersama Jamaah"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800&auto=format&fit=crop",
+      "caption": "Tadarus Al-Qur'an Ba'da Tarawih"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800&auto=format&fit=crop",
+      "caption": "Penyaluran Zakat Fitrah & Fidyah"
+    }
+  ],
+  "gabungan_5_masjid": {
+    "idul_fitri": {
+      "tanggal": "1 Syawal 1448 H / 10 Maret 2027",
+      "waktu": "06.15 WIB - Selesai",
+      "lokasi": "Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman",
+      "khatib": "Prof. Dr. H. Abdul Mustaqim, M.Ag",
+      "imam": "Ust. H. Ahmad Fauzi, Lc., M.H.I",
+      "infak_sholat_ied": 24850000,
+      "operasional_panitia": 6350000
+    },
+    "rekap_masjid": [
+      {
+        "nama": "Masjid Al-Marhamah",
+        "wilayah": "Candi Gebang Permai",
+        "fitrah_beras_kg": 425.5,
+        "fitrah_uang": 18500000,
+        "zakat_maal": 32000000,
+        "fidyah": 4500000,
+        "infak": 12750000,
+        "mustahik_jiwa": 145
+      },
+      {
+        "nama": "Masjid Al-Ikhlas",
+        "wilayah": "Candi Gebang Baru",
+        "fitrah_beras_kg": 380.0,
+        "fitrah_uang": 15200000,
+        "zakat_maal": 24500000,
+        "fidyah": 3200000,
+        "infak": 9800000,
+        "mustahik_jiwa": 120
+      },
+      {
+        "nama": "Masjid Baiturrohim",
+        "wilayah": "Gebang Raya",
+        "fitrah_beras_kg": 310.0,
+        "fitrah_uang": 12400000,
+        "zakat_maal": 19000000,
+        "fidyah": 2850000,
+        "infak": 8400000,
+        "mustahik_jiwa": 98
+      },
+      {
+        "nama": "Masjid Nurul Huda",
+        "wilayah": "Krajan Gebang",
+        "fitrah_beras_kg": 295.5,
+        "fitrah_uang": 11800000,
+        "zakat_maal": 15500000,
+        "fidyah": 2100000,
+        "infak": 7650000,
+        "mustahik_jiwa": 110
+      },
+      {
+        "nama": "Masjid At-Taqwa",
+        "wilayah": "Gebang Mulya",
+        "fitrah_beras_kg": 350.0,
+        "fitrah_uang": 14100000,
+        "zakat_maal": 21000000,
+        "fidyah": 3400000,
+        "infak": 10200000,
+        "mustahik_jiwa": 115
+      }
+    ]
+  }
 }
