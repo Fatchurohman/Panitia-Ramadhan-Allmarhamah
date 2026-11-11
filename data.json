@@ -1,5 +1,5 @@
 {
-  "last_update": "10 November 2026, 15:20 WIB",
+  "last_update": "Belum ada pembaruan",
   "zis": {
     "zakat_fitrah_beras_kg": 0,
     "zakat_fitrah_uang": 0,
@@ -8,48 +8,9 @@
     "infak_shodaqoh": 0
   },
   "jadwal_kultum": [],
-  "agenda": [
-    {
-      "hari": "Setiap Hari",
-      "jam": "17.30 WIB",
-      "judul": "Buka Puasa Bersama (Takjil)",
-      "deskripsi": "Penyediaan santapan berbuka puasa gratis untuk jamaah dan musafir.",
-      "lokasi": "Serambi Masjid Al-Marhamah"
-    },
-    {
-      "hari": "17 Ramadhan",
-      "jam": "19.30 WIB",
-      "judul": "Peringatan Nuzulul Qur'an",
-      "deskripsi": "Pengajian umum dan tasyakuran memperingati Nuzulul Qur'an 1448 H bersama seluruh warga.",
-      "lokasi": "Ruang Utama Masjid Al-Marhamah"
-    },
-    {
-      "hari": "10 Malam Terakhir",
-      "jam": "01.00 WIB",
-      "judul": "I'tikaf & Qiyamul Lail",
-      "deskripsi": "Penyelenggaraan sholat malam berjamaah, tadarus Al-Qur'an, dan sahur bersama.",
-      "lokasi": "Ruang Utama Masjid Al-Marhamah"
-    }
-  ],
+  "agenda": [],
   "infak_harian": [],
-  "galeri": [
-    {
-      "url": "https://images.unsplash.com/photo-1564769625905-50e93615e769?q=80&w=800&auto=format&fit=crop",
-      "caption": "Pelaksanaan Sholat Tarawih Berjamaah"
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=800&auto=format&fit=crop",
-      "caption": "Buka Puasa Bersama Jamaah"
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?q=80&w=800&auto=format&fit=crop",
-      "caption": "Tadarus Al-Qur'an Ba'da Tarawih"
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800&auto=format&fit=crop",
-      "caption": "Penyaluran Zakat Fitrah & Fidyah"
-    }
-  ],
+  "galeri": [],
   "gabungan_5_masjid": {
     "idul_fitri": {
       "tanggal": "1 Syawal 1448 H / 10 Maret 2027",
