@@ -10,7 +10,16 @@
   "jadwal_kultum": [],
   "agenda": [],
   "infak_harian": [],
-  "galeri": [],
+  "galeri": [
+    {
+      "url": "img/1.jpg",
+      "caption": "Kegiatan Sholat Berjamaah"
+    },
+    {
+      "url": "img/2.jpg",
+      "caption": "Suasana Kebersamaan Jamaah"
+    }
+  ],
   "gabungan_5_masjid": {
     "idul_fitri": {
       "tanggal": "1 Syawal 1448 H / 10 Maret 2027",
