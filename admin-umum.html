@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#011c16">
     <title>Panel Admin Panitia - Ramadhan 1448 H Masjid Al-Marhamah</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -54,9 +55,9 @@
 
     <!-- TOP BAR -->
     <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 border-b border-gold-500/30 text-gold-300 text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-md">
-        <span class="inline-block animate-pulse mr-2">⚙️</span> 
-        Portal Manajemen Data Terpadu (Bendahara, ZIS & Seksi Acara) — Ramadhan 1448 H
-        <span class="inline-block animate-pulse ml-2">⚙️</span>
+        <span class="inline-block animate-pulse mr-2" aria-hidden="true">⚙️</span> 
+        Portal Manajemen Data Terpadu (Bendahara, Seksi Acara & Gabungan 5 Masjid) — Ramadhan 1448 H
+        <span class="inline-block animate-pulse ml-2" aria-hidden="true">⚙️</span>
     </div>
 
     <!-- HEADER -->
@@ -65,26 +66,30 @@
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-600 to-gold-300 flex items-center justify-center p-0.5 shadow-lg shrink-0">
                     <div class="w-full h-full bg-emerald-950 rounded-full flex items-center justify-center">
-                        <i class="fa-solid fa-user-shield text-gold-400"></i>
+                        <i class="fa-solid fa-user-shield text-gold-400" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div>
                     <h1 class="text-sm sm:text-base font-extrabold text-white tracking-wide">PANEL ADMIN MASJID AL-MARHAMAH</h1>
-                    <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">Sinkronisasi Penuh dengan index.html & data.json (1448 H)</p>
+                    <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">Sinkronisasi Penuh dengan index.html, gabungan.html & data.json</p>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-2">
+            <div class="flex flex-wrap items-center gap-2">
                 <!-- Tombol Import File data.json Lokal -->
                 <label for="import-json-input" class="cursor-pointer inline-flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-xl text-xs font-semibold transition-all">
-                    <i class="fa-solid fa-folder-open"></i>
+                    <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
                     <span>Buka File data.json</span>
                 </label>
                 <input type="file" id="import-json-input" accept=".json,application/json" class="hidden">
 
                 <a href="index.html" class="inline-flex items-center space-x-1.5 bg-emerald-900 hover:bg-emerald-800 text-gold-300 border border-gold-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>Lihat Web Utama</span>
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    <span>Web Utama</span>
+                </a>
+                <a href="gabungan.html" class="inline-flex items-center space-x-1.5 bg-emerald-900 hover:bg-emerald-800 text-gold-300 border border-gold-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow">
+                    <i class="fa-solid fa-mosque" aria-hidden="true"></i>
+                    <span>Web 5 Masjid</span>
                 </a>
             </div>
         </div>
@@ -96,18 +101,22 @@
         <!-- ALERT BANNER -->
         <div id="alert-box" class="hidden p-4 rounded-xl text-xs sm:text-sm font-medium border flex items-center justify-between transition-all">
             <span id="alert-msg">Notifikasi sistem...</span>
-            <button type="button" id="alert-close-btn" class="text-lg font-bold ml-4 leading-none">&times;</button>
+            <button type="button" id="alert-close-btn" class="text-lg font-bold ml-4 leading-none" aria-label="Tutup Notifikasi">&times;</button>
         </div>
 
-        <!-- TAB SWITCHER (BENDAHARA VS ADMIN UMUM/KULTUM) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-gold-500/20">
+        <!-- TAB SWITCHER (3 TAB LENGKAP) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-gold-500/20">
             <button type="button" id="tab-btn-bendahara" class="tab-btn-active py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all">
-                <i class="fa-solid fa-sack-dollar"></i>
-                <span>1. Tab Admin Bendahara & ZIS</span>
+                <i class="fa-solid fa-sack-dollar" aria-hidden="true"></i>
+                <span>1. Bendahara & ZIS</span>
             </button>
             <button type="button" id="tab-btn-umum" class="tab-btn-inactive py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all">
-                <i class="fa-solid fa-microphone-lines"></i>
-                <span>2. Tab Admin Kultum Subuh & Agenda</span>
+                <i class="fa-solid fa-microphone-lines" aria-hidden="true"></i>
+                <span>2. Kultum, Agenda & Galeri</span>
+            </button>
+            <button type="button" id="tab-btn-gabungan" class="tab-btn-inactive py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all">
+                <i class="fa-solid fa-users-rays" aria-hidden="true"></i>
+                <span>3. Gabungan 5 Masjid & Ied</span>
             </button>
         </div>
 
@@ -120,11 +129,11 @@
             <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                        <i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-white font-amiri">Perolehan ZIS & Fidyah</h2>
-                        <p class="text-xs text-slate-400">Masukkan angka murni tanpa titik atau huruf Rp (Contoh: 18500000)</p>
+                        <h2 class="text-lg font-bold text-white font-amiri">Perolehan ZIS & Fidyah Masjid Al-Marhamah</h2>
+                        <p class="text-xs text-slate-400">Masukkan angka murni tanpa titik/Rp. Data ini otomatis menyinkronkan baris Masjid Al-Marhamah di Tab Gabungan 5 Masjid.</p>
                     </div>
                 </div>
 
@@ -149,6 +158,10 @@
                         <label for="zis-infak" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Infak & Shodaqoh Umum (Rp)</label>
                         <input type="number" min="0" id="zis-infak" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="0">
                     </div>
+                    <div>
+                        <label for="zis-mustahik" class="block text-xs font-bold text-emerald-300 uppercase mb-1.5">Jumlah Mustahik Al-Marhamah (Jiwa)</label>
+                        <input type="number" min="0" id="zis-mustahik" class="w-full bg-slate-900 border border-emerald-700/70 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="0">
+                    </div>
                 </div>
             </section>
 
@@ -157,7 +170,7 @@
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-calendar-check"></i>
+                            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Laporan Perolehan Infak Harian</h2>
@@ -165,7 +178,7 @@
                         </div>
                     </div>
                     <button type="button" id="btn-add-infak" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
                         <span>Tambah Baris Hari</span>
                     </button>
                 </div>
@@ -188,24 +201,24 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- PANEL 2: KHUSUS ADMIN UMUM (KULTUM SUBUH & AGENDA)         -->
+        <!-- PANEL 2: ADMIN UMUM (KULTUM SUBUH, AGENDA & GALERI)        -->
         <!-- ========================================================== -->
         <div id="panel-umum" class="hidden space-y-8">
             
-            <!-- JADWAL KULTUM SUBUH (3 KOLOM - TANPA TARAWIH) -->
+            <!-- JADWAL KULTUM SUBUH -->
             <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-microphone-lines"></i>
+                            <i class="fa-solid fa-microphone-lines" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Jadwal Penceramah Kultum Subuh</h2>
-                            <p class="text-xs text-slate-400">Khusus Kultum Subuh (Sesuai pembaruan index.html tanpa Kultum Tarawih)</p>
+                            <p class="text-xs text-slate-400">Daftar penceramah kuliah tujuh menit ba'da Sholat Subuh</p>
                         </div>
                     </div>
                     <button type="button" id="btn-add-kultum" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
                         <span>Tambah Jadwal Subuh</span>
                     </button>
                 </div>
@@ -230,7 +243,7 @@
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-list-check"></i>
+                            <i class="fa-solid fa-list-check" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Agenda Kegiatan Ramadhan</h2>
@@ -238,7 +251,7 @@
                         </div>
                     </div>
                     <button type="button" id="btn-add-agenda" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
                         <span>Tambah Agenda</span>
                     </button>
                 </div>
@@ -258,20 +271,134 @@
                     </table>
                 </div>
             </section>
+
+            <!-- GALERI DOKUMENTASI FOTO -->
+            <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
+                            <i class="fa-solid fa-images" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold text-white font-amiri">Galeri Foto Kegiatan (Folder img/)</h2>
+                            <p class="text-xs text-slate-400">Masukkan path gambar di repo (contoh: <code class="text-gold-300">img/1.jpg</code>) beserta keterangan foto</p>
+                        </div>
+                    </div>
+                    <button type="button" id="btn-add-galeri" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <span>Tambah Foto Galeri</span>
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="bg-emerald-950 text-gold-400 text-xs uppercase font-bold tracking-wider">
+                            <tr>
+                                <th class="py-3 px-4">Path / URL Foto</th>
+                                <th class="py-3 px-4">Keterangan (Caption)</th>
+                                <th class="py-3 px-4 text-center">Hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody id="galeri-rows-container" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- PANEL 3: GABUNGAN 5 MASJID & SHOLAT IDUL FITRI 1448 H      -->
+        <!-- ========================================================== -->
+        <div id="panel-gabungan" class="hidden space-y-8">
+            
+            <!-- INFO PELAKSANAAN SHOLAT IDUL FITRI -->
+            <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-gold-500/20">
+                    <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-mosque" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-white font-amiri">Pelaksanaan Sholat Idul Fitri 1448 H</h2>
+                        <p class="text-xs text-slate-400">Data petugas, lokasi, dan perolehan kas pelaksanaan Sholat Ied Gabungan 5 Masjid</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div>
+                        <label for="ied-tanggal" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Hari & Tanggal Ied</label>
+                        <input type="text" id="ied-tanggal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="1 Syawal 1448 H / 10 Maret 2027">
+                    </div>
+                    <div>
+                        <label for="ied-waktu" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Waktu Pelaksanaan</label>
+                        <input type="text" id="ied-waktu" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="06.15 WIB - Selesai">
+                    </div>
+                    <div>
+                        <label for="ied-lokasi" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Lokasi Lapangan</label>
+                        <input type="text" id="ied-lokasi" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman">
+                    </div>
+                    <div>
+                        <label for="ied-khatib" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Nama Khatib</label>
+                        <input type="text" id="ied-khatib" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" placeholder="Nama Khatib Sholat Ied">
+                    </div>
+                    <div>
+                        <label for="ied-imam" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Nama Imam</label>
+                        <input type="text" id="ied-imam" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" placeholder="Nama Imam Sholat Ied">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label for="ied-infak" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Infak Ied (Rp)</label>
+                            <input type="number" min="0" id="ied-infak" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none font-mono" value="0">
+                        </div>
+                        <div>
+                            <label for="ied-operasional" class="block text-xs font-bold text-emerald-300 uppercase mb-1.5">Operasional (Rp)</label>
+                            <input type="number" min="0" id="ied-operasional" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none font-mono" value="0">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TABEL REKAP 5 MASJID -->
+            <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-gold-500/20">
+                    <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-table-list" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-white font-amiri">Rekapitulasi Perolehan ZIS 5 Masjid</h2>
+                        <p class="text-xs text-slate-400">Baris <strong>Masjid Al-Marhamah</strong> otomatis tersinkronisasi dengan Tab 1 (Bendahara), namun tetap dapat disesuaikan di sini.</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+                        <thead class="bg-emerald-950 text-gold-400 text-[11px] uppercase font-bold tracking-wider">
+                            <tr>
+                                <th class="py-3 px-3">Nama Masjid & Wilayah</th>
+                                <th class="py-3 px-3">Fitrah Beras (Kg)</th>
+                                <th class="py-3 px-3">Fitrah Uang (Rp)</th>
+                                <th class="py-3 px-3">Zakat Maal (Rp)</th>
+                                <th class="py-3 px-3">Fidyah (Rp)</th>
+                                <th class="py-3 px-3">Infak Umum (Rp)</th>
+                                <th class="py-3 px-3">Mustahik (Jiwa)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rekap-masjid-rows-container" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </section>
         </div>
 
         <!-- ACTION BAR BAWAH -->
         <div class="glass-card rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-gold-500/40">
             <div class="text-xs text-slate-300">
-                <span class="font-bold text-gold-400"><i class="fa-solid fa-circle-info mr-1"></i> Catatan Penting:</span>
-                Seluruh data pada <strong>Tab Bendahara</strong> dan <strong>Tab Kultum & Agenda</strong> akan digabung secara utuh saat Anda menekan tombol Simpan & Download.
+                <span class="font-bold text-gold-400"><i class="fa-solid fa-circle-info mr-1" aria-hidden="true"></i> Catatan Penting:</span>
+                Seluruh data pada <strong>Tab 1, Tab 2, dan Tab 3</strong> akan digabung secara utuh saat Anda menekan tombol Simpan & Download.
             </div>
             <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
                 <button type="button" id="btn-reload-server" class="w-full sm:w-auto px-5 py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold rounded-xl border border-slate-700 text-xs transition-all">
-                    <i class="fa-solid fa-rotate-right mr-1.5"></i> Muat Ulang Server
+                    <i class="fa-solid fa-rotate-right mr-1.5" aria-hidden="true"></i> Muat Ulang Server
                 </button>
                 <button type="button" id="btn-export-json" class="w-full sm:w-auto px-7 py-3 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-extrabold rounded-xl shadow-lg text-xs sm:text-sm transition-all flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-download"></i>
+                    <i class="fa-solid fa-download" aria-hidden="true"></i>
                     <span>Simpan & Download data.json</span>
                 </button>
             </div>
@@ -283,7 +410,7 @@
         <p>© 1448 H / 2027 M Panitia Ramadhan Masjid Al-Marhamah — Perum Candi Gebang Permai, Sleman.</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC (ES6+ CLEAN & SAFE) -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         const createDefaultSchema = () => ({
             last_update: 'Belum ada pembaruan',
@@ -297,7 +424,10 @@
             jadwal_kultum: [],
             agenda: [],
             infak_harian: [],
-            galeri: [],
+            galeri: [
+                { url: 'img/1.jpg', caption: 'Kegiatan Sholat Berjamaah' },
+                { url: 'img/2.jpg', caption: 'Suasana Kebersamaan Jamaah' }
+            ],
             gabungan_5_masjid: {
                 idul_fitri: {
                     tanggal: '1 Syawal 1448 H / 10 Maret 2027',
@@ -350,7 +480,6 @@
             box.classList.remove('hidden');
         };
 
-        // RENDER PLACEHOLDER JIKA TABEL KOSONG
         const checkEmptyTable = (tbodyId, colspan, emptyMessage) => {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
@@ -472,6 +601,91 @@
             container.appendChild(tr);
         };
 
+        // 4. BARIS GALERI FOTO
+        const appendGaleriRow = (url = '', caption = '') => {
+            const container = document.getElementById('galeri-rows-container');
+            if (!container) return;
+
+            const emptyRow = container.querySelector('tr.empty-row');
+            if (emptyRow) emptyRow.remove();
+
+            const tr = document.createElement('tr');
+            tr.className = 'data-row hover:bg-slate-900/50 transition-colors';
+            tr.innerHTML = `
+                <td class="py-3 px-4">
+                    <input type="text" class="row-galeri-url w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono" value="${escapeAttr(url)}" placeholder="img/1.jpg">
+                </td>
+                <td class="py-3 px-4">
+                    <input type="text" class="row-galeri-caption w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(caption)}" placeholder="Keterangan dokumentasi foto">
+                </td>
+                <td class="py-3 px-4 text-center">
+                    <button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs" title="Hapus Baris">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </td>
+            `;
+
+            tr.querySelector('.btn-remove-row').addEventListener('click', () => {
+                tr.remove();
+                checkEmptyTable('galeri-rows-container', 3, 'Belum ada foto galeri. Klik "Tambah Foto Galeri" di atas.');
+            });
+
+            container.appendChild(tr);
+        };
+
+        // 5. BARIS REKAP 5 MASJID
+        const renderRekapMasjidRows = (list) => {
+            const container = document.getElementById('rekap-masjid-rows-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const safeList = Array.isArray(list) && list.length > 0 ? list : createDefaultSchema().gabungan_5_masjid.rekap_masjid;
+
+            safeList.forEach((item, idx) => {
+                const m = (item && typeof item === 'object') ? item : {};
+                const tr = document.createElement('tr');
+                tr.className = 'rekap-masjid-row hover:bg-slate-900/50 transition-colors';
+                tr.dataset.index = String(idx);
+                tr.innerHTML = `
+                    <td class="py-3 px-3">
+                        <input type="text" class="rm-nama w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-gold-300 mb-1" value="${escapeAttr(m.nama || `Masjid ${idx + 1}`)}">
+                        <input type="text" class="rm-wilayah w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-[11px] text-slate-400" value="${escapeAttr(m.wilayah || '')}" placeholder="Wilayah">
+                    </td>
+                    <td class="py-3 px-3 align-top">
+                        <input type="number" step="0.1" min="0" class="rm-beras w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(m.fitrah_beras_kg)}">
+                    </td>
+                    <td class="py-3 px-3 align-top">
+                        <input type="number" min="0" class="rm-fitrah-uang w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(m.fitrah_uang)}">
+                    </td>
+                    <td class="py-3 px-3 align-top">
+                        <input type="number" min="0" class="rm-maal w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(m.zakat_maal)}">
+                    </td>
+                    <td class="py-3 px-3 align-top">
+                        <input type="number" min="0" class="rm-fidyah w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(m.fidyah)}">
+                    </td>
+                    <td class="py-3 px-3 align-top">
+                        <input type="number" min="0" class="rm-infak w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(m.infak)}">
+                    </td>
+                    <td class="py-3 px-3 align-top">
+                        <input type="number" min="0" class="rm-mustahik w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-emerald-300 font-mono font-bold" value="${toSafeNumber(m.mustahik_jiwa)}">
+                    </td>
+                `;
+                container.appendChild(tr);
+            });
+        };
+
+        // SINKRONISASI REAL-TIME TAB 1 (AL-MARHAMAH) <-> BARIS 1 REKAP 5 MASJID
+        const syncAlMarhamahToGabunganRow = () => {
+            const firstRow = document.querySelector('#rekap-masjid-rows-container tr.rekap-masjid-row[data-index="0"]');
+            if (!firstRow) return;
+            firstRow.querySelector('.rm-beras').value = toSafeNumber(document.getElementById('zis-beras').value);
+            firstRow.querySelector('.rm-fitrah-uang').value = toSafeNumber(document.getElementById('zis-fitrah-uang').value);
+            firstRow.querySelector('.rm-maal').value = toSafeNumber(document.getElementById('zis-maal').value);
+            firstRow.querySelector('.rm-fidyah').value = toSafeNumber(document.getElementById('zis-fidyah').value);
+            firstRow.querySelector('.rm-infak').value = toSafeNumber(document.getElementById('zis-infak').value);
+            firstRow.querySelector('.rm-mustahik').value = toSafeNumber(document.getElementById('zis-mustahik').value);
+        };
+
         // POPULATE FORM DARI OBJEK JSON
         const populateFormFromData = (dataObj) => {
             const safeData = (dataObj && typeof dataObj === 'object' && !Array.isArray(dataObj))
@@ -483,13 +697,20 @@
                 ...safeData
             };
 
-            // 1. ZIS
+            // 1. ZIS Al-Marhamah
             const z = (globalLoadedData.zis && typeof globalLoadedData.zis === 'object') ? globalLoadedData.zis : {};
-            document.getElementById('zis-beras').value = toSafeNumber(z.zakat_fitrah_beras_kg);
-            document.getElementById('zis-fitrah-uang').value = toSafeNumber(z.zakat_fitrah_uang);
-            document.getElementById('zis-maal').value = toSafeNumber(z.zakat_maal);
-            document.getElementById('zis-fidyah').value = toSafeNumber(z.fidyah);
-            document.getElementById('zis-infak').value = toSafeNumber(z.infak_shodaqoh);
+            const gab = (globalLoadedData.gabungan_5_masjid && typeof globalLoadedData.gabungan_5_masjid === 'object')
+                ? globalLoadedData.gabungan_5_masjid
+                : createDefaultSchema().gabungan_5_masjid;
+            const rekapList = Array.isArray(gab.rekap_masjid) ? gab.rekap_masjid : createDefaultSchema().gabungan_5_masjid.rekap_masjid;
+            const alMarhamahRow = rekapList[0] || {};
+
+            document.getElementById('zis-beras').value = toSafeNumber(z.zakat_fitrah_beras_kg || alMarhamahRow.fitrah_beras_kg);
+            document.getElementById('zis-fitrah-uang').value = toSafeNumber(z.zakat_fitrah_uang || alMarhamahRow.fitrah_uang);
+            document.getElementById('zis-maal').value = toSafeNumber(z.zakat_maal || alMarhamahRow.zakat_maal);
+            document.getElementById('zis-fidyah').value = toSafeNumber(z.fidyah || alMarhamahRow.fidyah);
+            document.getElementById('zis-infak').value = toSafeNumber(z.infak_shodaqoh || alMarhamahRow.infak);
+            document.getElementById('zis-mustahik').value = toSafeNumber(alMarhamahRow.mustahik_jiwa);
 
             // 2. Infak Harian
             const infakContainer = document.getElementById('infak-rows-container');
@@ -534,6 +755,34 @@
                     }
                 });
             }
+
+            // 5. Galeri Foto
+            const galeriContainer = document.getElementById('galeri-rows-container');
+            galeriContainer.innerHTML = '';
+            const galeriList = Array.isArray(globalLoadedData.galeri) ? globalLoadedData.galeri : [];
+            if (galeriList.length === 0) {
+                checkEmptyTable('galeri-rows-container', 3, 'Belum ada foto galeri. Klik "Tambah Foto Galeri" di atas.');
+            } else {
+                galeriList.forEach((item) => {
+                    if (typeof item === 'string') {
+                        appendGaleriRow(item, '');
+                    } else if (item && typeof item === 'object') {
+                        appendGaleriRow(item.url || item.src || '', item.caption || item.alt || '');
+                    }
+                });
+            }
+
+            // 6. Gabungan 5 Masjid & Idul Fitri
+            const ied = (gab.idul_fitri && typeof gab.idul_fitri === 'object') ? gab.idul_fitri : {};
+            document.getElementById('ied-tanggal').value = ied.tanggal || '1 Syawal 1448 H / 10 Maret 2027';
+            document.getElementById('ied-waktu').value = ied.waktu || '06.15 WIB - Selesai';
+            document.getElementById('ied-lokasi').value = ied.lokasi || 'Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman';
+            document.getElementById('ied-khatib').value = ied.khatib || '-';
+            document.getElementById('ied-imam').value = ied.imam || '-';
+            document.getElementById('ied-infak').value = toSafeNumber(ied.infak_sholat_ied);
+            document.getElementById('ied-operasional').value = toSafeNumber(ied.operasional_panitia);
+
+            renderRekapMasjidRows(rekapList);
         };
 
         // MUAT DATA DARI SERVER (data.json)
@@ -557,6 +806,9 @@
         // SIMPAN & DOWNLOAD DATA.JSON
         const saveAndExportJSON = () => {
             try {
+                // Pastikan sinkronisasi baris 1 Masjid Al-Marhamah
+                syncAlMarhamahToGabunganRow();
+
                 // 1. Ambil ZIS
                 const zisData = {
                     zakat_fitrah_beras_kg: toSafeNumber(document.getElementById('zis-beras').value),
@@ -602,17 +854,57 @@
                     }
                 });
 
-                // 5. Update objek utama tanpa menghapus galeri atau gabungan_5_masjid
+                // 5. Ambil Galeri Foto
+                const galeriList = [];
+                document.querySelectorAll('#galeri-rows-container tr.data-row').forEach((tr) => {
+                    const url = tr.querySelector('.row-galeri-url')?.value.trim() || '';
+                    const caption = tr.querySelector('.row-galeri-caption')?.value.trim() || '';
+                    if (url) {
+                        galeriList.push({ url, caption });
+                    }
+                });
+
+                // 6. Ambil Data Gabungan 5 Masjid
+                const rekapMasjidList = [];
+                document.querySelectorAll('#rekap-masjid-rows-container tr.rekap-masjid-row').forEach((tr) => {
+                    rekapMasjidList.push({
+                        nama: tr.querySelector('.rm-nama')?.value.trim() || 'Masjid',
+                        wilayah: tr.querySelector('.rm-wilayah')?.value.trim() || '',
+                        fitrah_beras_kg: toSafeNumber(tr.querySelector('.rm-beras')?.value),
+                        fitrah_uang: toSafeNumber(tr.querySelector('.rm-fitrah-uang')?.value),
+                        zakat_maal: toSafeNumber(tr.querySelector('.rm-maal')?.value),
+                        fidyah: toSafeNumber(tr.querySelector('.rm-fidyah')?.value),
+                        infak: toSafeNumber(tr.querySelector('.rm-infak')?.value),
+                        mustahik_jiwa: toSafeNumber(tr.querySelector('.rm-mustahik')?.value)
+                    });
+                });
+
+                const gabunganData = {
+                    idul_fitri: {
+                        tanggal: document.getElementById('ied-tanggal').value.trim() || '1 Syawal 1448 H / 10 Maret 2027',
+                        waktu: document.getElementById('ied-waktu').value.trim() || '06.15 WIB - Selesai',
+                        lokasi: document.getElementById('ied-lokasi').value.trim() || 'Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman',
+                        khatib: document.getElementById('ied-khatib').value.trim() || '-',
+                        imam: document.getElementById('ied-imam').value.trim() || '-',
+                        infak_sholat_ied: toSafeNumber(document.getElementById('ied-infak').value),
+                        operasional_panitia: toSafeNumber(document.getElementById('ied-operasional').value)
+                    },
+                    rekap_masjid: rekapMasjidList
+                };
+
+                // 7. Update Objek Utama
                 globalLoadedData.zis = zisData;
                 globalLoadedData.infak_harian = infakHarianList;
                 globalLoadedData.jadwal_kultum = kultumList;
                 globalLoadedData.agenda = agendaList;
+                globalLoadedData.galeri = galeriList;
+                globalLoadedData.gabungan_5_masjid = gabunganData;
 
                 const now = new Date();
                 const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
                 globalLoadedData.last_update = `${now.toLocaleDateString('id-ID', options)} WIB`;
 
-                // 6. Download menggunakan Blob URL (Aman untuk file JSON besar)
+                // 8. Download menggunakan Blob URL
                 const jsonString = JSON.stringify(globalLoadedData, null, 2);
                 const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
@@ -625,7 +917,7 @@
                 a.remove();
                 URL.revokeObjectURL(url);
 
-                showAlert('Berhasil! File data.json terbaru telah di-download. Silakan unggah/timpa ke folder website Anda.');
+                showAlert('Berhasil! File data.json terbaru telah di-download. Silakan unggah/timpa ke repository GitHub Anda.');
             } catch (err) {
                 console.error(err);
                 showAlert(`Gagal mengekspor JSON: ${err.message}`, true);
@@ -634,23 +926,28 @@
 
         // INISIALISASI EVENT LISTENER
         window.addEventListener('DOMContentLoaded', () => {
-            const tabBendahara = document.getElementById('tab-btn-bendahara');
-            const tabUmum = document.getElementById('tab-btn-umum');
-            const panelBendahara = document.getElementById('panel-bendahara');
-            const panelUmum = document.getElementById('panel-umum');
+            const tabs = [
+                { btn: document.getElementById('tab-btn-bendahara'), panel: document.getElementById('panel-bendahara') },
+                { btn: document.getElementById('tab-btn-umum'), panel: document.getElementById('panel-umum') },
+                { btn: document.getElementById('tab-btn-gabungan'), panel: document.getElementById('panel-gabungan') }
+            ];
 
-            tabBendahara.addEventListener('click', () => {
-                panelBendahara.classList.remove('hidden');
-                panelUmum.classList.add('hidden');
-                tabBendahara.className = 'tab-btn-active py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all';
-                tabUmum.className = 'tab-btn-inactive py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all';
+            const activateTab = (activeIndex) => {
+                if (activeIndex === 2) syncAlMarhamahToGabunganRow();
+                tabs.forEach((t, idx) => {
+                    const isActive = idx === activeIndex;
+                    t.panel.classList.toggle('hidden', !isActive);
+                    t.btn.className = `${isActive ? 'tab-btn-active' : 'tab-btn-inactive'} py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all`;
+                });
+            };
+
+            tabs.forEach((t, idx) => {
+                t.btn.addEventListener('click', () => activateTab(idx));
             });
 
-            tabUmum.addEventListener('click', () => {
-                panelUmum.classList.remove('hidden');
-                panelBendahara.classList.add('hidden');
-                tabUmum.className = 'tab-btn-active py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all';
-                tabBendahara.className = 'tab-btn-inactive py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all';
+            // Auto-sync input ZIS Al-Marhamah
+            ['zis-beras', 'zis-fitrah-uang', 'zis-maal', 'zis-fidyah', 'zis-infak', 'zis-mustahik'].forEach((id) => {
+                document.getElementById(id)?.addEventListener('input', syncAlMarhamahToGabunganRow);
             });
 
             document.getElementById('alert-close-btn').addEventListener('click', () => {
@@ -669,6 +966,11 @@
 
             document.getElementById('btn-add-agenda').addEventListener('click', () => {
                 appendAgendaRow('', '', '', '', 'Masjid Al-Marhamah');
+            });
+
+            document.getElementById('btn-add-galeri').addEventListener('click', () => {
+                const count = document.querySelectorAll('#galeri-rows-container tr.data-row').length + 1;
+                appendGaleriRow(`img/${count}.jpg`, '');
             });
 
             document.getElementById('btn-reload-server').addEventListener('click', loadServerData);
