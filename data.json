@@ -22,9 +22,9 @@
   ],
   "gabungan_5_masjid": {
     "idul_fitri": {
-      "tanggal": "1 Syawal 1448 H / 10 Maret 2027",
+      "tanggal": "Selasa, 1 Syawal 1448 H / 9 Maret 2027",
       "waktu": "06.15 WIB - Selesai",
-      "lokasi": "Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman",
+      "lokasi": "Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman",
       "khatib": "-",
       "imam": "-",
       "infak_sholat_ied": 0,
@@ -33,7 +33,7 @@
     "rekap_masjid": [
       {
         "nama": "Masjid Al-Marhamah",
-        "wilayah": "Candi Gebang Permai",
+        "wilayah": "Perum Candi Gebang",
         "fitrah_beras_kg": 0,
         "fitrah_uang": 0,
         "zakat_maal": 0,
@@ -42,8 +42,8 @@
         "mustahik_jiwa": 0
       },
       {
-        "nama": "Masjid Al-Ikhlas",
-        "wilayah": "Candi Gebang Baru",
+        "nama": "Masjid Al-Muttaqin",
+        "wilayah": "Jetis",
         "fitrah_beras_kg": 0,
         "fitrah_uang": 0,
         "zakat_maal": 0,
@@ -52,8 +52,8 @@
         "mustahik_jiwa": 0
       },
       {
-        "nama": "Masjid Baiturrohim",
-        "wilayah": "Gebang Raya",
+        "nama": "Masjid Al-Hidayah",
+        "wilayah": "Krajan",
         "fitrah_beras_kg": 0,
         "fitrah_uang": 0,
         "zakat_maal": 0,
@@ -62,8 +62,8 @@
         "mustahik_jiwa": 0
       },
       {
-        "nama": "Masjid Nurul Huda",
-        "wilayah": "Krajan Gebang",
+        "nama": "Masjid Baitul Makmur",
+        "wilayah": "Dusun Gebang",
         "fitrah_beras_kg": 0,
         "fitrah_uang": 0,
         "zakat_maal": 0,
@@ -72,8 +72,8 @@
         "mustahik_jiwa": 0
       },
       {
-        "nama": "Masjid At-Taqwa",
-        "wilayah": "Gebang Mulya",
+        "nama": "Masjid Nurul Jariyah",
+        "wilayah": "Perum Jambusari",
         "fitrah_beras_kg": 0,
         "fitrah_uang": 0,
         "zakat_maal": 0,
