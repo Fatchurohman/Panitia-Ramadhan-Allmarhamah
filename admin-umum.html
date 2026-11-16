@@ -56,7 +56,7 @@
     <!-- TOP BAR -->
     <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 border-b border-gold-500/30 text-gold-300 text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-md">
         <span class="inline-block animate-pulse mr-2" aria-hidden="true">⚙️</span> 
-        Portal Manajemen Data Terpadu (Bendahara, Seksi Acara & Takmir 5 Masjid) — Ramadhan 1448 H
+        Portal Manajemen Data Terpadu — Masjid Al-Marhamah & Gabungan 5 Masjid (Jetis-Krajan, Wedomartani)
         <span class="inline-block animate-pulse ml-2" aria-hidden="true">⚙️</span>
     </div>
 
@@ -72,7 +72,7 @@
                 <div>
                     <h1 class="text-sm sm:text-base font-extrabold text-white tracking-wide">PANEL ADMIN & TAKMIR 5 MASJID</h1>
                     <div class="flex items-center space-x-2">
-                        <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">Sinkronisasi index.html & gabungan.html</p>
+                        <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">Kawasan Jetis-Krajan, Wedomartani, Ngemplak, Sleman</p>
                         <span id="draft-badge" class="hidden text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-semibold">
                             <i class="fa-solid fa-floppy-disk mr-1"></i>Draft Tersimpan Otomatis
                         </span>
@@ -357,11 +357,11 @@
                         <label for="filter-masjid-select" class="text-xs font-bold text-gold-300 uppercase">Pilih Masjid:</label>
                         <select id="filter-masjid-select" class="bg-emerald-950 border-2 border-gold-500/60 rounded-xl px-3.5 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:border-gold-400">
                             <option value="all">🕌 Tampilkan Semua (5 Masjid)</option>
-                            <option value="0">1. Masjid Al-Marhamah (Candi Gebang Permai)</option>
-                            <option value="1">2. Masjid Al-Ikhlas (Candi Gebang Baru)</option>
-                            <option value="2">3. Masjid Baiturrohim (Gebang Raya)</option>
-                            <option value="3">4. Masjid Nurul Huda (Krajan Gebang)</option>
-                            <option value="4">5. Masjid At-Taqwa (Gebang Mulya)</option>
+                            <option value="0">1. Masjid Al-Marhamah (Perum Candi Gebang)</option>
+                            <option value="1">2. Masjid Al-Muttaqin (Jetis)</option>
+                            <option value="2">3. Masjid Al-Hidayah (Krajan)</option>
+                            <option value="3">4. Masjid Baitul Makmur (Dusun Gebang)</option>
+                            <option value="4">5. Masjid Nurul Jariyah (Perum Jambusari)</option>
                         </select>
                     </div>
                 </div>
@@ -390,7 +390,7 @@
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-calendar-star" aria-hidden="true"></i>
+                            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Pelaksanaan Sholat Idul Fitri 1448 H</h2>
@@ -406,15 +406,15 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div>
                         <label for="ied-tanggal" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Hari & Tanggal Ied</label>
-                        <input type="text" id="ied-tanggal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="1 Syawal 1448 H / 10 Maret 2027">
+                        <input type="text" id="ied-tanggal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="Selasa, 1 Syawal 1448 H / 9 Maret 2027">
                     </div>
                     <div>
                         <label for="ied-waktu" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Waktu Pelaksanaan</label>
                         <input type="text" id="ied-waktu" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="06.15 WIB - Selesai">
                     </div>
                     <div>
-                        <label for="ied-lokasi" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Lokasi Lapangan</label>
-                        <input type="text" id="ied-lokasi" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman">
+                        <label for="ied-lokasi" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Lokasi Sholat Ied</label>
+                        <input type="text" id="ied-lokasi" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman">
                     </div>
                     <div>
                         <label for="ied-khatib" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Nama Khatib</label>
@@ -463,20 +463,20 @@
 
     <!-- FOOTER -->
     <footer class="bg-slate-950 text-slate-400 text-xs py-6 border-t border-slate-800 text-center">
-        <p>© 1448 H / 2027 M Panitia Ramadhan Masjid Al-Marhamah — Perum Candi Gebang Permai, Sleman.</p>
+        <p>© 1448 H / 2027 M Panitia Ramadhan Masjid Al-Marhamah & Gabungan 5 Masjid Kawasan Jetis-Krajan, Wedomartani, Ngemplak, Sleman.</p>
     </footer>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        const DRAFT_STORAGE_KEY = 'almarhamah_admin_draft_1448h';
+        const DRAFT_STORAGE_KEY = 'almarhamah_admin_draft_1448h_v2';
 
-        // DAFTAR TETAP 5 MASJID AGAR NAMA MASJID SELALU MUNCUL JELAS & TIDAK TERHAPUS
+        // DAFTAR TETAP 5 MASJID RESMI
         const MASTER_5_MASJID = [
-            { nama: 'Masjid Al-Marhamah', wilayah: 'Candi Gebang Permai' },
-            { nama: 'Masjid Al-Ikhlas', wilayah: 'Candi Gebang Baru' },
-            { nama: 'Masjid Baiturrohim', wilayah: 'Gebang Raya' },
-            { nama: 'Masjid Nurul Huda', wilayah: 'Krajan Gebang' },
-            { nama: 'Masjid At-Taqwa', wilayah: 'Gebang Mulya' }
+            { nama: 'Masjid Al-Marhamah', wilayah: 'Perum Candi Gebang' },
+            { nama: 'Masjid Al-Muttaqin', wilayah: 'Jetis' },
+            { nama: 'Masjid Al-Hidayah', wilayah: 'Krajan' },
+            { nama: 'Masjid Baitul Makmur', wilayah: 'Dusun Gebang' },
+            { nama: 'Masjid Nurul Jariyah', wilayah: 'Perum Jambusari' }
         ];
 
         const createDefaultSchema = () => ({
@@ -497,9 +497,9 @@
             ],
             gabungan_5_masjid: {
                 idul_fitri: {
-                    tanggal: '1 Syawal 1448 H / 10 Maret 2027',
+                    tanggal: 'Selasa, 1 Syawal 1448 H / 9 Maret 2027',
                     waktu: '06.15 WIB - Selesai',
-                    lokasi: 'Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman',
+                    lokasi: 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman',
                     khatib: '-',
                     imam: '-',
                     infak_sholat_ied: 0,
@@ -711,7 +711,7 @@
             container.appendChild(tr);
         };
 
-        // 5. BARIS REKAP 5 MASJID (DENGAN NAMA MASJID JELAS & TOMBOL RESET PER MASJID)
+        // 5. BARIS REKAP 5 MASJID (DENGAN NAMA MASJID RESMI JELAS & TOMBOL RESET PER MASJID)
         const renderRekapMasjidRows = (list) => {
             const container = document.getElementById('rekap-masjid-rows-container');
             if (!container) return;
@@ -720,7 +720,6 @@
             const rawList = Array.isArray(list) ? list : [];
 
             MASTER_5_MASJID.forEach((master, idx) => {
-                // Cocokkan berdasarkan urutan index atau nama masjid agar nama masjid tidak pernah hilang
                 const m = (rawList[idx] && typeof rawList[idx] === 'object') ? rawList[idx] : {};
                 const namaMasjid = master.nama;
                 const wilayahMasjid = master.wilayah;
@@ -765,7 +764,6 @@
                     </td>
                 `;
 
-                // Jika baris pertama (Al-Marhamah) diubah dari Tab 3, ikut sinkron ke Tab 1
                 tr.querySelectorAll('input[type="number"]').forEach((inp) => {
                     inp.addEventListener('input', () => {
                         if (idx === 0) syncGabunganRowToAlMarhamah();
@@ -773,7 +771,6 @@
                     });
                 });
 
-                // Tombol Nol-kan khusus per masjid
                 tr.querySelector('.btn-zero-masjid').addEventListener('click', () => {
                     tr.querySelector('.rm-beras').value = 0;
                     tr.querySelector('.rm-fitrah-uang').value = 0;
@@ -896,9 +893,9 @@
 
             const gabunganData = {
                 idul_fitri: {
-                    tanggal: document.getElementById('ied-tanggal').value.trim() || '1 Syawal 1448 H / 10 Maret 2027',
+                    tanggal: document.getElementById('ied-tanggal').value.trim() || 'Selasa, 1 Syawal 1448 H / 9 Maret 2027',
                     waktu: document.getElementById('ied-waktu').value.trim() || '06.15 WIB - Selesai',
-                    lokasi: document.getElementById('ied-lokasi').value.trim() || 'Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman',
+                    lokasi: document.getElementById('ied-lokasi').value.trim() || 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman',
                     khatib: document.getElementById('ied-khatib').value.trim() || '-',
                     imam: document.getElementById('ied-imam').value.trim() || '-',
                     infak_sholat_ied: toSafeNumber(document.getElementById('ied-infak').value),
@@ -1018,9 +1015,16 @@
 
             // 6. Gabungan 5 Masjid & Idul Fitri
             const ied = (gab.idul_fitri && typeof gab.idul_fitri === 'object') ? gab.idul_fitri : {};
-            document.getElementById('ied-tanggal').value = ied.tanggal || '1 Syawal 1448 H / 10 Maret 2027';
+            const rawTanggal = (!ied.tanggal || ied.tanggal.includes('10 Maret'))
+                ? 'Selasa, 1 Syawal 1448 H / 9 Maret 2027'
+                : ied.tanggal;
+            const rawLokasi = (!ied.lokasi || ied.lokasi.includes('Candi Gebang'))
+                ? 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman'
+                : ied.lokasi;
+
+            document.getElementById('ied-tanggal').value = rawTanggal;
             document.getElementById('ied-waktu').value = ied.waktu || '06.15 WIB - Selesai';
-            document.getElementById('ied-lokasi').value = ied.lokasi || 'Lapangan Utama Perum Candi Gebang Permai, Ngemplak, Sleman';
+            document.getElementById('ied-lokasi').value = rawLokasi;
             document.getElementById('ied-khatib').value = ied.khatib || '-';
             document.getElementById('ied-imam').value = ied.imam || '-';
             document.getElementById('ied-infak').value = toSafeNumber(ied.infak_sholat_ied);
