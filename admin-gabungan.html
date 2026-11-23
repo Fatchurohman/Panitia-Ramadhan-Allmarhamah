@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#011c16">
     <title>Admin Panitia Gabungan 5 Masjid - Idul Fitri 1448 H</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -44,9 +41,9 @@
 
     <!-- TOP BAR -->
     <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 border-b border-gold-500/30 text-gold-300 text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-md">
-        <span class="inline-block animate-pulse mr-2" aria-hidden="true">⚙️</span>
-        Panel Entri Data Khusus Takmir Gabungan 5 Masjid (Jetis-Krajan, Wedomartani)
-        <span class="inline-block animate-pulse ml-2" aria-hidden="true">⚙️</span>
+        <span class="inline-block animate-pulse mr-2">⚡</span>
+        Panel Entri Real-Time Takmir Gabungan 5 Masjid — Langsung Tayang Tanpa Upload File
+        <span class="inline-block animate-pulse ml-2">⚡</span>
     </div>
 
     <!-- HEADER -->
@@ -55,29 +52,24 @@
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-600 to-gold-300 flex items-center justify-center p-0.5 shadow-lg shrink-0">
                     <div class="w-full h-full bg-emerald-950 rounded-full flex items-center justify-center">
-                        <i class="fa-solid fa-users-rays text-gold-400" aria-hidden="true"></i>
+                        <i class="fa-solid fa-users-rays text-gold-400"></i>
                     </div>
                 </div>
                 <div>
                     <h1 class="text-sm sm:text-base font-extrabold text-white tracking-wide">ADMIN GABUNGAN 5 MASJID</h1>
-                    <div class="flex items-center space-x-2">
-                        <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">Idul Fitri 1448 H • Jetis-Krajan, Wedomartani</p>
-                        <span id="draft-badge" class="hidden text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-semibold">
-                            <i class="fa-solid fa-floppy-disk mr-1"></i>Draft Tersimpan
-                        </span>
-                    </div>
+                    <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">
+                        Update Terakhir: <span id="header-last-update" class="text-emerald-300">Memuat...</span>
+                    </p>
                 </div>
             </div>
 
             <div class="flex flex-wrap items-center gap-2">
-                <label for="import-json-input" class="cursor-pointer inline-flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-xl text-xs font-semibold transition-all">
-                    <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
-                    <span>Buka data.json</span>
-                </label>
-                <input type="file" id="import-json-input" accept=".json,application/json" class="hidden">
-
+                <button type="button" id="btn-refresh-data" class="inline-flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-xl text-xs font-semibold transition-all">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Refresh Data</span>
+                </button>
                 <a href="gabungan.html" class="inline-flex items-center space-x-1.5 bg-emerald-900 hover:bg-emerald-800 text-gold-300 border border-gold-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow">
-                    <i class="fa-solid fa-mosque" aria-hidden="true"></i>
+                    <i class="fa-solid fa-mosque"></i>
                     <span>Lihat Web 5 Masjid</span>
                 </a>
             </div>
@@ -89,20 +81,36 @@
 
         <!-- ALERT BANNER -->
         <div id="alert-box" class="hidden p-4 rounded-xl text-xs sm:text-sm font-medium border flex items-center justify-between transition-all">
-            <span id="alert-msg">Notifikasi sistem...</span>
-            <button type="button" id="alert-close-btn" class="text-lg font-bold ml-4 leading-none" aria-label="Tutup Notifikasi">&times;</button>
+            <span id="alert-msg">Notifikasi...</span>
+            <button type="button" id="alert-close-btn" class="text-lg font-bold ml-4 leading-none">&times;</button>
         </div>
+
+        <!-- KOTAK PIN PENGAMAN -->
+        <section class="glass-card rounded-2xl p-4 sm:p-5 border border-gold-500/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold text-white">PIN Pengaman Takmir</h2>
+                    <p class="text-xs text-slate-400">Masukkan PIN dari koordinator agar tombol Simpan aktif.</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <input type="password" id="admin-pin-input" inputmode="numeric" placeholder="Masukkan PIN..." class="w-full sm:w-44 bg-slate-900 border border-gold-500/50 rounded-xl px-4 py-2 text-sm text-white font-mono text-center focus:outline-none focus:border-gold-400">
+            </div>
+        </section>
 
         <!-- SECTION 1: ENTRI REKAP ZIS 5 MASJID -->
         <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
             <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-mosque" aria-hidden="true"></i>
+                        <i class="fa-solid fa-mosque"></i>
                     </div>
                     <div>
                         <h2 class="text-lg font-bold text-white font-amiri">1. Entri Perolehan ZIS 5 Masjid</h2>
-                        <p class="text-xs text-slate-400">Pilih masjid Anda di kanan agar lebih mudah mengisi. Ketik angka murni tanpa titik/Rp.</p>
+                        <p class="text-xs text-slate-400">Pilih masjid Anda, isi angka tanpa titik/Rp, lalu klik tombol <strong>Simpan</strong> di kanan baris masjid Anda.</p>
                     </div>
                 </div>
 
@@ -124,17 +132,19 @@
                 <table class="w-full text-left text-xs sm:text-sm text-slate-300">
                     <thead class="bg-emerald-950 text-gold-400 text-[11px] uppercase font-bold tracking-wider">
                         <tr>
-                            <th class="py-3.5 px-4 min-w-[210px]">Identitas Masjid</th>
-                            <th class="py-3.5 px-3 min-w-[120px]">Fitrah Beras (Kg)</th>
-                            <th class="py-3.5 px-3 min-w-[140px]">Fitrah Uang (Rp)</th>
-                            <th class="py-3.5 px-3 min-w-[140px]">Zakat Maal (Rp)</th>
-                            <th class="py-3.5 px-3 min-w-[130px]">Fidyah (Rp)</th>
-                            <th class="py-3.5 px-3 min-w-[140px]">Infak Umum (Rp)</th>
-                            <th class="py-3.5 px-3 min-w-[110px]">Mustahik (Jiwa)</th>
-                            <th class="py-3.5 px-3 text-center">Reset Angka</th>
+                            <th class="py-3.5 px-4 min-w-[200px]">Identitas Masjid</th>
+                            <th class="py-3.5 px-3 min-w-[115px]">Fitrah Beras (Kg)</th>
+                            <th class="py-3.5 px-3 min-w-[135px]">Fitrah Uang (Rp)</th>
+                            <th class="py-3.5 px-3 min-w-[135px]">Zakat Maal (Rp)</th>
+                            <th class="py-3.5 px-3 min-w-[125px]">Fidyah (Rp)</th>
+                            <th class="py-3.5 px-3 min-w-[135px]">Infak Umum (Rp)</th>
+                            <th class="py-3.5 px-3 min-w-[105px]">Mustahik (Jiwa)</th>
+                            <th class="py-3.5 px-3 text-center min-w-[120px]">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody id="rekap-masjid-rows-container" class="divide-y divide-slate-800"></tbody>
+                    <tbody id="rekap-masjid-rows-container" class="divide-y divide-slate-800">
+                        <tr><td colspan="8" class="py-8 text-center text-slate-400">⏳ Memuat data dari Google Sheets...</td></tr>
+                    </tbody>
                 </table>
             </div>
         </section>
@@ -144,39 +154,39 @@
             <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                        <i class="fa-solid fa-calendar-check"></i>
                     </div>
                     <div>
                         <h2 class="text-lg font-bold text-white font-amiri">2. Pelaksanaan Sholat Idul Fitri 1448 H</h2>
-                        <p class="text-xs text-slate-400">Jadwal, petugas Imam/Khatib, dan laporan kas Sholat Idul Fitri Gabungan 5 Masjid</p>
+                        <p class="text-xs text-slate-400">Jadwal, petugas Imam/Khatib, dan laporan kas Sholat Idul Fitri</p>
                     </div>
                 </div>
-                <button type="button" id="btn-reset-ied" class="px-3.5 py-2 bg-red-950/70 hover:bg-red-900 text-red-300 rounded-xl text-xs font-bold border border-red-500/30 transition-all flex items-center space-x-1.5">
-                    <i class="fa-solid fa-eraser" aria-hidden="true"></i>
-                    <span>Nol-kan Kas Ied</span>
+                <button type="button" id="btn-save-ied" class="px-5 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-extrabold rounded-xl shadow-lg text-xs transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Simpan Info Sholat Ied</span>
                 </button>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 <div>
                     <label for="ied-tanggal" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Hari & Tanggal Ied</label>
-                    <input type="text" id="ied-tanggal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="Selasa, 1 Syawal 1448 H / 9 Maret 2027">
+                    <input type="text" id="ied-tanggal" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none">
                 </div>
                 <div>
                     <label for="ied-waktu" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Waktu Pelaksanaan</label>
-                    <input type="text" id="ied-waktu" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="06.15 WIB - Selesai">
+                    <input type="text" id="ied-waktu" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none">
                 </div>
                 <div>
                     <label for="ied-lokasi" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Lokasi Sholat Ied</label>
-                    <input type="text" id="ied-lokasi" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" value="Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman">
+                    <input type="text" id="ied-lokasi" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none">
                 </div>
                 <div>
                     <label for="ied-khatib" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Nama Khatib</label>
-                    <input type="text" id="ied-khatib" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" placeholder="Nama Khatib Sholat Ied">
+                    <input type="text" id="ied-khatib" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none">
                 </div>
                 <div>
                     <label for="ied-imam" class="block text-xs font-bold text-gold-300 uppercase mb-1.5">Nama Imam</label>
-                    <input type="text" id="ied-imam" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none" placeholder="Nama Imam Sholat Ied">
+                    <input type="text" id="ied-imam" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-gold-500 focus:outline-none">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
@@ -190,28 +200,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- ACTION BAR BAWAH -->
-        <div class="glass-card rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-gold-500/40">
-            <div class="text-xs text-slate-300 space-y-1">
-                <div>
-                    <span class="font-bold text-gold-400"><i class="fa-solid fa-circle-info mr-1" aria-hidden="true"></i> Sinkronisasi Otomatis:</span>
-                    Perubahan di sini otomatis tersinkron dengan halaman utama Gabungan 5 Masjid.
-                </div>
-                <div class="text-slate-400">
-                    Setelah selesai mengisi, klik <strong>Simpan & Download data.json</strong> lalu unggah/kirim ke koordinator GitHub.
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
-                <button type="button" id="btn-reload-server" class="w-full sm:w-auto px-5 py-3 bg-slate-900 hover:bg-red-950/80 text-slate-300 hover:text-red-200 font-bold rounded-xl border border-slate-700 hover:border-red-500/40 text-xs transition-all">
-                    <i class="fa-solid fa-rotate-right mr-1.5" aria-hidden="true"></i> Reset ke Data Server
-                </button>
-                <button type="button" id="btn-export-json" class="w-full sm:w-auto px-7 py-3 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-extrabold rounded-xl shadow-lg text-xs sm:text-sm transition-all flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-download" aria-hidden="true"></i>
-                    <span>Simpan & Download data.json</span>
-                </button>
-            </div>
-        </div>
     </main>
 
     <!-- FOOTER -->
@@ -221,8 +209,8 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        const DRAFT_STORAGE_KEY = 'gabungan_5masjid_admin_draft_1448h_v1';
-
+        // GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA (BERAKHIRAN /exec)
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxezH0aqwgUkC0i_CQnAO9Q8DFfp92k02bYE69ln8VROaAWmkDqWA9UKoJQPb_QvYYkiQ/exec
         const MASTER_5_MASJID = [
             { nama: 'Masjid Al-Marhamah', wilayah: 'Perum Candi Gebang' },
             { nama: 'Masjid Al-Muttaqin', wilayah: 'Jetis' },
@@ -231,63 +219,18 @@
             { nama: 'Masjid Nurul Jariyah', wilayah: 'Perum Jambusari' }
         ];
 
-        const createDefaultSchema = () => ({
-            last_update: 'Belum ada pembaruan',
-            zis: {
-                zakat_fitrah_beras_kg: 0,
-                zakat_fitrah_uang: 0,
-                zakat_maal: 0,
-                fidyah: 0,
-                infak_shodaqoh: 0
-            },
-            jadwal_kultum: [],
-            agenda: [],
-            infak_harian: [],
-            galeri: [],
-            gabungan_5_masjid: {
-                idul_fitri: {
-                    tanggal: 'Selasa, 1 Syawal 1448 H / 9 Maret 2027',
-                    waktu: '06.15 WIB - Selesai',
-                    lokasi: 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman',
-                    khatib: '-',
-                    imam: '-',
-                    infak_sholat_ied: 0,
-                    operasional_panitia: 0
-                },
-                rekap_masjid: MASTER_5_MASJID.map((m) => ({
-                    nama: m.nama,
-                    wilayah: m.wilayah,
-                    fitrah_beras_kg: 0,
-                    fitrah_uang: 0,
-                    zakat_maal: 0,
-                    fidyah: 0,
-                    infak: 0,
-                    mustahik_jiwa: 0
-                }))
-            }
-        });
-
-        // Menyimpan seluruh isi data.json (termasuk data Al-Marhamah) agar tidak hilang saat export
-        let fullLoadedData = createDefaultSchema();
-        let isServerDataLoaded = false;
-
-        const escapeAttr = (str) => {
-            if (str === null || str === undefined) return '';
-            return String(str).replace(/[&<>"']/g, (tag) => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-            }[tag] || tag));
-        };
+        const escapeAttr = (str) => String(str ?? '').replace(/[&<>"']/g, (t) => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[t] || t));
 
         const toSafeNumber = (val) => {
-            const num = Number(val);
-            return Number.isFinite(num) && num >= 0 ? num : 0;
+            const n = Number(val);
+            return Number.isFinite(n) && n >= 0 ? n : 0;
         };
 
         const showAlert = (msg, isError = false) => {
             const box = document.getElementById('alert-box');
             const txt = document.getElementById('alert-msg');
-            if (!box || !txt) return;
-
             box.className = `p-4 rounded-xl text-xs sm:text-sm font-medium border flex items-center justify-between ${
                 isError
                     ? 'bg-red-950/90 border-red-500/50 text-red-200'
@@ -295,17 +238,33 @@
             }`;
             txt.textContent = msg;
             box.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        const getPin = () => {
+            const pin = document.getElementById('admin-pin-input').value.trim();
+            if (!pin) {
+                showAlert('Masukkan PIN Pengaman Takmir di bagian atas terlebih dahulu!', true);
+                document.getElementById('admin-pin-input').focus();
+                return null;
+            }
+            sessionStorage.setItem('gabungan_admin_pin', pin);
+            return pin;
+        };
+
+        const applyMasjidFilter = () => {
+            const filterVal = document.getElementById('filter-masjid-select')?.value || 'all';
+            document.querySelectorAll('#rekap-masjid-rows-container tr.rekap-masjid-row').forEach((tr) => {
+                tr.classList.toggle('hidden', filterVal !== 'all' && tr.dataset.index !== filterVal);
+            });
         };
 
         const renderRekapMasjidRows = (list) => {
             const container = document.getElementById('rekap-masjid-rows-container');
-            if (!container) return;
             container.innerHTML = '';
 
-            const rawList = Array.isArray(list) ? list : [];
-
             MASTER_5_MASJID.forEach((master, idx) => {
-                const m = (rawList[idx] && typeof rawList[idx] === 'object') ? rawList[idx] : {};
+                const m = (Array.isArray(list) && list[idx]) ? list[idx] : {};
 
                 const tr = document.createElement('tr');
                 tr.className = 'rekap-masjid-row hover:bg-emerald-950/40 transition-colors';
@@ -317,6 +276,7 @@
                             <div>
                                 <div class="font-extrabold text-sm text-gold-300 leading-snug">${escapeAttr(master.nama)}</div>
                                 <div class="text-[11px] text-emerald-300/90 font-medium">${escapeAttr(master.wilayah)}</div>
+                                <div class="rm-updated text-[10px] text-slate-400 mt-0.5">Update: ${escapeAttr(m.updated_at || '-')}</div>
                             </div>
                         </div>
                     </td>
@@ -339,250 +299,144 @@
                         <input type="number" min="0" class="rm-mustahik w-full bg-slate-900 border border-emerald-700/70 focus:border-gold-400 rounded-lg px-2.5 py-2 text-xs text-emerald-300 font-mono font-bold" value="${toSafeNumber(m.mustahik_jiwa)}">
                     </td>
                     <td class="py-3 px-3 text-center align-middle">
-                        <button type="button" class="btn-zero-masjid px-2.5 py-1.5 bg-red-950/80 hover:bg-red-900 text-red-300 border border-red-500/30 rounded-lg text-[11px] font-bold transition-all">
-                            Nol-kan
+                        <button type="button" class="btn-save-masjid w-full px-3 py-2 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-extrabold rounded-lg text-xs shadow transition-all">
+                            💾 Simpan
                         </button>
                     </td>
                 `;
 
-                tr.querySelectorAll('input[type="number"]').forEach((inp) => {
-                    inp.addEventListener('input', saveDraftToLocal);
-                });
-
-                tr.querySelector('.btn-zero-masjid').addEventListener('click', () => {
-                    if (!confirm(`Nol-kan semua angka untuk ${master.nama}?`)) return;
-                    tr.querySelector('.rm-beras').value = 0;
-                    tr.querySelector('.rm-fitrah-uang').value = 0;
-                    tr.querySelector('.rm-maal').value = 0;
-                    tr.querySelector('.rm-fidyah').value = 0;
-                    tr.querySelector('.rm-infak').value = 0;
-                    tr.querySelector('.rm-mustahik').value = 0;
-                    saveDraftToLocal();
-                    showAlert(`Angka untuk ${master.nama} telah di-reset ke 0.`);
-                });
-
+                tr.querySelector('.btn-save-masjid').addEventListener('click', (e) => saveSingleMasjid(idx, tr, e.currentTarget));
                 container.appendChild(tr);
             });
 
             applyMasjidFilter();
         };
 
-        const applyMasjidFilter = () => {
-            const filterVal = document.getElementById('filter-masjid-select')?.value || 'all';
-            document.querySelectorAll('#rekap-masjid-rows-container tr.rekap-masjid-row').forEach((tr) => {
-                tr.classList.toggle('hidden', filterVal !== 'all' && tr.dataset.index !== filterVal);
-            });
-        };
+        async function loadFromSheets() {
+            if (!GAS_URL || GAS_URL.includes('TEMPEL_URL')) {
+                showAlert('URL Google Apps Script belum dipasang di kode admin-gabungan.html.', true);
+                renderRekapMasjidRows([]);
+                return;
+            }
 
-        const collectMergedDataObject = () => {
-            const rekapMasjidList = [];
-            document.querySelectorAll('#rekap-masjid-rows-container tr.rekap-masjid-row').forEach((tr, idx) => {
-                const master = MASTER_5_MASJID[idx] || { nama: `Masjid ${idx + 1}`, wilayah: '' };
-                rekapMasjidList.push({
-                    nama: master.nama,
-                    wilayah: master.wilayah,
-                    fitrah_beras_kg: toSafeNumber(tr.querySelector('.rm-beras')?.value),
-                    fitrah_uang: toSafeNumber(tr.querySelector('.rm-fitrah-uang')?.value),
-                    zakat_maal: toSafeNumber(tr.querySelector('.rm-maal')?.value),
-                    fidyah: toSafeNumber(tr.querySelector('.rm-fidyah')?.value),
-                    infak: toSafeNumber(tr.querySelector('.rm-infak')?.value),
-                    mustahik_jiwa: toSafeNumber(tr.querySelector('.rm-mustahik')?.value)
+            try {
+                const res = await fetch(GAS_URL, { cache: 'no-store' });
+                const json = await res.json();
+                if (json.status !== 'ok') throw new Error(json.message || 'Gagal memuat data');
+
+                document.getElementById('header-last-update').textContent = json.last_update || '-';
+
+                const gab = json.gabungan_5_masjid || {};
+                const ied = gab.idul_fitri || {};
+
+                document.getElementById('ied-tanggal').value = ied.tanggal || '';
+                document.getElementById('ied-waktu').value = ied.waktu || '';
+                document.getElementById('ied-lokasi').value = ied.lokasi || '';
+                document.getElementById('ied-khatib').value = ied.khatib || '-';
+                document.getElementById('ied-imam').value = ied.imam || '-';
+                document.getElementById('ied-infak').value = toSafeNumber(ied.infak_sholat_ied);
+                document.getElementById('ied-operasional').value = toSafeNumber(ied.operasional_panitia);
+
+                renderRekapMasjidRows(gab.rekap_masjid || []);
+            } catch (err) {
+                showAlert('Gagal memuat data dari Google Sheets: ' + err.message, true);
+            }
+        }
+
+        async function saveSingleMasjid(index, tr, btn) {
+            const pin = getPin();
+            if (!pin) return;
+
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '⏳ ...';
+
+            try {
+                const payload = {
+                    action: 'update_masjid',
+                    pin: pin,
+                    index: index,
+                    fitrah_beras_kg: toSafeNumber(tr.querySelector('.rm-beras').value),
+                    fitrah_uang: toSafeNumber(tr.querySelector('.rm-fitrah-uang').value),
+                    zakat_maal: toSafeNumber(tr.querySelector('.rm-maal').value),
+                    fidyah: toSafeNumber(tr.querySelector('.rm-fidyah').value),
+                    infak: toSafeNumber(tr.querySelector('.rm-infak').value),
+                    mustahik_jiwa: toSafeNumber(tr.querySelector('.rm-mustahik').value)
+                };
+
+                const res = await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
                 });
-            });
+                const json = await res.json();
 
-            const gabunganData = {
-                idul_fitri: {
-                    tanggal: document.getElementById('ied-tanggal').value.trim() || 'Selasa, 1 Syawal 1448 H / 9 Maret 2027',
-                    waktu: document.getElementById('ied-waktu').value.trim() || '06.15 WIB - Selesai',
-                    lokasi: document.getElementById('ied-lokasi').value.trim() || 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman',
-                    khatib: document.getElementById('ied-khatib').value.trim() || '-',
-                    imam: document.getElementById('ied-imam').value.trim() || '-',
+                if (json.status !== 'ok') throw new Error(json.message || 'Gagal menyimpan');
+
+                tr.querySelector('.rm-updated').textContent = 'Update: ' + json.last_update;
+                document.getElementById('header-last-update').textContent = json.last_update;
+                showAlert('✅ ' + json.message + ' Data otomatis tayang di website.');
+            } catch (err) {
+                showAlert('❌ Gagal menyimpan: ' + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+
+        async function saveInfoIed() {
+            const pin = getPin();
+            if (!pin) return;
+
+            const btn = document.getElementById('btn-save-ied');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Menyimpan...</span>';
+
+            try {
+                const payload = {
+                    action: 'update_ied',
+                    pin: pin,
+                    tanggal: document.getElementById('ied-tanggal').value.trim(),
+                    waktu: document.getElementById('ied-waktu').value.trim(),
+                    lokasi: document.getElementById('ied-lokasi').value.trim(),
+                    khatib: document.getElementById('ied-khatib').value.trim(),
+                    imam: document.getElementById('ied-imam').value.trim(),
                     infak_sholat_ied: toSafeNumber(document.getElementById('ied-infak').value),
                     operasional_panitia: toSafeNumber(document.getElementById('ied-operasional').value)
-                },
-                rekap_masjid: rekapMasjidList
-            };
+                };
 
-            // Sinkronkan baris 0 (Masjid Al-Marhamah) ke objek zis utama agar tetap konsisten
-            const alMarhamahRow = rekapMasjidList[0] || {};
-            const syncedZis = {
-                zakat_fitrah_beras_kg: toSafeNumber(alMarhamahRow.fitrah_beras_kg),
-                zakat_fitrah_uang: toSafeNumber(alMarhamahRow.fitrah_uang),
-                zakat_maal: toSafeNumber(alMarhamahRow.zakat_maal),
-                fidyah: toSafeNumber(alMarhamahRow.fidyah),
-                infak_shodaqoh: toSafeNumber(alMarhamahRow.infak)
-            };
+                const res = await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                const json = await res.json();
 
-            return {
-                ...fullLoadedData,
-                zis: syncedZis,
-                gabungan_5_masjid: gabunganData
-            };
-        };
+                if (json.status !== 'ok') throw new Error(json.message || 'Gagal menyimpan');
 
-        const saveDraftToLocal = () => {
-            try {
-                const currentObj = collectMergedDataObject();
-                localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(currentObj));
-                document.getElementById('draft-badge')?.classList.remove('hidden');
-            } catch (e) {
-                console.warn('Gagal menyimpan draft:', e);
-            }
-        };
-
-        const populateFormFromData = (dataObj) => {
-            const safeData = (dataObj && typeof dataObj === 'object' && !Array.isArray(dataObj))
-                ? dataObj
-                : createDefaultSchema();
-
-            fullLoadedData = {
-                ...createDefaultSchema(),
-                ...safeData
-            };
-
-            const gab = (fullLoadedData.gabungan_5_masjid && typeof fullLoadedData.gabungan_5_masjid === 'object')
-                ? fullLoadedData.gabungan_5_masjid
-                : createDefaultSchema().gabungan_5_masjid;
-
-            const ied = (gab.idul_fitri && typeof gab.idul_fitri === 'object') ? gab.idul_fitri : {};
-            const rekapList = Array.isArray(gab.rekap_masjid) ? gab.rekap_masjid : [];
-
-            document.getElementById('ied-tanggal').value = ied.tanggal || 'Selasa, 1 Syawal 1448 H / 9 Maret 2027';
-            document.getElementById('ied-waktu').value = ied.waktu || '06.15 WIB - Selesai';
-            document.getElementById('ied-lokasi').value = ied.lokasi || 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman';
-            document.getElementById('ied-khatib').value = ied.khatib || '-';
-            document.getElementById('ied-imam').value = ied.imam || '-';
-            document.getElementById('ied-infak').value = toSafeNumber(ied.infak_sholat_ied);
-            document.getElementById('ied-operasional').value = toSafeNumber(ied.operasional_panitia);
-
-            renderRekapMasjidRows(rekapList);
-        };
-
-        const loadServerData = async (ignoreDraft = false) => {
-            // Ambil data server dulu di latar belakang agar data selain gabungan tetap utuh
-            try {
-                const res = await fetch('data.json', { cache: 'no-store' });
-                if (res.ok) {
-                    const rawText = await res.text();
-                    if (rawText && rawText.trim()) {
-                        fullLoadedData = { ...createDefaultSchema(), ...JSON.parse(rawText) };
-                        isServerDataLoaded = true;
-                    }
-                }
+                document.getElementById('header-last-update').textContent = json.last_update;
+                showAlert('✅ ' + json.message + ' Data otomatis tayang di website.');
             } catch (err) {
-                console.warn('Gagal fetch data.json:', err);
+                showAlert('❌ Gagal menyimpan Info Sholat Ied: ' + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
             }
-
-            if (!ignoreDraft) {
-                const savedDraft = localStorage.getItem(DRAFT_STORAGE_KEY);
-                if (savedDraft) {
-                    try {
-                        const parsedDraft = JSON.parse(savedDraft);
-                        // Gabungkan data server terbaru dengan draft gabungan_5_masjid
-                        const merged = {
-                            ...fullLoadedData,
-                            gabungan_5_masjid: parsedDraft.gabungan_5_masjid || fullLoadedData.gabungan_5_masjid
-                        };
-                        populateFormFromData(merged);
-                        document.getElementById('draft-badge')?.classList.remove('hidden');
-                        showAlert('Melanjutkan draft isian terakhir Anda. Klik "Reset ke Data Server" jika ingin kembali ke data terbaru server.');
-                        return;
-                    } catch (e) {
-                        localStorage.removeItem(DRAFT_STORAGE_KEY);
-                    }
-                }
-            }
-
-            populateFormFromData(fullLoadedData);
-            document.getElementById('draft-badge')?.classList.add('hidden');
-
-            if (isServerDataLoaded) {
-                showAlert('Data Gabungan 5 Masjid berhasil dimuat dari server (data.json).');
-            } else {
-                showAlert('Mode offline: Klik "Buka data.json" di kanan atas terlebih dahulu sebelum mengedit agar data lama tidak tertimpa.', true);
-            }
-        };
-
-        const saveAndExportJSON = () => {
-            try {
-                fullLoadedData = collectMergedDataObject();
-
-                const now = new Date();
-                const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-                fullLoadedData.last_update = `${now.toLocaleDateString('id-ID', options)} WIB`;
-
-                const jsonString = JSON.stringify(fullLoadedData, null, 2);
-                const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
-
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'data.json';
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                URL.revokeObjectURL(url);
-
-                localStorage.setItem(DRAFT_STORAGE_KEY, jsonString);
-                showAlert('Berhasil! File data.json telah di-download dan siap diunggah ke GitHub.');
-            } catch (err) {
-                showAlert(`Gagal mengekspor data: ${err.message}`, true);
-            }
-        };
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('filter-masjid-select')?.addEventListener('change', applyMasjidFilter);
+            const savedPin = sessionStorage.getItem('gabungan_admin_pin');
+            if (savedPin) document.getElementById('admin-pin-input').value = savedPin;
 
-            ['ied-tanggal', 'ied-waktu', 'ied-lokasi', 'ied-khatib', 'ied-imam', 'ied-infak', 'ied-operasional'].forEach((id) => {
-                document.getElementById(id)?.addEventListener('input', saveDraftToLocal);
-            });
-
-            document.getElementById('btn-reset-ied').addEventListener('click', () => {
-                if (!confirm('Nol-kan angka Infak & Operasional Sholat Ied?')) return;
-                document.getElementById('ied-infak').value = 0;
-                document.getElementById('ied-operasional').value = 0;
-                saveDraftToLocal();
-                showAlert('Kas Sholat Ied berhasil di-reset ke 0.');
-            });
-
+            document.getElementById('filter-masjid-select').addEventListener('change', applyMasjidFilter);
+            document.getElementById('btn-save-ied').addEventListener('click', saveInfoIed);
+            document.getElementById('btn-refresh-data').addEventListener('click', loadFromSheets);
             document.getElementById('alert-close-btn').addEventListener('click', () => {
                 document.getElementById('alert-box').classList.add('hidden');
             });
 
-            document.getElementById('btn-reload-server').addEventListener('click', () => {
-                if (confirm('Reset form ke data terbaru dari server (data.json)?')) {
-                    localStorage.removeItem(DRAFT_STORAGE_KEY);
-                    loadServerData(true);
-                }
-            });
-
-            document.getElementById('btn-export-json').addEventListener('click', saveAndExportJSON);
-
-            document.getElementById('import-json-input').addEventListener('change', (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    try {
-                        const parsed = JSON.parse(String(event.target.result || ''));
-                        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-                            throw new Error('Struktur JSON tidak valid');
-                        }
-                        isServerDataLoaded = true;
-                        populateFormFromData(parsed);
-                        saveDraftToLocal();
-                        showAlert(`File "${file.name}" berhasil dimuat.`);
-                    } catch (err) {
-                        showAlert(`File JSON tidak valid: ${err.message}`, true);
-                    } finally {
-                        e.target.value = '';
-                    }
-                };
-                reader.readAsText(file);
-            });
-
-            loadServerData(false);
+            loadFromSheets();
         });
     </script>
 </body>
