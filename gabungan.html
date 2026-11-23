@@ -342,7 +342,7 @@
                                 </tr>
                             </thead>
                             <tbody id="rekap-tbody" class="divide-y divide-slate-800/80">
-                                <tr><td colspan="7" class="py-8 text-center text-slate-500">Memuat data 5 masjid...</td></tr>
+                                <tr><td colspan="7" class="py-8 text-center text-slate-500">⏳ Memuat data 5 masjid...</td></tr>
                             </tbody>
                             <tfoot class="bg-emerald-950 border-t-2 border-gold-500/40 text-white font-bold">
                                 <tr>
@@ -370,6 +370,8 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxezH0aqwgUkC0i_CQnAO9Q8DFfp92k02bYE69ln8VROaAWmkDqWA9UKoJQPb_QvYYkiQ/exec';
+
         const formatRp = (num) => {
             const safeNum = Number(num);
             return new Intl.NumberFormat('id-ID', {
@@ -440,92 +442,104 @@
             });
         };
 
-        // 3. MUAT DATA GABUNGAN 5 MASJID DARI data.json (SINKRON DENGAN index.html & admin-umum.html)
+        // 3. RENDER DATA GABUNGAN 5 MASJID
+        const renderGabunganData = (data) => {
+            setElText('last-update', data.last_update || 'Belum ada pembaruan');
+
+            const gab = data.gabungan_5_masjid || {};
+            const ied = gab.idul_fitri || {};
+            const rekap = Array.isArray(gab.rekap_masjid) ? gab.rekap_masjid : [];
+
+            // Info Sholat Ied
+            setElText('ied-tanggal', ied.tanggal || 'Selasa, 1 Syawal 1448 H / 9 Maret 2027');
+            setElText('ied-waktu', ied.waktu || '06.15 WIB - Selesai');
+            setElText('ied-lokasi', ied.lokasi || 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman');
+            setElText('ied-khatib', ied.khatib || '-');
+            setElText('ied-imam', ied.imam || '-');
+
+            // Kas Sholat Ied
+            const infakIed = toSafeNumber(ied.infak_sholat_ied);
+            const operasional = toSafeNumber(ied.operasional_panitia);
+            const saldo = infakIed - operasional;
+
+            setElText('ied-infak', formatRp(infakIed));
+            setElText('ied-operasional', formatRp(operasional));
+            setElText('ied-saldo', formatRp(saldo));
+
+            // Rekap 5 Masjid
+            const tbody = document.getElementById('rekap-tbody');
+            if (rekap.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-slate-500">Belum ada data rekapitulasi 5 masjid.</td></tr>';
+                return;
+            }
+
+            let totBeras = 0, totFitrahUang = 0, totMaal = 0, totFidyah = 0, totInfak = 0, totMustahik = 0;
+
+            tbody.innerHTML = rekap.map((m, idx) => {
+                const beras = toSafeNumber(m.fitrah_beras_kg);
+                const fUang = toSafeNumber(m.fitrah_uang);
+                const maal = toSafeNumber(m.zakat_maal);
+                const fidyah = toSafeNumber(m.fidyah);
+                const infak = toSafeNumber(m.infak);
+                const mustahik = toSafeNumber(m.mustahik_jiwa);
+
+                totBeras += beras;
+                totFitrahUang += fUang;
+                totMaal += maal;
+                totFidyah += fidyah;
+                totInfak += infak;
+                totMustahik += mustahik;
+
+                const rowClass = idx % 2 === 0 ? 'bg-slate-900/40' : 'bg-slate-950/40';
+                return `
+                    <tr class="${rowClass}">
+                        <td class="py-3.5 px-5">
+                            <div class="font-bold text-gold-300">${idx + 1}. ${escapeHTML(m.nama || '-')}</div>
+                            <div class="text-[11px] text-slate-400">${escapeHTML(m.wilayah || '')}</div>
+                        </td>
+                        <td class="py-3.5 px-4 text-right font-mono text-white">${beras.toLocaleString('id-ID')} Kg</td>
+                        <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(fUang)}</td>
+                        <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(maal)}</td>
+                        <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(fidyah)}</td>
+                        <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(infak)}</td>
+                        <td class="py-3.5 px-4 text-right font-mono font-bold text-emerald-300">${mustahik.toLocaleString('id-ID')} Jiwa</td>
+                    </tr>
+                `;
+            }).join('');
+
+            const totalSemuaUang = totFitrahUang + totMaal + totFidyah + totInfak;
+
+            setElText('sum-beras', `${totBeras.toLocaleString('id-ID')} Kg`);
+            setElText('sum-uang', formatRp(totalSemuaUang));
+            setElText('sum-mustahik', `${totMustahik.toLocaleString('id-ID')} Jiwa`);
+
+            setElText('foot-beras', `${totBeras.toLocaleString('id-ID')} Kg`);
+            setElText('foot-fitrah-uang', formatRp(totFitrahUang));
+            setElText('foot-maal', formatRp(totMaal));
+            setElText('foot-fidyah', formatRp(totFidyah));
+            setElText('foot-infak', formatRp(totInfak));
+            setElText('foot-mustahik', `${totMustahik.toLocaleString('id-ID')} Jiwa`);
+        };
+
+        // 4. MUAT DATA DARI GOOGLE SHEETS (FALLBACK KE data.json JIKA GAGAL)
         const loadGabunganData = async () => {
             try {
-                const res = await fetch('data.json', { cache: 'no-store' });
+                const res = await fetch(GAS_URL, { cache: 'no-store' });
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const data = await res.json();
-
-                setElText('last-update', data.last_update || 'Belum ada pembaruan');
-
-                const gab = data.gabungan_5_masjid || {};
-                const ied = gab.idul_fitri || {};
-                const rekap = Array.isArray(gab.rekap_masjid) ? gab.rekap_masjid : [];
-
-                // Info Sholat Ied
-                setElText('ied-tanggal', ied.tanggal || 'Selasa, 1 Syawal 1448 H / 9 Maret 2027');
-                setElText('ied-waktu', ied.waktu || '06.15 WIB - Selesai');
-                setElText('ied-lokasi', ied.lokasi || 'Jalan Utama Perum Jambusari, Wedomartani, Ngemplak, Sleman');
-                setElText('ied-khatib', ied.khatib || '-');
-                setElText('ied-imam', ied.imam || '-');
-
-                // Kas Sholat Ied
-                const infakIed = toSafeNumber(ied.infak_sholat_ied);
-                const operasional = toSafeNumber(ied.operasional_panitia);
-                const saldo = infakIed - operasional;
-
-                setElText('ied-infak', formatRp(infakIed));
-                setElText('ied-operasional', formatRp(operasional));
-                setElText('ied-saldo', formatRp(saldo));
-
-                // Rekap 5 Masjid
-                const tbody = document.getElementById('rekap-tbody');
-                if (rekap.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-slate-500">Belum ada data rekapitulasi 5 masjid.</td></tr>';
-                    return;
-                }
-
-                let totBeras = 0, totFitrahUang = 0, totMaal = 0, totFidyah = 0, totInfak = 0, totMustahik = 0;
-
-                tbody.innerHTML = rekap.map((m, idx) => {
-                    const beras = toSafeNumber(m.fitrah_beras_kg);
-                    const fUang = toSafeNumber(m.fitrah_uang);
-                    const maal = toSafeNumber(m.zakat_maal);
-                    const fidyah = toSafeNumber(m.fidyah);
-                    const infak = toSafeNumber(m.infak);
-                    const mustahik = toSafeNumber(m.mustahik_jiwa);
-
-                    totBeras += beras;
-                    totFitrahUang += fUang;
-                    totMaal += maal;
-                    totFidyah += fidyah;
-                    totInfak += infak;
-                    totMustahik += mustahik;
-
-                    const rowClass = idx % 2 === 0 ? 'bg-slate-900/40' : 'bg-slate-950/40';
-                    return `
-                        <tr class="${rowClass}">
-                            <td class="py-3.5 px-5">
-                                <div class="font-bold text-gold-300">${idx + 1}. ${escapeHTML(m.nama || '-')}</div>
-                                <div class="text-[11px] text-slate-400">${escapeHTML(m.wilayah || '')}</div>
-                            </td>
-                            <td class="py-3.5 px-4 text-right font-mono text-white">${beras.toLocaleString('id-ID')} Kg</td>
-                            <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(fUang)}</td>
-                            <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(maal)}</td>
-                            <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(fidyah)}</td>
-                            <td class="py-3.5 px-4 text-right font-mono text-slate-200">${formatRp(infak)}</td>
-                            <td class="py-3.5 px-4 text-right font-mono font-bold text-emerald-300">${mustahik.toLocaleString('id-ID')} Jiwa</td>
-                        </tr>
-                    `;
-                }).join('');
-
-                const totalSemuaUang = totFitrahUang + totMaal + totFidyah + totInfak;
-
-                setElText('sum-beras', `${totBeras.toLocaleString('id-ID')} Kg`);
-                setElText('sum-uang', formatRp(totalSemuaUang));
-                setElText('sum-mustahik', `${totMustahik.toLocaleString('id-ID')} Jiwa`);
-
-                setElText('foot-beras', `${totBeras.toLocaleString('id-ID')} Kg`);
-                setElText('foot-fitrah-uang', formatRp(totFitrahUang));
-                setElText('foot-maal', formatRp(totMaal));
-                setElText('foot-fidyah', formatRp(totFidyah));
-                setElText('foot-infak', formatRp(totInfak));
-                setElText('foot-mustahik', `${totMustahik.toLocaleString('id-ID')} Jiwa`);
-
+                if (data.status === 'error') throw new Error(data.message);
+                renderGabunganData(data);
             } catch (err) {
-                console.error('Error loading data.json:', err);
-                setElText('last-update', 'Belum ada data');
+                console.warn('Gagal memuat dari Google Sheets, mencoba data.json:', err);
+                try {
+                    const fallbackRes = await fetch('data.json', { cache: 'no-store' });
+                    if (!fallbackRes.ok) throw new Error(`HTTP ${fallbackRes.status}`);
+                    const fallbackData = await fallbackRes.json();
+                    renderGabunganData(fallbackData);
+                } catch (fallbackErr) {
+                    console.error('Error loading fallback data.json:', fallbackErr);
+                    setElText('last-update', 'Belum ada data');
+                }
             }
         };
 
