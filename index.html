@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#011c16">
     <title>Panitia Ramadhan 1448 H - Masjid Al-Marhamah</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -282,7 +283,7 @@
                                 </tr>
                             </thead>
                             <tbody id="kultum-tbody" class="divide-y divide-slate-800/80">
-                                <tr><td colspan="3" class="py-8 text-center text-slate-500">Belum ada jadwal kultum Subuh.</td></tr>
+                                <tr><td colspan="3" class="py-8 text-center text-slate-500">⏳ Memuat jadwal kultum Subuh...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -301,7 +302,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="agenda-container">
-                    <div class="col-span-full py-8 text-center text-slate-500">Belum ada agenda kegiatan.</div>
+                    <div class="col-span-full py-8 text-center text-slate-500">⏳ Memuat agenda kegiatan...</div>
                 </div>
             </div>
         </section>
@@ -393,7 +394,7 @@
                                 </tr>
                             </thead>
                             <tbody id="infak-harian-tbody" class="divide-y divide-slate-800/80">
-                                <tr><td colspan="5" class="py-8 text-center text-slate-500">Belum ada data infak harian.</td></tr>
+                                <tr><td colspan="5" class="py-8 text-center text-slate-500">⏳ Memuat data infak harian...</td></tr>
                             </tbody>
                             <tfoot class="bg-emerald-950 border-t-2 border-gold-500/40 text-white font-bold">
                                 <tr>
@@ -484,6 +485,8 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxezH0aqwgUkC0i_CQnAO9Q8DFfp92k02bYE69ln8VROaAWmkDqWA9UKoJQPb_QvYYkiQ/exec';
+
         const formatRp = (num) => {
             const safeNum = Number(num);
             return new Intl.NumberFormat('id-ID', {
@@ -560,7 +563,7 @@
             });
         };
 
-        // 3. RENDER JADWAL KULTUM SUBUH (3 KOLOM, TANPA DATA CONTOH)
+        // 3. RENDER JADWAL KULTUM SUBUH
         const renderKultum = (list) => {
             const tbody = document.getElementById('kultum-tbody');
             if (!tbody) return;
@@ -587,7 +590,7 @@
             }).join('');
         };
 
-        // 4. RENDER AGENDA KEGIATAN (TANPA DATA CONTOH)
+        // 4. RENDER AGENDA KEGIATAN
         const renderAgenda = (list) => {
             const container = document.getElementById('agenda-container');
             if (!container) return;
@@ -692,41 +695,48 @@
             }
         };
 
-        // 7. LOAD DATA JSON
+        // 7. RENDER SEMUA DATA KE HALAMAN
+        const renderAllData = (data) => {
+            setElText('last-update', data.last_update ? String(data.last_update) : 'Belum ada pembaruan');
+
+            const z = (data.zis && typeof data.zis === 'object' && !Array.isArray(data.zis)) ? data.zis : {};
+            const berasKg = Number(z.zakat_fitrah_beras_kg);
+            setElText('zis-fitrah-beras', `${(Number.isFinite(berasKg) ? berasKg : 0).toLocaleString('id-ID')} Kg`);
+            setElText('zis-fitrah-uang', formatRp(z.zakat_fitrah_uang));
+            setElText('zis-maal', formatRp(z.zakat_maal));
+            setElText('zis-fidyah', formatRp(z.fidyah));
+            setElText('zis-infak-umum', formatRp(z.infak_shodaqoh));
+
+            renderKultum(data.jadwal_kultum || data.kultum);
+            renderAgenda(data.agenda);
+            renderInfakHarian(data.infak_harian);
+            renderGaleri(data.galeri);
+        };
+
+        // 8. MUAT DATA REAL-TIME DARI GOOGLE SHEETS (FALLBACK KE data.json JIKA GAGAL)
         const loadDataJSON = async () => {
             try {
-                const res = await fetch('data.json', { cache: 'no-store' });
+                const res = await fetch(GAS_URL, { cache: 'no-store' });
                 if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
-                
-                const rawText = await res.text();
-                if (!rawText || !rawText.trim()) throw new Error('File JSON kosong');
-
-                const data = JSON.parse(rawText);
-                if (!data || typeof data !== 'object' || Array.isArray(data)) {
-                    throw new Error('Struktur root JSON bukan objek yang valid');
+                const data = await res.json();
+                if (!data || typeof data !== 'object' || data.status === 'error') {
+                    throw new Error(data?.message || 'Respon Apps Script tidak valid');
                 }
-
-                setElText('last-update', data.last_update ? String(data.last_update) : 'Belum ada pembaruan');
-
-                const z = (data.zis && typeof data.zis === 'object' && !Array.isArray(data.zis)) ? data.zis : {};
-                const berasKg = Number(z.zakat_fitrah_beras_kg);
-                setElText('zis-fitrah-beras', `${(Number.isFinite(berasKg) ? berasKg : 0).toLocaleString('id-ID')} Kg`);
-                setElText('zis-fitrah-uang', formatRp(z.zakat_fitrah_uang));
-                setElText('zis-maal', formatRp(z.zakat_maal));
-                setElText('zis-fidyah', formatRp(z.fidyah));
-                setElText('zis-infak-umum', formatRp(z.infak_shodaqoh));
-
-                renderKultum(data.jadwal_kultum || data.kultum);
-                renderAgenda(data.agenda);
-                renderInfakHarian(data.infak_harian);
-                renderGaleri(data.galeri);
-
+                renderAllData(data);
             } catch (err) {
-                console.error('Error loading data.json:', err);
-                setElText('last-update', 'Belum ada data');
-                renderKultum([]);
-                renderAgenda([]);
-                renderInfakHarian([]);
+                console.warn('Gagal memuat dari Google Sheets, mencoba data.json:', err);
+                try {
+                    const fallbackRes = await fetch('data.json', { cache: 'no-store' });
+                    if (!fallbackRes.ok) throw new Error(`HTTP Error: ${fallbackRes.status}`);
+                    const fallbackData = await fallbackRes.json();
+                    renderAllData(fallbackData);
+                } catch (fallbackErr) {
+                    console.error('Error loading fallback data.json:', fallbackErr);
+                    setElText('last-update', 'Belum ada data');
+                    renderKultum([]);
+                    renderAgenda([]);
+                    renderInfakHarian([]);
+                }
             }
         };
 
