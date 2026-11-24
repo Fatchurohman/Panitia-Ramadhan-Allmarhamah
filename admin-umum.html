@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -30,7 +30,7 @@
             }
         }
     </script>
-    
+
     <style>
         .glass-card {
             background: rgba(2, 44, 34, 0.85);
@@ -55,9 +55,9 @@
 
     <!-- TOP BAR -->
     <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 border-b border-gold-500/30 text-gold-300 text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-md">
-        <span class="inline-block animate-pulse mr-2" aria-hidden="true">⚙️</span> 
-        Portal Manajemen Data Internal — Panitia Ramadhan 1448 H Masjid Al-Marhamah
-        <span class="inline-block animate-pulse ml-2" aria-hidden="true">⚙️</span>
+        <span class="inline-block animate-pulse mr-2">⚡</span>
+        Panel Admin Real-Time Masjid Al-Marhamah — Langsung Tayang Tanpa Upload File
+        <span class="inline-block animate-pulse ml-2">⚡</span>
     </div>
 
     <!-- HEADER -->
@@ -66,30 +66,24 @@
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-600 to-gold-300 flex items-center justify-center p-0.5 shadow-lg shrink-0">
                     <div class="w-full h-full bg-emerald-950 rounded-full flex items-center justify-center">
-                        <i class="fa-solid fa-user-shield text-gold-400" aria-hidden="true"></i>
+                        <i class="fa-solid fa-user-shield text-gold-400"></i>
                     </div>
                 </div>
                 <div>
                     <h1 class="text-sm sm:text-base font-extrabold text-white tracking-wide">PANEL ADMIN MASJID AL-MARHAMAH</h1>
-                    <div class="flex items-center space-x-2">
-                        <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">Perum Candi Gebang Permai, Ngemplak, Sleman</p>
-                        <span id="draft-badge" class="hidden text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-semibold">
-                            <i class="fa-solid fa-floppy-disk mr-1"></i>Draft Tersimpan
-                        </span>
-                    </div>
+                    <p class="text-[10px] sm:text-[11px] text-gold-400 font-medium">
+                        Update Terakhir: <span id="header-last-update" class="text-emerald-300">Memuat...</span>
+                    </p>
                 </div>
             </div>
 
             <div class="flex flex-wrap items-center gap-2">
-                <!-- Tombol Import File data.json Lokal -->
-                <label for="import-json-input" class="cursor-pointer inline-flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-xl text-xs font-semibold transition-all">
-                    <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
-                    <span>Buka File data.json</span>
-                </label>
-                <input type="file" id="import-json-input" accept=".json,application/json" class="hidden">
-
+                <button type="button" id="btn-refresh-data" class="inline-flex items-center space-x-1.5 bg-slate-800 hover:bg-slate-700 text-gold-300 border border-gold-500/30 px-3 py-2 rounded-xl text-xs font-semibold transition-all">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Refresh Data</span>
+                </button>
                 <a href="index.html" class="inline-flex items-center space-x-1.5 bg-emerald-900 hover:bg-emerald-800 text-gold-300 border border-gold-500/40 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow">
-                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    <i class="fa-solid fa-arrow-left"></i>
                     <span>Web Al-Marhamah</span>
                 </a>
             </div>
@@ -98,39 +92,51 @@
 
     <!-- MAIN CONTENT -->
     <main class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-        
+
         <!-- ALERT BANNER -->
         <div id="alert-box" class="hidden p-4 rounded-xl text-xs sm:text-sm font-medium border flex items-center justify-between transition-all">
-            <span id="alert-msg">Notifikasi sistem...</span>
-            <button type="button" id="alert-close-btn" class="text-lg font-bold ml-4 leading-none" aria-label="Tutup Notifikasi">&times;</button>
+            <span id="alert-msg">Notifikasi...</span>
+            <button type="button" id="alert-close-btn" class="text-lg font-bold ml-4 leading-none">&times;</button>
         </div>
 
-        <!-- TAB SWITCHER (2 TAB KHUSUS AL-MARHAMAH) -->
+        <!-- KOTAK PIN PENGAMAN -->
+        <section class="glass-card rounded-2xl p-4 sm:p-5 border border-gold-500/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <div>
+                    <h2 class="text-sm font-bold text-white">PIN Pengaman Admin Al-Marhamah</h2>
+                    <p class="text-xs text-slate-400">Masukkan PIN internal Al-Marhamah sebelum klik Simpan.</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <input type="password" id="admin-pin-input" inputmode="numeric" placeholder="Masukkan PIN..." class="w-full sm:w-44 bg-slate-900 border border-gold-500/50 rounded-xl px-4 py-2 text-sm text-white font-mono text-center focus:outline-none focus:border-gold-400">
+            </div>
+        </section>
+
+        <!-- TAB SWITCHER -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-gold-500/20">
             <button type="button" id="tab-btn-bendahara" class="tab-btn-active py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all">
-                <i class="fa-solid fa-sack-dollar" aria-hidden="true"></i>
+                <i class="fa-solid fa-sack-dollar"></i>
                 <span>1. ZIS & Kas Al-Marhamah</span>
             </button>
             <button type="button" id="tab-btn-umum" class="tab-btn-inactive py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all">
-                <i class="fa-solid fa-microphone-lines" aria-hidden="true"></i>
+                <i class="fa-solid fa-microphone-lines"></i>
                 <span>2. Kultum, Agenda & Galeri</span>
             </button>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- PANEL 1: KHUSUS BENDAHARA & PETUGAS ZIS AL-MARHAMAH        -->
-        <!-- ========================================================== -->
+        <!-- PANEL 1: ZIS & INFAK HARIAN -->
         <div id="panel-bendahara" class="space-y-8">
-            
-            <!-- ZIS & FIDYAH -->
             <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                        <i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i>
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
                     </div>
                     <div>
                         <h2 class="text-lg font-bold text-white font-amiri">Perolehan ZIS & Fidyah Masjid Al-Marhamah</h2>
-                        <p class="text-xs text-slate-400">Ketik angka murni tanpa titik/Rp. Untuk koreksi, cukup ubah langsung pada kolom masing-masing.</p>
+                        <p class="text-xs text-slate-400">Ketik angka murni tanpa titik/Rp. Otomatis tersinkron ke tabel Gabungan 5 Masjid saat disimpan.</p>
                     </div>
                 </div>
 
@@ -158,20 +164,19 @@
                 </div>
             </section>
 
-            <!-- INFAK HARIAN TARAWIH & SUBUH -->
             <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                            <i class="fa-solid fa-calendar-check"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Laporan Perolehan Infak Harian</h2>
-                            <p class="text-xs text-slate-400">Kotak Amal Sholat Tarawih & Subuh (Otomatis dijumlahkan di halaman utama)</p>
+                            <p class="text-xs text-slate-400">Kotak Amal Sholat Tarawih & Subuh</p>
                         </div>
                     </div>
                     <button type="button" id="btn-add-infak" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <i class="fa-solid fa-plus"></i>
                         <span>Tambah Baris Hari</span>
                     </button>
                 </div>
@@ -184,26 +189,24 @@
                                 <th class="py-3 px-4">Tanggal</th>
                                 <th class="py-3 px-4">Infak Tarawih (Rp)</th>
                                 <th class="py-3 px-4">Infak Subuh (Rp)</th>
-                                <th class="py-3 px-4 text-center">Aksi</th>
+                                <th class="py-3 px-4 text-center">Hapus</th>
                             </tr>
                         </thead>
-                        <tbody id="infak-rows-container" class="divide-y divide-slate-800"></tbody>
+                        <tbody id="infak-rows-container" class="divide-y divide-slate-800">
+                            <tr><td colspan="5" class="py-6 text-center text-slate-400 text-xs">⏳ Memuat data...</td></tr>
+                        </tbody>
                     </table>
                 </div>
             </section>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- PANEL 2: ADMIN UMUM (KULTUM SUBUH, AGENDA & GALERI)        -->
-        <!-- ========================================================== -->
+        <!-- PANEL 2: KULTUM, AGENDA & GALERI -->
         <div id="panel-umum" class="hidden space-y-8">
-            
-            <!-- JADWAL KULTUM SUBUH -->
             <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-microphone-lines" aria-hidden="true"></i>
+                            <i class="fa-solid fa-microphone-lines"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Jadwal Penceramah Kultum Subuh</h2>
@@ -211,7 +214,7 @@
                         </div>
                     </div>
                     <button type="button" id="btn-add-kultum" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <i class="fa-solid fa-plus"></i>
                         <span>Tambah Jadwal Subuh</span>
                     </button>
                 </div>
@@ -231,12 +234,11 @@
                 </div>
             </section>
 
-            <!-- AGENDA KEGIATAN RAMADHAN -->
             <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+                            <i class="fa-solid fa-list-check"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Agenda Kegiatan Ramadhan</h2>
@@ -244,7 +246,7 @@
                         </div>
                     </div>
                     <button type="button" id="btn-add-agenda" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <i class="fa-solid fa-plus"></i>
                         <span>Tambah Agenda</span>
                     </button>
                 </div>
@@ -265,12 +267,11 @@
                 </div>
             </section>
 
-            <!-- GALERI DOKUMENTASI FOTO -->
             <section class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-gold-500/20">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-lg shrink-0">
-                            <i class="fa-solid fa-images" aria-hidden="true"></i>
+                            <i class="fa-solid fa-images"></i>
                         </div>
                         <div>
                             <h2 class="text-lg font-bold text-white font-amiri">Galeri Foto Kegiatan (Folder img/)</h2>
@@ -278,7 +279,7 @@
                         </div>
                     </div>
                     <button type="button" id="btn-add-galeri" class="px-4 py-2 bg-emerald-800 hover:bg-emerald-700 text-gold-300 rounded-xl text-xs font-bold border border-gold-500/30 transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <i class="fa-solid fa-plus"></i>
                         <span>Tambah Foto Galeri</span>
                     </button>
                 </div>
@@ -302,22 +303,17 @@
         <div class="glass-card rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-gold-500/40">
             <div class="text-xs text-slate-300 space-y-1">
                 <div>
-                    <span class="font-bold text-gold-400"><i class="fa-solid fa-circle-info mr-1" aria-hidden="true"></i> Petunjuk Penyimpanan:</span>
-                    Ketikan Anda otomatis tersimpan sebagai <em>Draft</em> di browser ini.
+                    <span class="font-bold text-gold-400"><i class="fa-solid fa-cloud-arrow-up mr-1"></i> Simpan Real-Time:</span>
+                    Setelah selesai mengubah Tab 1 atau Tab 2, cukup klik tombol di samping.
                 </div>
                 <div class="text-slate-400">
-                    Klik <strong>Simpan & Download data.json</strong> setelah selesai mengedit, lalu unggah ke repository GitHub.
+                    Data otomatis tersimpan di Google Sheets dan langsung tayang di website tanpa perlu upload ke GitHub.
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0">
-                <button type="button" id="btn-reload-server" class="w-full sm:w-auto px-5 py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold rounded-xl border border-slate-700 text-xs transition-all">
-                    <i class="fa-solid fa-rotate-right mr-1.5" aria-hidden="true"></i> Muat Ulang dari Server
-                </button>
-                <button type="button" id="btn-export-json" class="w-full sm:w-auto px-7 py-3 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-extrabold rounded-xl shadow-lg text-xs sm:text-sm transition-all flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-download" aria-hidden="true"></i>
-                    <span>Simpan & Download data.json</span>
-                </button>
-            </div>
+            <button type="button" id="btn-save-server" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-emerald-950 font-extrabold rounded-xl shadow-lg text-xs sm:text-sm transition-all flex items-center justify-center space-x-2 shrink-0">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span>Simpan Semua Data ke Server</span>
+            </button>
         </div>
     </main>
 
@@ -328,34 +324,11 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        const DRAFT_STORAGE_KEY = 'almarhamah_admin_draft_1448h_v3';
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbxezH0aqwgUkC0i_CQnAO9Q8DFfp92k02bYE69ln8VROaAWmkDqWA9UKoJQPb_QvYYkiQ/exec';
 
-        const createDefaultSchema = () => ({
-            last_update: 'Belum ada pembaruan',
-            zis: {
-                zakat_fitrah_beras_kg: 0,
-                zakat_fitrah_uang: 0,
-                zakat_maal: 0,
-                fidyah: 0,
-                infak_shodaqoh: 0
-            },
-            jadwal_kultum: [],
-            agenda: [],
-            infak_harian: [],
-            galeri: [
-                { url: 'img/1.jpg', caption: 'Kegiatan Sholat Berjamaah' },
-                { url: 'img/2.jpg', caption: 'Suasana Kebersamaan Jamaah' }
-            ]
-        });
-
-        let globalLoadedData = createDefaultSchema();
-
-        const escapeAttr = (str) => {
-            if (str === null || str === undefined) return '';
-            return String(str).replace(/[&<>"']/g, (tag) => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-            }[tag] || tag));
-        };
+        const escapeAttr = (str) => String(str ?? '').replace(/[&<>"']/g, (t) => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[t] || t));
 
         const toSafeNumber = (val) => {
             const num = Number(val);
@@ -365,8 +338,6 @@
         const showAlert = (msg, isError = false) => {
             const box = document.getElementById('alert-box');
             const txt = document.getElementById('alert-msg');
-            if (!box || !txt) return;
-
             box.className = `p-4 rounded-xl text-xs sm:text-sm font-medium border flex items-center justify-between ${
                 isError
                     ? 'bg-red-950/90 border-red-500/50 text-red-200'
@@ -374,467 +345,264 @@
             }`;
             txt.textContent = msg;
             box.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
         const checkEmptyTable = (tbodyId, colspan, emptyMessage) => {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
-            const dataRows = tbody.querySelectorAll('tr.data-row');
-            if (dataRows.length === 0) {
+            if (tbody.querySelectorAll('tr.data-row').length === 0) {
                 tbody.innerHTML = `<tr class="empty-row"><td colspan="${colspan}" class="py-6 text-center text-slate-500 text-xs">${escapeAttr(emptyMessage)}</td></tr>`;
             }
         };
 
-        // 1. BARIS INFAK HARIAN
         const appendInfakRow = (hari = '', tanggal = '', tarawih = 0, subuh = 0) => {
             const container = document.getElementById('infak-rows-container');
-            if (!container) return;
-
-            const emptyRow = container.querySelector('tr.empty-row');
-            if (emptyRow) emptyRow.remove();
+            container.querySelector('tr.empty-row')?.remove();
 
             const tr = document.createElement('tr');
             tr.className = 'data-row hover:bg-slate-900/50 transition-colors';
             tr.innerHTML = `
-                <td class="py-3 px-4">
-                    <input type="text" class="row-hari w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(hari)}" placeholder="Ramadhan 1">
-                </td>
-                <td class="py-3 px-4">
-                    <input type="text" class="row-tanggal w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(tanggal)}" placeholder="8 Feb 2027">
-                </td>
-                <td class="py-3 px-4">
-                    <input type="number" min="0" class="row-tarawih w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(tarawih)}" placeholder="0">
-                </td>
-                <td class="py-3 px-4">
-                    <input type="number" min="0" class="row-subuh w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(subuh)}" placeholder="0">
-                </td>
-                <td class="py-3 px-4 text-center">
-                    <button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs" title="Hapus Baris">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </td>
+                <td class="py-3 px-4"><input type="text" class="row-hari w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(hari)}" placeholder="Ramadhan 1"></td>
+                <td class="py-3 px-4"><input type="text" class="row-tanggal w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(tanggal)}" placeholder="8 Feb 2027"></td>
+                <td class="py-3 px-4"><input type="number" min="0" class="row-tarawih w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(tarawih)}"></td>
+                <td class="py-3 px-4"><input type="number" min="0" class="row-subuh w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono" value="${toSafeNumber(subuh)}"></td>
+                <td class="py-3 px-4 text-center"><button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs"><i class="fa-solid fa-trash-can"></i></button></td>
             `;
-
             tr.querySelector('.btn-remove-row').addEventListener('click', () => {
                 if (!confirm('Hapus baris infak harian ini?')) return;
                 tr.remove();
-                checkEmptyTable('infak-rows-container', 5, 'Belum ada data infak harian. Klik "Tambah Baris Hari" di atas.');
-                saveDraftToLocal();
+                checkEmptyTable('infak-rows-container', 5, 'Belum ada data infak harian.');
             });
-
-            tr.querySelectorAll('input').forEach((inp) => inp.addEventListener('input', saveDraftToLocal));
             container.appendChild(tr);
         };
 
-        // 2. BARIS KULTUM SUBUH
         const appendKultumRow = (hari = '', tanggal = '', penceramahSubuh = '') => {
             const container = document.getElementById('kultum-rows-container');
-            if (!container) return;
-
-            const emptyRow = container.querySelector('tr.empty-row');
-            if (emptyRow) emptyRow.remove();
+            container.querySelector('tr.empty-row')?.remove();
 
             const tr = document.createElement('tr');
             tr.className = 'data-row hover:bg-slate-900/50 transition-colors';
             tr.innerHTML = `
-                <td class="py-3 px-4">
-                    <input type="text" class="row-kultum-hari w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(hari)}" placeholder="Ramadhan 1">
-                </td>
-                <td class="py-3 px-4">
-                    <input type="text" class="row-kultum-tgl w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(tanggal)}" placeholder="8 Feb 2027">
-                </td>
-                <td class="py-3 px-4">
-                    <input type="text" class="row-kultum-penceramah w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(penceramahSubuh)}" placeholder="Nama Ustadz / Mubaligh Subuh">
-                </td>
-                <td class="py-3 px-4 text-center">
-                    <button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs" title="Hapus Baris">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </td>
+                <td class="py-3 px-4"><input type="text" class="row-kultum-hari w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(hari)}" placeholder="Ramadhan 1"></td>
+                <td class="py-3 px-4"><input type="text" class="row-kultum-tgl w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(tanggal)}" placeholder="8 Feb 2027"></td>
+                <td class="py-3 px-4"><input type="text" class="row-kultum-penceramah w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(penceramahSubuh)}" placeholder="Nama Ustadz"></td>
+                <td class="py-3 px-4 text-center"><button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs"><i class="fa-solid fa-trash-can"></i></button></td>
             `;
-
             tr.querySelector('.btn-remove-row').addEventListener('click', () => {
                 if (!confirm('Hapus jadwal kultum ini?')) return;
                 tr.remove();
-                checkEmptyTable('kultum-rows-container', 4, 'Belum ada jadwal kultum Subuh. Klik "Tambah Jadwal Subuh" di atas.');
-                saveDraftToLocal();
+                checkEmptyTable('kultum-rows-container', 4, 'Belum ada jadwal kultum Subuh.');
             });
-
-            tr.querySelectorAll('input').forEach((inp) => inp.addEventListener('input', saveDraftToLocal));
             container.appendChild(tr);
         };
 
-        // 3. BARIS AGENDA KEGIATAN
         const appendAgendaRow = (hari = '', jam = '', judul = '', deskripsi = '', lokasi = 'Masjid Al-Marhamah') => {
             const container = document.getElementById('agenda-rows-container');
-            if (!container) return;
-
-            const emptyRow = container.querySelector('tr.empty-row');
-            if (emptyRow) emptyRow.remove();
+            container.querySelector('tr.empty-row')?.remove();
 
             const tr = document.createElement('tr');
             tr.className = 'data-row hover:bg-slate-900/50 transition-colors';
             tr.innerHTML = `
-                <td class="py-3 px-4 align-top">
-                    <input type="text" class="row-agenda-waktu w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(hari)}" placeholder="17 Ramadhan">
-                </td>
-                <td class="py-3 px-4 align-top">
-                    <input type="text" class="row-agenda-jam w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(jam)}" placeholder="19.30 WIB">
-                </td>
+                <td class="py-3 px-4 align-top"><input type="text" class="row-agenda-waktu w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(hari)}" placeholder="17 Ramadhan"></td>
+                <td class="py-3 px-4 align-top"><input type="text" class="row-agenda-jam w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(jam)}" placeholder="19.30 WIB"></td>
                 <td class="py-3 px-4 space-y-1.5 align-top">
                     <input type="text" class="row-agenda-judul w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-semibold" value="${escapeAttr(judul)}" placeholder="Judul Kegiatan">
-                    <textarea rows="2" class="row-agenda-desc w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-[11px] text-slate-300" placeholder="Deskripsi singkat kegiatan...">${escapeAttr(deskripsi)}</textarea>
+                    <textarea rows="2" class="row-agenda-desc w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-[11px] text-slate-300" placeholder="Deskripsi singkat...">${escapeAttr(deskripsi)}</textarea>
                 </td>
-                <td class="py-3 px-4 align-top">
-                    <input type="text" class="row-agenda-lokasi w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(lokasi)}" placeholder="Masjid Al-Marhamah">
-                </td>
-                <td class="py-3 px-4 text-center align-top">
-                    <button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs" title="Hapus Baris">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </td>
+                <td class="py-3 px-4 align-top"><input type="text" class="row-agenda-lokasi w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(lokasi)}"></td>
+                <td class="py-3 px-4 text-center align-top"><button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs"><i class="fa-solid fa-trash-can"></i></button></td>
             `;
-
             tr.querySelector('.btn-remove-row').addEventListener('click', () => {
                 if (!confirm('Hapus agenda ini?')) return;
                 tr.remove();
-                checkEmptyTable('agenda-rows-container', 5, 'Belum ada agenda kegiatan. Klik "Tambah Agenda" di atas.');
-                saveDraftToLocal();
+                checkEmptyTable('agenda-rows-container', 5, 'Belum ada agenda kegiatan.');
             });
-
-            tr.querySelectorAll('input, textarea').forEach((inp) => inp.addEventListener('input', saveDraftToLocal));
             container.appendChild(tr);
         };
 
-        // 4. BARIS GALERI FOTO
         const appendGaleriRow = (url = '', caption = '') => {
             const container = document.getElementById('galeri-rows-container');
-            if (!container) return;
-
-            const emptyRow = container.querySelector('tr.empty-row');
-            if (emptyRow) emptyRow.remove();
+            container.querySelector('tr.empty-row')?.remove();
 
             const tr = document.createElement('tr');
             tr.className = 'data-row hover:bg-slate-900/50 transition-colors';
             tr.innerHTML = `
-                <td class="py-3 px-4">
-                    <input type="text" class="row-galeri-url w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono" value="${escapeAttr(url)}" placeholder="img/1.jpg">
-                </td>
-                <td class="py-3 px-4">
-                    <input type="text" class="row-galeri-caption w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(caption)}" placeholder="Keterangan dokumentasi foto">
-                </td>
-                <td class="py-3 px-4 text-center">
-                    <button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs" title="Hapus Baris">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </td>
+                <td class="py-3 px-4"><input type="text" class="row-galeri-url w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono" value="${escapeAttr(url)}" placeholder="img/1.jpg"></td>
+                <td class="py-3 px-4"><input type="text" class="row-galeri-caption w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white" value="${escapeAttr(caption)}" placeholder="Keterangan foto"></td>
+                <td class="py-3 px-4 text-center"><button type="button" class="btn-remove-row text-red-400 hover:text-red-300 p-2 text-xs"><i class="fa-solid fa-trash-can"></i></button></td>
             `;
-
             tr.querySelector('.btn-remove-row').addEventListener('click', () => {
                 if (!confirm('Hapus foto galeri ini?')) return;
                 tr.remove();
-                checkEmptyTable('galeri-rows-container', 3, 'Belum ada foto galeri. Klik "Tambah Foto Galeri" di atas.');
-                saveDraftToLocal();
+                checkEmptyTable('galeri-rows-container', 3, 'Belum ada foto galeri.');
             });
-
-            tr.querySelectorAll('input').forEach((inp) => inp.addEventListener('input', saveDraftToLocal));
             container.appendChild(tr);
         };
 
-        // KUMPULKAN DATA FORM MENJADI OBJEK JSON (DATA LAIN DI data.json TETAP DIPERTAHANKAN)
-        const collectFormDataObject = () => {
-            const zisData = {
-                zakat_fitrah_beras_kg: toSafeNumber(document.getElementById('zis-beras').value),
-                zakat_fitrah_uang: toSafeNumber(document.getElementById('zis-fitrah-uang').value),
-                zakat_maal: toSafeNumber(document.getElementById('zis-maal').value),
-                fidyah: toSafeNumber(document.getElementById('zis-fidyah').value),
-                infak_shodaqoh: toSafeNumber(document.getElementById('zis-infak').value)
-            };
-
-            const infakHarianList = [];
-            document.querySelectorAll('#infak-rows-container tr.data-row').forEach((tr) => {
-                const hari = tr.querySelector('.row-hari')?.value.trim() || '';
-                const tanggal = tr.querySelector('.row-tanggal')?.value.trim() || '';
-                const tarawih = toSafeNumber(tr.querySelector('.row-tarawih')?.value);
-                const subuh = toSafeNumber(tr.querySelector('.row-subuh')?.value);
-                if (hari || tanggal || tarawih > 0 || subuh > 0) {
-                    infakHarianList.push({ hari, tanggal, tarawih, subuh });
-                }
-            });
-
-            const kultumList = [];
-            document.querySelectorAll('#kultum-rows-container tr.data-row').forEach((tr) => {
-                const hari = tr.querySelector('.row-kultum-hari')?.value.trim() || '';
-                const tanggal = tr.querySelector('.row-kultum-tgl')?.value.trim() || '';
-                const penceramah_subuh = tr.querySelector('.row-kultum-penceramah')?.value.trim() || '';
-                if (hari || tanggal || penceramah_subuh) {
-                    kultumList.push({ hari, tanggal, penceramah_subuh });
-                }
-            });
-
-            const agendaList = [];
-            document.querySelectorAll('#agenda-rows-container tr.data-row').forEach((tr) => {
-                const hari = tr.querySelector('.row-agenda-waktu')?.value.trim() || '';
-                const jam = tr.querySelector('.row-agenda-jam')?.value.trim() || '';
-                const judul = tr.querySelector('.row-agenda-judul')?.value.trim() || '';
-                const deskripsi = tr.querySelector('.row-agenda-desc')?.value.trim() || '';
-                const lokasi = tr.querySelector('.row-agenda-lokasi')?.value.trim() || 'Masjid Al-Marhamah';
-                if (hari || judul) {
-                    agendaList.push({ hari, jam, judul, deskripsi, lokasi });
-                }
-            });
-
-            const galeriList = [];
-            document.querySelectorAll('#galeri-rows-container tr.data-row').forEach((tr) => {
-                const url = tr.querySelector('.row-galeri-url')?.value.trim() || '';
-                const caption = tr.querySelector('.row-galeri-caption')?.value.trim() || '';
-                if (url) {
-                    galeriList.push({ url, caption });
-                }
-            });
-
-            return {
-                ...globalLoadedData,
-                zis: zisData,
-                infak_harian: infakHarianList,
-                jadwal_kultum: kultumList,
-                agenda: agendaList,
-                galeri: galeriList
-            };
-        };
-
-        const saveDraftToLocal = () => {
+        async function loadFromSheets() {
             try {
-                const currentObj = collectFormDataObject();
-                localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(currentObj));
-                document.getElementById('draft-badge')?.classList.remove('hidden');
-            } catch (e) {
-                console.warn('Gagal menyimpan draft lokal:', e);
-            }
-        };
+                const res = await fetch(GAS_URL, { cache: 'no-store' });
+                const data = await res.json();
+                if (data.status === 'error') throw new Error(data.message);
 
-        const populateFormFromData = (dataObj) => {
-            const safeData = (dataObj && typeof dataObj === 'object' && !Array.isArray(dataObj))
-                ? dataObj
-                : createDefaultSchema();
+                document.getElementById('header-last-update').textContent = data.last_update || '-';
 
-            globalLoadedData = {
-                ...createDefaultSchema(),
-                ...safeData
-            };
+                const z = data.zis || {};
+                document.getElementById('zis-beras').value = toSafeNumber(z.zakat_fitrah_beras_kg);
+                document.getElementById('zis-fitrah-uang').value = toSafeNumber(z.zakat_fitrah_uang);
+                document.getElementById('zis-maal').value = toSafeNumber(z.zakat_maal);
+                document.getElementById('zis-fidyah').value = toSafeNumber(z.fidyah);
+                document.getElementById('zis-infak').value = toSafeNumber(z.infak_shodaqoh);
 
-            const z = (globalLoadedData.zis && typeof globalLoadedData.zis === 'object') ? globalLoadedData.zis : {};
-            document.getElementById('zis-beras').value = toSafeNumber(z.zakat_fitrah_beras_kg);
-            document.getElementById('zis-fitrah-uang').value = toSafeNumber(z.zakat_fitrah_uang);
-            document.getElementById('zis-maal').value = toSafeNumber(z.zakat_maal);
-            document.getElementById('zis-fidyah').value = toSafeNumber(z.fidyah);
-            document.getElementById('zis-infak').value = toSafeNumber(z.infak_shodaqoh);
+                document.getElementById('infak-rows-container').innerHTML = '';
+                const infakList = Array.isArray(data.infak_harian) ? data.infak_harian : [];
+                if (infakList.length === 0) checkEmptyTable('infak-rows-container', 5, 'Belum ada data infak harian.');
+                else infakList.forEach(i => appendInfakRow(i.hari, i.tanggal, i.tarawih, i.subuh));
 
-            // Infak Harian
-            const infakContainer = document.getElementById('infak-rows-container');
-            infakContainer.innerHTML = '';
-            const infakList = Array.isArray(globalLoadedData.infak_harian) ? globalLoadedData.infak_harian : [];
-            if (infakList.length === 0) {
-                checkEmptyTable('infak-rows-container', 5, 'Belum ada data infak harian. Klik "Tambah Baris Hari" di atas.');
-            } else {
-                infakList.forEach((item) => {
-                    if (item && typeof item === 'object') {
-                        appendInfakRow(item.hari, item.tanggal, item.tarawih, item.subuh);
-                    }
-                });
-            }
+                document.getElementById('kultum-rows-container').innerHTML = '';
+                const kultumList = Array.isArray(data.jadwal_kultum) ? data.jadwal_kultum : [];
+                if (kultumList.length === 0) checkEmptyTable('kultum-rows-container', 4, 'Belum ada jadwal kultum Subuh.');
+                else kultumList.forEach(i => appendKultumRow(i.hari, i.tanggal, i.penceramah_subuh));
 
-            // Kultum Subuh
-            const kultumContainer = document.getElementById('kultum-rows-container');
-            kultumContainer.innerHTML = '';
-            const kultumList = Array.isArray(globalLoadedData.jadwal_kultum || globalLoadedData.kultum)
-                ? (globalLoadedData.jadwal_kultum || globalLoadedData.kultum)
-                : [];
-            if (kultumList.length === 0) {
-                checkEmptyTable('kultum-rows-container', 4, 'Belum ada jadwal kultum Subuh. Klik "Tambah Jadwal Subuh" di atas.');
-            } else {
-                kultumList.forEach((item) => {
-                    if (item && typeof item === 'object') {
-                        appendKultumRow(item.hari, item.tanggal, item.penceramah_subuh || item.subuh || item.penceramah || '');
-                    }
-                });
-            }
+                document.getElementById('agenda-rows-container').innerHTML = '';
+                const agendaList = Array.isArray(data.agenda) ? data.agenda : [];
+                if (agendaList.length === 0) checkEmptyTable('agenda-rows-container', 5, 'Belum ada agenda kegiatan.');
+                else agendaList.forEach(i => appendAgendaRow(i.hari, i.jam, i.judul, i.deskripsi, i.lokasi));
 
-            // Agenda
-            const agendaContainer = document.getElementById('agenda-rows-container');
-            agendaContainer.innerHTML = '';
-            const agendaList = Array.isArray(globalLoadedData.agenda) ? globalLoadedData.agenda : [];
-            if (agendaList.length === 0) {
-                checkEmptyTable('agenda-rows-container', 5, 'Belum ada agenda kegiatan. Klik "Tambah Agenda" di atas.');
-            } else {
-                agendaList.forEach((item) => {
-                    if (item && typeof item === 'object') {
-                        appendAgendaRow(item.hari || item.tanggal, item.jam || item.waktu, item.judul || item.nama, item.deskripsi, item.lokasi);
-                    }
-                });
-            }
+                document.getElementById('galeri-rows-container').innerHTML = '';
+                const galeriList = Array.isArray(data.galeri) ? data.galeri : [];
+                if (galeriList.length === 0) checkEmptyTable('galeri-rows-container', 3, 'Belum ada foto galeri.');
+                else galeriList.forEach(i => appendGaleriRow(i.url, i.caption));
 
-            // Galeri
-            const galeriContainer = document.getElementById('galeri-rows-container');
-            galeriContainer.innerHTML = '';
-            const galeriList = Array.isArray(globalLoadedData.galeri) ? globalLoadedData.galeri : [];
-            if (galeriList.length === 0) {
-                checkEmptyTable('galeri-rows-container', 3, 'Belum ada foto galeri. Klik "Tambah Foto Galeri" di atas.');
-            } else {
-                galeriList.forEach((item) => {
-                    if (typeof item === 'string') {
-                        appendGaleriRow(item, '');
-                    } else if (item && typeof item === 'object') {
-                        appendGaleriRow(item.url || item.src || '', item.caption || item.alt || '');
-                    }
-                });
-            }
-        };
-
-        const loadServerData = async (ignoreDraft = false) => {
-            if (!ignoreDraft) {
-                const savedDraft = localStorage.getItem(DRAFT_STORAGE_KEY);
-                if (savedDraft) {
-                    try {
-                        const parsedDraft = JSON.parse(savedDraft);
-                        populateFormFromData(parsedDraft);
-                        document.getElementById('draft-badge')?.classList.remove('hidden');
-                        showAlert('Melanjutkan draft isian terakhir Anda. Klik "Muat Ulang dari Server" jika ingin kembali ke data terbaru di server.');
-                        return;
-                    } catch (e) {
-                        localStorage.removeItem(DRAFT_STORAGE_KEY);
-                    }
-                }
-            }
-
-            try {
-                const res = await fetch('data.json', { cache: 'no-store' });
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const rawText = await res.text();
-                if (!rawText || !rawText.trim()) throw new Error('File data.json kosong');
-
-                const parsed = JSON.parse(rawText);
-                populateFormFromData(parsed);
-                document.getElementById('draft-badge')?.classList.add('hidden');
-                showAlert('Data Masjid Al-Marhamah berhasil dimuat dari data.json server.');
             } catch (err) {
-                console.warn('Tidak dapat mengambil data.json via fetch:', err);
-                populateFormFromData(createDefaultSchema());
-                document.getElementById('draft-badge')?.classList.add('hidden');
-                showAlert('Data belum terbaca dari server. Gunakan tombol "Buka File data.json" di kanan atas jika ingin memuat dari file lokal.', false);
+                showAlert('Gagal memuat data dari Google Sheets: ' + err.message, true);
             }
-        };
+        }
 
-        const saveAndExportJSON = () => {
+        async function saveAllToServer() {
+            const pin = document.getElementById('admin-pin-input').value.trim();
+            if (!pin) {
+                showAlert('Masukkan PIN Pengaman Admin Al-Marhamah di bagian atas terlebih dahulu!', true);
+                document.getElementById('admin-pin-input').focus();
+                return;
+            }
+            sessionStorage.setItem('almarhamah_admin_pin', pin);
+
+            const btn = document.getElementById('btn-save-server');
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Menyimpan ke Server...</span>';
+
             try {
-                globalLoadedData = collectFormDataObject();
+                const infak_harian = [];
+                document.querySelectorAll('#infak-rows-container tr.data-row').forEach((tr) => {
+                    const hari = tr.querySelector('.row-hari')?.value.trim() || '';
+                    const tanggal = tr.querySelector('.row-tanggal')?.value.trim() || '';
+                    const tarawih = toSafeNumber(tr.querySelector('.row-tarawih')?.value);
+                    const subuh = toSafeNumber(tr.querySelector('.row-subuh')?.value);
+                    if (hari || tanggal || tarawih > 0 || subuh > 0) infak_harian.push({ hari, tanggal, tarawih, subuh });
+                });
 
-                const now = new Date();
-                const options = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-                globalLoadedData.last_update = `${now.toLocaleDateString('id-ID', options)} WIB`;
+                const jadwal_kultum = [];
+                document.querySelectorAll('#kultum-rows-container tr.data-row').forEach((tr) => {
+                    const hari = tr.querySelector('.row-kultum-hari')?.value.trim() || '';
+                    const tanggal = tr.querySelector('.row-kultum-tgl')?.value.trim() || '';
+                    const penceramah_subuh = tr.querySelector('.row-kultum-penceramah')?.value.trim() || '';
+                    if (hari || tanggal || penceramah_subuh) jadwal_kultum.push({ hari, tanggal, penceramah_subuh });
+                });
 
-                const jsonString = JSON.stringify(globalLoadedData, null, 2);
-                const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
-                const url = URL.createObjectURL(blob);
+                const agenda = [];
+                document.querySelectorAll('#agenda-rows-container tr.data-row').forEach((tr) => {
+                    const hari = tr.querySelector('.row-agenda-waktu')?.value.trim() || '';
+                    const jam = tr.querySelector('.row-agenda-jam')?.value.trim() || '';
+                    const judul = tr.querySelector('.row-agenda-judul')?.value.trim() || '';
+                    const deskripsi = tr.querySelector('.row-agenda-desc')?.value.trim() || '';
+                    const lokasi = tr.querySelector('.row-agenda-lokasi')?.value.trim() || 'Masjid Al-Marhamah';
+                    if (hari || judul) agenda.push({ hari, jam, judul, deskripsi, lokasi });
+                });
 
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'data.json';
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                URL.revokeObjectURL(url);
+                const galeri = [];
+                document.querySelectorAll('#galeri-rows-container tr.data-row').forEach((tr) => {
+                    const url = tr.querySelector('.row-galeri-url')?.value.trim() || '';
+                    const caption = tr.querySelector('.row-galeri-caption')?.value.trim() || '';
+                    if (url) galeri.push({ url, caption });
+                });
 
-                localStorage.setItem(DRAFT_STORAGE_KEY, jsonString);
-                showAlert('Berhasil! File data.json terbaru telah di-download. Silakan unggah/timpa ke repository GitHub Anda.');
+                const payload = {
+                    action: 'update_almarhamah',
+                    pin: pin,
+                    zis: {
+                        zakat_fitrah_beras_kg: toSafeNumber(document.getElementById('zis-beras').value),
+                        zakat_fitrah_uang: toSafeNumber(document.getElementById('zis-fitrah-uang').value),
+                        zakat_maal: toSafeNumber(document.getElementById('zis-maal').value),
+                        fidyah: toSafeNumber(document.getElementById('zis-fidyah').value),
+                        infak_shodaqoh: toSafeNumber(document.getElementById('zis-infak').value)
+                    },
+                    infak_harian,
+                    jadwal_kultum,
+                    agenda,
+                    galeri
+                };
+
+                const res = await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                const json = await res.json();
+                if (json.status !== 'ok') throw new Error(json.message || 'Gagal menyimpan');
+
+                document.getElementById('header-last-update').textContent = json.last_update;
+                showAlert('✅ ' + json.message);
             } catch (err) {
-                console.error(err);
-                showAlert(`Gagal mengekspor JSON: ${err.message}`, true);
+                showAlert('❌ Gagal menyimpan: ' + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
             }
-        };
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
+            const savedPin = sessionStorage.getItem('almarhamah_admin_pin');
+            if (savedPin) document.getElementById('admin-pin-input').value = savedPin;
+
             const tabs = [
                 { btn: document.getElementById('tab-btn-bendahara'), panel: document.getElementById('panel-bendahara') },
                 { btn: document.getElementById('tab-btn-umum'), panel: document.getElementById('panel-umum') }
             ];
-
-            const activateTab = (activeIndex) => {
-                tabs.forEach((t, idx) => {
-                    const isActive = idx === activeIndex;
-                    t.panel.classList.toggle('hidden', !isActive);
-                    t.btn.className = `${isActive ? 'tab-btn-active' : 'tab-btn-inactive'} py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all`;
-                });
-            };
-
             tabs.forEach((t, idx) => {
-                t.btn.addEventListener('click', () => activateTab(idx));
-            });
-
-            ['zis-beras', 'zis-fitrah-uang', 'zis-maal', 'zis-fidyah', 'zis-infak'].forEach((id) => {
-                document.getElementById(id)?.addEventListener('input', saveDraftToLocal);
-            });
-
-            document.getElementById('alert-close-btn').addEventListener('click', () => {
-                document.getElementById('alert-box').classList.add('hidden');
+                t.btn.addEventListener('click', () => {
+                    tabs.forEach((item, i) => {
+                        item.panel.classList.toggle('hidden', i !== idx);
+                        item.btn.className = `${i === idx ? 'tab-btn-active' : 'tab-btn-inactive'} py-3 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center space-x-2 transition-all`;
+                    });
+                });
             });
 
             document.getElementById('btn-add-infak').addEventListener('click', () => {
                 const count = document.querySelectorAll('#infak-rows-container tr.data-row').length + 1;
                 appendInfakRow(`Ramadhan ${count}`, '', 0, 0);
-                saveDraftToLocal();
             });
-
             document.getElementById('btn-add-kultum').addEventListener('click', () => {
                 const count = document.querySelectorAll('#kultum-rows-container tr.data-row').length + 1;
                 appendKultumRow(`Ramadhan ${count}`, '', '');
-                saveDraftToLocal();
             });
-
             document.getElementById('btn-add-agenda').addEventListener('click', () => {
                 appendAgendaRow('', '', '', '', 'Masjid Al-Marhamah');
-                saveDraftToLocal();
             });
-
             document.getElementById('btn-add-galeri').addEventListener('click', () => {
                 const count = document.querySelectorAll('#galeri-rows-container tr.data-row').length + 1;
                 appendGaleriRow(`img/${count}.jpg`, '');
-                saveDraftToLocal();
             });
 
-            document.getElementById('btn-reload-server').addEventListener('click', () => {
-                if (confirm('Muat ulang data dari server (data.json)?\n\nPerubahan yang belum di-download akan diganti dengan data server.')) {
-                    localStorage.removeItem(DRAFT_STORAGE_KEY);
-                    loadServerData(true);
-                }
+            document.getElementById('btn-refresh-data').addEventListener('click', loadFromSheets);
+            document.getElementById('btn-save-server').addEventListener('click', saveAllToServer);
+            document.getElementById('alert-close-btn').addEventListener('click', () => {
+                document.getElementById('alert-box').classList.add('hidden');
             });
 
-            document.getElementById('btn-export-json').addEventListener('click', saveAndExportJSON);
-
-            document.getElementById('import-json-input').addEventListener('change', (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    try {
-                        const parsed = JSON.parse(String(event.target.result || ''));
-                        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-                            throw new Error('Struktur JSON tidak valid');
-                        }
-                        populateFormFromData(parsed);
-                        saveDraftToLocal();
-                        showAlert(`File "${file.name}" berhasil dimuat ke dalam form.`);
-                    } catch (err) {
-                        showAlert(`File JSON tidak valid: ${err.message}`, true);
-                    } finally {
-                        e.target.value = '';
-                    }
-                };
-                reader.readAsText(file);
-            });
-
-            loadServerData(false);
+            loadFromSheets();
         });
     </script>
 </body>
